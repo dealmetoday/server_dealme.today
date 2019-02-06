@@ -1,0 +1,160 @@
+{
+	"info": {
+		"_postman_id": "13dc23cb-4b09-4c23-a838-e7a4aa6e8f28",
+		"name": "STORES",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Stores",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"location\": [49.2834041, -123.1172924]\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/stores",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Stores (Options)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"location\": [49.2834041, -123.1172924],\n\t\"tags\": [\"5c386cec8e83417366a26861\"]\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/stores",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Stores",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mall\": \"5c39aa2a8020f87e2f380dcf\",\n\t\"location\": [49.2834041, -123.1172924],\n\t\"name\": \"Apple Store\",\n\t\"email\": \"sample@sample.com\",\n    \"tags\": [\"5c386cec8e83417366a26861\"],\n\t\"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.\",\n\t\"parentCompany\": \"Apple\"\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/stores",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Stores",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mall\": \"5c399fdea688506a9c432416\",\n\t\"store\": \"5c399fe4a688506a9c432417\",\n\t\"location\": [49.2834041, -123.1172924],\n\t\"name\": \"Apple Store\",\n\t\"email\": \"sample@sample.com\",\n\t\"description\": \"I love Apple and I'm a shill.\",\n\t\"parentCompany\": \"Apple\"\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/stores",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Stores",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"mall\": \"5c399e6cf4d4e367e3ef163e\",\n\t\"store\": \"5c399e7cf4d4e367e3ef163f\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/stores",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"stores"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

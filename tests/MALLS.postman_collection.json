@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "3ac838e4-9691-4b9d-b837-06489f7c94b3",
+		"name": "MALLS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Malls",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/malls",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"malls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Malls (Options)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tags\": [\"5c386cec8e83417366a2685d\", \"5c386cec8e83417366a26861\"]\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/malls",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"malls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Malls",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"address\": \"701 W Georgia St, Vancouver, BC V7Y 1G5\",\n\t\"name\": \"Pacific Center\",\n\t\"tags\": [\"5c386cec8e83417366a2685d\", \"5c386cec8e83417366a26861\", \"5c386cec8e83417366a26864\"],\n\t\"numOfStores\": 1\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/malls",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"malls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Malls",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5c399b18e4a79562e872c254\",\n\t\"address\": \"701 W Georgia St, Vancouver, BC V7Y 1G5\",\n\t\"name\": \"PC (Pacific Centre)\",\n\t\"tags\": [\"5c386cec8e83417366a2685d\", \"5c386cec8e83417366a26861\", \"5c386cec8e83417366a26864\"],\n\t\"numOfStores\": 20\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/malls",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"malls"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Malls",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5c399a865ef325626b5ee32e\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/malls",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"malls"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,74 @@
+[
+  [
+    {
+      "id": "5c3870d4a52e367a33673527",
+      "address": "6551 No 3 Rd, Richmond, BC V6Y 2B6",
+      "name": "Richmond Center",
+      "tags": ["5c386cec8e83417366a2685d", "5c386cec8e83417366a26861", "5c386cec8e83417366a26864"],
+      "numOfStores": 3
+    },
+    {
+      "id": "5c3871cb48eb637ebd49d630",
+      "location": [49.1690323, -123.1387487],
+      "name": "Hudson's Bay",
+      "email": "sample@sample.com",
+      "tags": ["5c386cec8e83417366a26861"],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.",
+      "parentCompany": "Hudson's Bay"
+    },
+    {
+      "id": "5c3871fb3d92377f7d926e6a",
+      "location": [49.1633157, -123.141149],
+      "name": "Uniqlo",
+      "email": "sample@sample.com",
+      "tags": ["5c386cec8e83417366a26861"],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.",
+      "parentCompany": "Uniqlo"
+    },
+    {
+      "id": "5c387716ea0dda0de59e2b3b",
+      "location": [49.1669081, -123.1399701],
+      "name": "ZARA",
+      "email": "sample@sample.com",
+      "tags": ["5c386cec8e83417366a26861"],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.",
+      "parentCompany": "ZARA"
+    }
+  ],
+  [
+    {
+      "id": "5c3872033bf3657f9de3d6a7",
+      "address": "6133 University Blvd, Vancouver, BC V6T 1Z1",
+      "name": "Richmond Center",
+      "tags": ["5c386cec8e83417366a2686a", "5c386cec8e83417366a26862"],
+      "numOfStores": 3
+    },
+    {
+      "id": "5c38789f4b0b40113cffdd85",
+      "location": [49.2662256, -123.2519295],
+      "name": "Pie R Squared",
+      "email": "sample@sample.com",
+      "tags": ["5c386cec8e83417366a26862"],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.",
+      "parentCompany": "N/A"
+    },
+    {
+      "id": "5c38721009bfcf7fc2be530e",
+      "location": [49.2664779, -123.2520534],
+      "name": "Honour Roll Sushi",
+      "email": "sample@sample.com",
+      "tags": ["5c386cec8e83417366a26862"],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.",
+      "parentCompany": "String"
+    },
+    {
+      "id": "5c3872b198816f017eaa3899",
+      "location": [49.2666092, -123.2522249],
+      "name": "Grand Noodle Emporium",
+      "email": "sample@sample.com",
+      "tags": ["5c386cec8e83417366a26862"],
+      "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.",
+      "parentCompany": "String"
+    }
+  ]
+]

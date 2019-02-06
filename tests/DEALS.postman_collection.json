@@ -1,0 +1,182 @@
+{
+	"info": {
+		"_postman_id": "b195d6dc-ba21-4e28-a43d-d9ee9747c74b",
+		"name": "DEALS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Deal",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/deals",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Deal (Options)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tags\": \"5c386cec8e83417366a2685d\",\n\t\"mall\": \"5c3870d4a52e367a33673527\",\n\t\"store\": \"5c3871cb48eb637ebd49d630\"\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/deals",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Deal (Options 2)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tags\": \"5c386cec8e83417366a2685d\",\n\t\"expiryDate\": \"1547283241000\",\n\t\"available\": true\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/deals",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Deal",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"tags\": [\"5c386cec8e83417366a2685d\"],\n\t\"description\": \"$50 off Makeup Set\",\n\t\"creationDate\": \"1547253241012\",\n\t\"expiryDate\": \"1547283241012\",\n\t\"format\": \"Flat\",\n\t\"usesLeft\": 100,\n\t\"views\": 1000,\n\t\"mall\": \"5c3870d4a52e367a33673527\",\n\t\"store\": \"5c3871cb48eb637ebd49d630\"\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/deals",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Deal",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": \"5c398181faa5ea45a486ab09\",\n\t\"usesLeft\": 50,\n\t\"views\": 1200\n}\n"
+				},
+				"url": {
+					"raw": "localhost:5000/deals",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deals"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Deal",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5c3980fb6bb8a944b6f95c63\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/deals",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"deals"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

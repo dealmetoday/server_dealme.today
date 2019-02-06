@@ -1,0 +1,22 @@
+[
+  {
+    "id": "5c386f357eb1a4767f9f1bb0",
+    "email": "dio.ryanliu@hotmail.com",
+    "first": "Ryan",
+    "last": "Liu",
+    "age": 22,
+    "gender": "Male",
+    "location": "Vancouver, BC",
+    "tags": ["5c386cec8e83417366a2685b", "5c386cec8e83417366a26864"]
+  },
+  {
+    "id": "5c386f357eb1a4767f9f1baf",
+    "email": "mihailo@shaw.ca",
+    "first": "Mihailo",
+    "last": "Stefanovic",
+    "age": 22,
+    "gender": "Male",
+    "location": "Seattle, WA",
+    "tags": ["5c386cec8e83417366a26864", "5c386cec8e83417366a2686a"]
+  }
+]

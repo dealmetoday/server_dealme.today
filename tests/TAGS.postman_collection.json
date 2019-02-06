@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "a2c8610b-65ce-4514-9965-857f7273314c",
+		"name": "TAGS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Tags",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Tags",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"key\": \"Gunpla\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Tags (name)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\": \"name\",\n    \"key\": \"Gunpla\",\n    \"update\": \"Model Kits\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UPDATE Tags (ID)",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"index\": \"ID\",\n    \"key\": \"5c38f38645347c78b5ba344b\",\n    \"update\": \"Model Kits\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Tags",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"key\": \"Gunpla\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/tags",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"tags"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

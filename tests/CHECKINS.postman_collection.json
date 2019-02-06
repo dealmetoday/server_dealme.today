@@ -1,0 +1,153 @@
+{
+	"info": {
+		"_postman_id": "497cd12e-98e0-4de7-a744-67b45f036b0a",
+		"name": "CHECKINS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET Checkins",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:5000/checkins",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"checkins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Checkins (Mall)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"mall\": \"5c3870d4a52e367a33673527\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/checkins",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"checkins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Checkins (User)",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user\": \"5c386f357eb1a4767f9f1bb0\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/checkins",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"checkins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Checkins",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"time\": \"1547284113105\",\n    \"mall\": \"5c3870d4a52e367a33673527\",\n    \"user\": \"5c386f357eb1a4767f9f1bb0\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/checkins",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"checkins"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Checkins",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"id\": \"5c39aee8246569104d3a4240\"\n}"
+				},
+				"url": {
+					"raw": "localhost:5000/checkins",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"checkins"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,16 @@
+[
+  {
+    "id": "5c393587176145416c4d26d5",
+    "tags": ["5c3935f9a61d744404db8a10"],
+    "isActive": true,
+    "description": "50% off Domino's Pizza!",
+    "creationDate": "1547253127197",
+    "expiryDate": "1547283127197",
+    "format": "Percent",
+    "usesLeft": -1,
+    "views": 200,
+    "claims": 50,
+    "mall": "5c3872033bf3657f9de3d6a7",
+    "store": "5c38789f4b0b40113cffdd85"
+  }
+]

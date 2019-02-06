@@ -1,0 +1,102 @@
+DB: Tags
+Collection: tags or interests
+Document:
+tagObject {
+  "key": "String",
+  "id": "int"
+}
+
+DB: User
+Colleciton: users
+Document:
+userObject {
+  "email": "String",
+  "first": "String",
+  "middle": "String (optional)",
+  "last": "String",
+  "age": "int",
+  "gender": "String",
+  "location": "String",
+  "interests": ["tagID", "tagID"],
+  "favouriteMalls": ["mallID", "mallID"],
+  "dealHistory": "n most recently used deals"
+}
+
+DB: Deals
+Collection: deals
+Document:
+dealObject {
+  "tags": ["tagID", "tagID"],
+  "creationTime": "64-bit int (UNIX time)",
+  "ttl": "64-bit int (UNIX time)",
+  "id": "int",
+  "description": "String",
+  "format": "String",
+  "usesLeft": "int (0 for infinite)",
+  "views": "int",
+  "mallID": "int",
+  "storeID": "int"
+}
+
+DB: Malls
+Collection:
+- Collections are indexed by mallID
+- mallIDs would be a 32-bit number, randomly generated
+- each collection will include one mallObject and many storeObjects
+
+storeObject {
+  "location": ["int (lat)", "int (long)"],
+  "name": "String",
+  "email": "String",
+  "id": "int",
+  "description": "String",
+  "parentCompany": "String"
+}
+
+mallObject {
+  "address": "String",
+  "name": "String",
+  "tags": ["tagID", "tagID"],
+  "numOfStores": "int"
+}
+
+DB: CheckIns
+Collection:
+- Collections are indexed by storeID
+
+Document:
+checkInObject {
+  "time": "64-bit int (UNIX time)",
+  "mall": "mallID",
+  "user": "userID"
+}
+
+DB: Auth
+Users Collection
+Store Collection
+
+authObject {
+  "id": "mallID / userID",
+  "role": "String",
+  "password": "Hashed String"
+}
+
+DB: Analytics
+Collection:
+- Collections are indexed by mallID, similar to malls database
+- each collection will include many storeObjects
+
+storeObject {
+  "id": "int (Same ID as corresponding store in mall database)",
+  "activeDeals": ["dealID", "dealID"],
+  "allDeals": ["dealID", "dealID"],
+  "checkinsToday": "int",
+  "checkinsMonth": "int",
+  "checkinsTotal": "int",
+  "claimsToday": "int",
+  "claimsMonth": "int",
+  "claimsTotal": "int",
+  "customersToday": "int",
+  "customersMonth": "int",
+  "customersTotal": "int"
+}

@@ -1,0 +1,45 @@
+{
+  "name": "dealme.today",
+  "version": "1.0.0",
+  "description": "dealme.today - online discount platform",
+  "main": "./server.js",
+  "scripts": {
+    "serve": "NODE_ENV=development npm run clean && nodemon backend/server.js",
+    "serve-prod": "NODE_ENV=production node backend/server.js -port 5000",
+    "clean": "mongo dropDB.js",
+    "dbon": "sudo service mongod start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RyanLiu6/server_dealme.today"
+  },
+  "keywords": [
+    "mern",
+    "mongodb",
+    "mongoose",
+    "mongoose-multi",
+    "REST",
+    "CRUD",
+    "API",
+    "promotions",
+    "deals",
+    "discount"
+  ],
+  "author": "Ryan Liu, Alfred Hong, Mihailo Stefanovic",
+  "license": "MIT",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "cors": "^2.8.4",
+    "express": "^4.16.3",
+    "express-validator": "^5.3.0",
+    "mongoose": "^5.2.13",
+    "mongoose-multi": "^0.4.4",
+    "passport": "^0.4.0",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth20": "^1.0.0",
+    "passport-local": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
