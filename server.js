@@ -63,12 +63,9 @@ app.use('/api/dashboard', require("./routes/api/home/home"));
 
 app.get('/', function(req, res) {
   var body = "You have hit the root of the server - which currently doesn't do anything.";
-
-  res.writeHead(200, {
-    'Content-Length': body.length,
-    'Content-Type': 'text/plain' });
-
-    res.send(body);
+  res.setHeader('Content-Type', 'text/plain');
+  res.writeHead(200);
+  res.end(body);
 });
 
 if (process.env.NODE_ENV === 'production') {
