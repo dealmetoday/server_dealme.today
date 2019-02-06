@@ -46,6 +46,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
   next();
 });
+
 // DB connections
 var databases = mongooseMulti.start(dbConfig.db, schemaFile);
 require('./routes/tagRoutes')(app, databases.tagsDB);
@@ -59,6 +60,16 @@ require('./routes/dealRoutes')(app, databases.dealsDB, databases.usersDB);
 init(databases);
 
 app.use('/api/dashboard', require("./routes/api/home/home"));
+
+app.get('/', function(req, res) {
+  var body = "You have hit the root of the server - which currently doesn't do anything.";
+
+  res.writeHead(200, {
+    'Content-Length': body.length,
+    'Content-Type': 'text/plain' });
+
+    res.send(body);
+});
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join('./dist')));
