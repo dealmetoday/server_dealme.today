@@ -4,8 +4,8 @@
   "description": "dealme.today - online discount platform",
   "main": "./server.js",
   "scripts": {
-    "serve": "NODE_ENV=development npm run clean && nodemon backend/server.js",
-    "serve-prod": "NODE_ENV=production node backend/server.js -port 5000",
+    "serve": "NODE_ENV=development npm run clean && nodemon ./server.js",
+    "serve-prod": "NODE_ENV=production node ./server.js -port 5000",
     "clean": "mongo dropDB.js",
     "dbon": "sudo service mongod start"
   },
