@@ -1,3 +1,7 @@
+const fs = require('fs')
+const path = require('path')
+const crypto = require('crypto')
+const argon2 = require('argon2')
 const mongoose = require('mongoose')
 const constants = require('../config/constants')
 
@@ -103,8 +107,6 @@ exports.usersQuery = function(obj) {
 };
 
 exports.createUser = function(User, inputObj) {
-
-  //TODO newID seems to be undefined
   const newID = mongoose.Types.ObjectId();
 
   var newObj = new User(
@@ -121,4 +123,59 @@ exports.createUser = function(User, inputObj) {
     });
 
   return newObj;
+};
+
+exports.encrypt = function(input) {
+// let encrypt = (input) => {
+  var publicKey = fs.readFileSync(constants.PUBLIC_KEY_PATH, "utf8");
+  var buffer = Buffer.from(input);
+  var encrypted = crypto.publicEncrypt(publicKey, buffer);
+  return encrypted.toString("base64");
+};
+
+exports.decrypt = function(input) {
+// let decrypt = (input) => {
+  var privateKey = fs.readFileSync(constants.PRIVATE_KEY_PATH, "utf8");
+  var buffer = Buffer.from(input, "base64");
+  var decrypted = crypto.privateDecrypt(privateKey, buffer);
+  return decrypted.toString("utf8");
+};
+
+exports.hashPassword = async function(password) {
+// let hashPassword = async (password) => {
+  try {
+    const hash = await argon2.hash(password, constants.ARGON2_PROPERTIES);
+    return hash;
+  } catch (err) {
+    console.log('err.......');
+    return null;
+  }
+};
+
+exports.verifyPassword = function(User, Auth, email, password) {
+// let verifyPassword = (User, Auth, email, password) => {
+  User.find({'email': email}, (err, userResult) => {
+    if (err) {
+      console.log("LELOUCH - I'm at soup!");
+      return null;
+    } else {
+      Auth.findById(userResult._id, (err, authResult) => {
+        if (err) {
+          console.log("LELOUCH - I'm at soup!");
+          return null;
+        } else {
+          try {
+            const verified = argon2.verify(authResult.password, password);
+            if (verified) {
+              return true;
+            } else {
+              return false;
+            }
+          } catch (err) {
+            return null;
+          }
+        }
+      }); 
+    } 
+  })
 };
