@@ -175,7 +175,7 @@ exports.verifyPassword = function(User, Auth, email, password) {
             return null;
           }
         }
-      }); 
-    } 
+      });
+    }
   })
 };

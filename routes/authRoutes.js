@@ -207,15 +207,12 @@ module.exports = function(app, authDB, usersDB) {
     res.redirect(configs.CLIENT_URL);
   })
 
-
   passport.serializeUser((user, cb) => {
     cb(null, user);
   });
   passport.deserializeUser((obj, cb) => {
     cb(null, obj);
   });
-
-
 
   // Update
   app.put('/auth/login/email', function(req, res) {
@@ -248,5 +245,29 @@ module.exports = function(app, authDB, usersDB) {
     } else if (jsonData["collection"] === constants.STORES) {
       storeAuth.findByIdAndDelete(jsonData.id, (err, result) => Utils.callBack(res, err, result));
     }
+  });
+
+  // tests
+  app.get('/authTests', function(req, res) {
+    result = {};
+
+    let password = "my name is jeff";
+
+    let ePw = Utils.encrypt(password);
+    let dPw = Utils.decrypt(ePw);
+
+    if (password.localeCompare(dPw) == 0) {
+      result.encryption = "Encryption works."
+    }  else {
+      result.encryption = "Encryption doesn't works :(."
+    }
+
+    if (Utils.verifyPassword(User, userAuth, 'mihailo@shaw.ca', password)) {
+      result.verify = "yessir";
+    } else {
+      result.verify = "No ma'am :(";
+    }
+
+    res.send(result);
   });
 };

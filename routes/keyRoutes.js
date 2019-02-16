@@ -1,3 +1,4 @@
+const constants = require('../config/constants')
 const fs = require('fs')
 const Utils = require('./utils')
 
@@ -6,7 +7,7 @@ module.exports = function(app) {
   let pubKey = null;
   
   try {
-    pubKey = fs.readFileSync('./config/keys/public_key.pem', 'utf8');
+    pubKey = fs.readFileSync(constants.PUBLIC_KEY_PATH, 'utf8');
   } catch (err) {
     console.log("Could not read public key from the server");
   }
