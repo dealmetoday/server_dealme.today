@@ -1,3 +1,4 @@
+const shell = require('shelljs');
 const mongoose = require('mongoose')
 const authJSON = require('../data/auth.json')
 const checkinJSON = require('../data/checkin.json')
@@ -10,6 +11,8 @@ const constants = require('./constants')
 var dbs = null;
 
 module.exports = function(databases) {
+  genKeys();
+
   dbs = databases;
   loadAuth();
   loadCheckin();
@@ -17,6 +20,10 @@ module.exports = function(databases) {
   loadMalls();
   loadTags();
   loadUsers();
+}
+
+let genKeys = () => {
+  shell.exec('./config/keys/rsa_keygen.sh')
 }
 
 function loadAuth() {
