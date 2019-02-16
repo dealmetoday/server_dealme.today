@@ -142,7 +142,6 @@ exports.decrypt = function(input) {
 };
 
 exports.hashPassword = async function(password) {
-// let hashPassword = async (password) => {
   try {
     const hash = await argon2.hash(password, constants.ARGON2_PROPERTIES);
     return hash;
@@ -150,16 +149,16 @@ exports.hashPassword = async function(password) {
     console.log('err.......');
     return null;
   }
-};
+}
 
-exports.verifyPassword = function(User, Auth, email, password) {
+exports.verifyPassword = async function(User, Auth, email, password) {
 // let verifyPassword = (User, Auth, email, password) => {
-  User.find({'email': email}, (err, userResult) => {
+  User.find({'email': email}, async (err, userResult) => {
     if (err) {
       console.log("LELOUCH - I'm at soup!");
       return null;
     } else {
-      Auth.findById(userResult._id, (err, authResult) => {
+      Auth.findById(userResult[0]._id, async (err, authResult) => {
         if (err) {
           console.log("LELOUCH - I'm at soup!");
           return null;
@@ -179,3 +178,8 @@ exports.verifyPassword = function(User, Auth, email, password) {
     }
   })
 };
+
+// let hashed = hashPassword("help")
+// hashed.then((data) => {
+//   console.log(data)
+// })

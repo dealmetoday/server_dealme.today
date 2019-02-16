@@ -11,12 +11,33 @@ var dbs = null;
 
 module.exports = function(databases) {
   dbs = databases;
+  deleteAll();
   loadAuth();
-  loadCheckin();
-  loadDeals();
-  loadMalls();
-  loadTags();
-  loadUsers();
+  // loadCheckin();
+  // loadDeals();
+  // loadMalls();
+  // loadTags();
+  // loadUsers();
+}
+
+function deleteAll() {
+  const userAuth = dbs.authDB.UserAuths;
+  const storeAuth = dbs.authDB.StoreAuths;
+  const CheckIn = dbs.checkInDB.CheckIns;
+  const Deal = dbs.dealsDB.Deals;
+  const Mall = dbs.mallsDB.Malls;
+  const Store = dbs.mallsDB.Stores;
+  const Tag = dbs.tagsDB.Tags;
+  const User = dbs.usersDB.Users;
+
+  userAuth.deleteMany({}).exec();
+  storeAuth.deleteMany({}).exec();
+  CheckIn.deleteMany({}).exec()
+  Deal.deleteMany({}).exec();
+  Mall.deleteMany({}).exec();
+  Store.deleteMany({}).exec();
+  Tag.deleteMany({}).exec();
+  User.deleteMany({}).exec();
 }
 
 function loadAuth() {

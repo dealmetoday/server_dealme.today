@@ -4,10 +4,9 @@
   "description": "dealme.today - online discount platform",
   "main": "./server.js",
   "scripts": {
-    "serve": "NODE_ENV=development npm run clean && npm run config && nodemon ./server.js",
-    "serve-prod": "NODE_ENV=production node npm run config && ./server.js -port 5000",
+    "serve": "NODE_ENV=development npm run clean && npm run genkey && nodemon ./server.js",
+    "serve-prod": "NODE_ENV=production node npm run genkey && ./server.js -port 5000",
     "clean": "mongo dropDB.js",
-    "config": "npm run dbon && npm run genkey",
     "dbon": "sudo service mongod start",
     "genkey": "./config/keys/rsa_keygen.sh"
   },

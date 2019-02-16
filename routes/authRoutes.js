@@ -262,6 +262,11 @@ module.exports = function(app, authDB, usersDB) {
       result.encryption = "Encryption doesn't works :(."
     }
 
+    let hashed = Utils.hashPassword(password);
+    hashed.then((data) => {
+      console.log(hashed);
+    })
+
     if (Utils.verifyPassword(User, userAuth, 'mihailo@shaw.ca', password)) {
       result.verify = "yessir";
     } else {
