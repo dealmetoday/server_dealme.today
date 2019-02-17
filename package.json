@@ -5,7 +5,7 @@
   "main": "./server.js",
   "scripts": {
     "serve": "NODE_ENV=development npm run genkey && nodemon ./server.js",
-    "serve-prod": "NODE_ENV=production npm run genkey && ./server.js -port 5000",
+    "serve-prod": "NODE_ENV=production npm run genkey && node server.js -port 5000",
     "clean": "mongo dropDB.js",
     "dbon": "sudo service mongod start",
     "genkey": "./config/keys/rsa_keygen.sh"
