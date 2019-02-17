@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Utils = require('./utils')
+const Misc = require('../utils/misc')
+const cb = require('../utils/callbacks')
 
 var User = null;
 
@@ -26,7 +27,7 @@ module.exports = function(app, usersDB, dealsDB) {
         location: ""
       });
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   app.post('users/facebook', function(req, res) {
@@ -45,7 +46,7 @@ module.exports = function(app, usersDB, dealsDB) {
         location: ""
       });
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   app.post('users/google', function(req, res) {
@@ -64,17 +65,17 @@ module.exports = function(app, usersDB, dealsDB) {
         location: ""
       });
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   // Read
   app.get('/users', function(req, res) {
     const jsonData = req.body;
 
-    if (Utils.isEmptyObject(jsonData)) {
-      User.find((err, result) => Utils.callBack(res, err, result));
+    if (Misc.isEmptyObject(jsonData)) {
+      User.find((err, result) => cb.regCallback(res, err, result));
     } else {
-      User.findOne({ email: jsonData.email }, (err, result) => Utils.callBack(res, err, result));
+      User.findOne({ email: jsonData.email }, (err, result) => cb.regCallback(res, err, result));
     }
   });
 
@@ -84,14 +85,14 @@ module.exports = function(app, usersDB, dealsDB) {
     var id = jsonData.id;
     delete jsonData.id;
 
-    User.findByIdAndUpdate(id, jsonData, (err, result) => Utils.putCallback(res, err, result));
+    User.findByIdAndUpdate(id, jsonData, (err, result) => cb.putCallback(res, err, result));
   });
 
   // delete
   app.delete('/users', function(req, res) {
     const jsonData = req.body;
 
-    User.findByIdAndDelete(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+    User.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
   });
 
   /****************************************************************************/
@@ -99,14 +100,14 @@ module.exports = function(app, usersDB, dealsDB) {
   app.get('/user/profile', function(req, res) {
     const jsonData = req.body;
 
-    User.findById(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+    User.findById(jsonData.id, (err, result) => cb.regCallback(res, err, result));
   });
 
   // Get deals for a specific User
   app.get('/user/deals', function(req, res) {
     const jsonData = req.body;
-    const query = Utils.dealsQuery(jsonData);
+    const query = Misc.dealsQuery(jsonData);
 
-    Deal.find(query, (err, result) => Utils.callBack(res, err, result));
+    Deal.find(query, (err, result) => cb.regCallback(res, err, result));
   });
 };

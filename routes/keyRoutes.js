@@ -1,11 +1,10 @@
-const constants = require('../config/constants')
 const fs = require('fs')
-const Utils = require('./utils')
+const constants = require('../config/constants')
 
 module.exports = function(app) {
   // Initialize keys
   let pubKey = null;
-  
+
   try {
     pubKey = fs.readFileSync(constants.PUBLIC_KEY_PATH, 'utf8');
   } catch (err) {

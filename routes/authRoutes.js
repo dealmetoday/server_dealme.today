@@ -1,11 +1,13 @@
-const mongoose = require('mongoose')
-const Utils = require('./utils')
-const constants = require('../config/constants')
 const passport = require('passport');
+const mongoose = require('mongoose')
+const Misc = require('../utils/misc')
+const cb = require('../utils/callbacks')
+const configs = require('../config/config');
+const Security = require('../utils/security');
+const constants = require('../config/constants');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const LocalStrategy = require('passport-local').Strategy;
-const configs = require('../config/config');
 
 var userAuth = null;
 var storeAuth = null;
@@ -15,13 +17,11 @@ passport.use(new GoogleStrategy({
   clientSecret: configs.GOOGLE_CLIENT_SECRET,
   callbackURL: `${configs.SERVER_URL}/auth/google/callback`,
   accessType: 'offline'
-}, (accessToken, refreshToken, profile, cb) => {
+}, (accessToken, refreshToken, profile, callback) => {
   // Extract the minimal profile information we need from the profile object
   // provided by Google
-  cb(null, extractProfile(profile, 'google'));
+  callback(null, extractProfile(profile, 'google'));
 }));
-
-
 
 passport.use(new FacebookStrategy({
     clientID: configs.FACEBOOK_APP_ID,
@@ -45,7 +45,6 @@ function done(user) {
   //TODO callback for when authentication is done
 }
 
-
 function extractProfile (profile, provider) {
   let imageUrl = '';
   let email = profile.emails[0].value;;
@@ -61,7 +60,6 @@ function extractProfile (profile, provider) {
     image: imageUrl
   };
 }
-
 
 module.exports = function(app, authDB, usersDB) {
   // Setting constructors
@@ -91,7 +89,7 @@ module.exports = function(app, authDB, usersDB) {
       });
     }
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   // Read
@@ -99,12 +97,11 @@ module.exports = function(app, authDB, usersDB) {
     const jsonData = req.body;
 
     if (jsonData["collection"] === constants.USERS) {
-      userAuth.findById(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+      userAuth.findById(jsonData.id, (err, result) => cb.regCallback(res, err, result));
     } else if (jsonData["collection"] === constants.STORES) {
-      storeAuth.findById(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+      storeAuth.findById(jsonData.id, (err, result) => cb.regCallback(res, err, result));
     }
   });
-
 
   // Call to Google oAuth2 API
   app.get('/auth/login/google', (req, res, next) => {
@@ -136,7 +133,7 @@ module.exports = function(app, authDB, usersDB) {
       // Check to see if user exist in database
       // If not, create and return the new userID
       // If yes, return userID
-      const query = Utils.usersQuery(req.user)
+      const query = Misc.usersQuery(req.user)
       const redirect = req.session.oauth2return || '/user?';
       delete req.session.oauth2return
 
@@ -145,10 +142,10 @@ module.exports = function(app, authDB, usersDB) {
         // If result exists, return that userID
         // If result doesn't exist, create user and return newID
         if (result) {
-          Utils.redirectCallback(res, redirect, result.id)
+          cb.redirectCallback(res, redirect, result.id)
         } else {
-          const newUser = Utils.createUser(User, query);
-          newUser.save((err, result) => Utils.redirectCallback(res, redirect, result.id));
+          const newUser = Misc.createUser(User, query);
+          newUser.save((err, result) => cb.redirectCallback(res, redirect, result.id));
         }
       });
     }
@@ -162,17 +159,17 @@ module.exports = function(app, authDB, usersDB) {
       // If yes, return userID
        //HERE IS YOUR USER DATA
 
-      const query = Utils.usersQuery(req.user)
+      const query = Misc.usersQuery(req.user)
       const redirect = req.session.oauth2return || '/user?';
       delete req.session.oauth2return;
       User.findOne(query, function(err, result) {
         // If result exists, return that userID
         // If result doesn't exist, create user and return newID
         if (result) {
-          Utils.redirectCallback(res, redirect, result.id)
+          cb.redirectCallback(res, redirect, result.id)
         } else {
-          const newUser = Utils.createUser(User, query);
-          newUser.save((err, result) => Utils.redirectCallback(res, redirect, result.id));
+          const newUser = Misc.createUser(User, query);
+          newUser.save((err, result) => cb.redirectCallback(res, redirect, result.id));
         }
       });
     }
@@ -186,7 +183,7 @@ module.exports = function(app, authDB, usersDB) {
       // If yes, return userID
       console.log(req) //HERE IS YOUR USER DATA
 
-      const query = Utils.usersQuery(req)
+      const query = Misc.usersQuery(req)
       const redirect = req.session.oauth2return || '/user?';
       delete req.session.oauth2return;
 
@@ -194,10 +191,10 @@ module.exports = function(app, authDB, usersDB) {
         // If result exists, return that userID
         // If result doesn't exist, create user and return newID
         if (result) {
-          Utils.redirectCallback(res, redirect, result.id)
+          cb.redirectCallback(res, redirect, result.id)
         } else {
-          const newUser = Utils.createUser(query);
-          newUser.save((err, result) => Utils.redirectCallback(res, redirect, result.id));
+          const newUser = Misc.createUser(query);
+          newUser.save((err, result) => cb.redirectCallback(res, redirect, result.id));
         }
       });
     }
@@ -207,11 +204,12 @@ module.exports = function(app, authDB, usersDB) {
     res.redirect(configs.CLIENT_URL);
   })
 
-  passport.serializeUser((user, cb) => {
-    cb(null, user);
+  passport.serializeUser((user, callback) => {
+    callback(null, user);
   });
-  passport.deserializeUser((obj, cb) => {
-    cb(null, obj);
+
+  passport.deserializeUser((obj, callback) => {
+    callback(null, obj);
   });
 
   // Update
@@ -224,15 +222,15 @@ module.exports = function(app, authDB, usersDB) {
       password: jsonData.password
     };
 
-    if (!(Utils.isValidObjectId(jsonData.id))) {
+    if (!(Misc.isValidObjectId(jsonData.id))) {
       res.send(constants.ID_ERROR);
       return;
     }
 
     if (jsonData["collection"] === constants.USERS) {
-      userAuth.findByIdAndUpdate(jsonData.id, update, (err, result) => Utils.putCallback(res, err, result));
+      userAuth.findByIdAndUpdate(jsonData.id, update, (err, result) => cb.putCallback(res, err, result));
     } else if (jsonData["collection"] === constants.STORES) {
-      storeAuth.findByIdAndUpdate(jsonData.id, update, (err, result) => Utils.putCallback(res, err, result));
+      storeAuth.findByIdAndUpdate(jsonData.id, update, (err, result) => cb.putCallback(res, err, result));
     }
   });
 
@@ -241,9 +239,9 @@ module.exports = function(app, authDB, usersDB) {
     const jsonData = req.body;
 
     if (jsonData["collection"] === constants.USERS) {
-      userAuth.findByIdAndDelete(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+      userAuth.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
     } else if (jsonData["collection"] === constants.STORES) {
-      storeAuth.findByIdAndDelete(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+      storeAuth.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
     }
   });
 
@@ -253,21 +251,22 @@ module.exports = function(app, authDB, usersDB) {
 
     let password = "my name is jeff";
 
-    let ePw = Utils.encrypt(password);
-    let dPw = Utils.decrypt(ePw);
+    let ePw = Security.encrypt(password);
+    let dPw = Security.decrypt(ePw);
 
     if (password.localeCompare(dPw) == 0) {
-      result.encryption = "Encryption works."
+      result.encryption = "Encryption works :)"
     }  else {
-      result.encryption = "Encryption doesn't works :(."
+      result.encryption = "Encryption doesn't works :("
     }
 
-    let hashed = Utils.hashPassword(password);
+    let hashed = Security.hashPassword(password);
     hashed.then((data) => {
-      console.log(hashed);
+      console.log("Hashed Password: " + hashed);
     })
 
-    if (Utils.verifyPassword(User, userAuth, 'mihailo@shaw.ca', password)) {
+    let verifyResult = Security.verifyPassword(User, userAuth, 'mihailo@shaw.ca', password);
+    if (verifyResult) {
       result.verify = "yessir";
     } else {
       result.verify = "No ma'am :(";

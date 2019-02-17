@@ -8,43 +8,51 @@ const usersJSON = require('../data/users.json')
 const constants = require('./constants')
 
 var dbs = null;
+var userAuth = null;
+var storeAuth = null;
+var CheckIn = null;
+var Deal = null;
+var Mall = null;
+var Store = null;
+var Tag = null;
+var User = null;
 
 module.exports = function(databases) {
   dbs = databases;
-  deleteAll();
-  loadAuth();
-  // loadCheckin();
-  // loadDeals();
-  // loadMalls();
-  // loadTags();
-  // loadUsers();
+
+  userAuth = dbs.authDB.UserAuths;
+  storeAuth = dbs.authDB.StoreAuths;
+  CheckIn = dbs.checkInDB.CheckIns;
+  Deal = dbs.dealsDB.Deals;
+  Mall = dbs.mallsDB.Malls;
+  Store = dbs.mallsDB.Stores;
+  Tag = dbs.tagsDB.Tags;
+  User = dbs.usersDB.Users;
+
+  let deletePromise = deleteAll();
+  deletePromise.then(() => {
+    loadAuth();
+    loadCheckin();
+    loadDeals();
+    loadMalls();
+    loadTags();
+    loadUsers();
+  })
 }
 
-function deleteAll() {
-  const userAuth = dbs.authDB.UserAuths;
-  const storeAuth = dbs.authDB.StoreAuths;
-  const CheckIn = dbs.checkInDB.CheckIns;
-  const Deal = dbs.dealsDB.Deals;
-  const Mall = dbs.mallsDB.Malls;
-  const Store = dbs.mallsDB.Stores;
-  const Tag = dbs.tagsDB.Tags;
-  const User = dbs.usersDB.Users;
-
-  userAuth.deleteMany({}).exec();
-  storeAuth.deleteMany({}).exec();
-  CheckIn.deleteMany({}).exec()
-  Deal.deleteMany({}).exec();
-  Mall.deleteMany({}).exec();
-  Store.deleteMany({}).exec();
-  Tag.deleteMany({}).exec();
-  User.deleteMany({}).exec();
+let deleteAll = async () => {
+  await userAuth.deleteMany({}).exec();
+  await storeAuth.deleteMany({}).exec();
+  await CheckIn.deleteMany({}).exec()
+  await Deal.deleteMany({}).exec();
+  await Mall.deleteMany({}).exec();
+  await Store.deleteMany({}).exec();
+  await Tag.deleteMany({}).exec();
+  await User.deleteMany({}).exec();
 }
 
 function loadAuth() {
   // Get data from auth.json and insert into the database
-  const userAuth = dbs.authDB.UserAuths;
-  const storeAuth = dbs.authDB.StoreAuths;
-
   for (var index in authJSON) {
     var currObj = authJSON[index];
     var newObj = null;
@@ -72,9 +80,6 @@ function loadAuth() {
 }
 
 function loadCheckin() {
-  // Grabbing the constructors
-  const CheckIn = dbs.checkInDB.CheckIns;
-
   // Get data from users.json and insert into the database
   for (var index in checkinJSON) {
     var currObj = checkinJSON[index];
@@ -95,8 +100,6 @@ function loadCheckin() {
 
 function loadDeals() {
   // Get data from tags.json and insert into the database
-  const Deal = dbs.dealsDB.Deals;
-
   for (var index in dealsJSON) {
     var currObj = dealsJSON[index];
     var newObj = new Deal({
@@ -121,10 +124,6 @@ function loadDeals() {
 }
 
 function loadMalls() {
-  // Grabbing the constructors
-  const Mall = dbs.mallsDB.Malls;
-  const Store = dbs.mallsDB.Stores;
-
   // Get data from users.json and insert into the database
   for (var index in mallsJSON) {
     var currI = mallsJSON[index];
@@ -166,8 +165,6 @@ function loadMalls() {
 
 function loadTags() {
   // Get data from tags.json and insert into the database
-  const Tag = dbs.tagsDB.Tags;
-
   for (var index in tagsJSON) {
     var currObj = tagsJSON[index];
     var newObj = new Tag({ _id: currObj.id, key: currObj.tag});
@@ -179,8 +176,6 @@ function loadTags() {
 
 function loadUsers() {
   // Get data from users.json and insert into the database
-  const User = dbs.usersDB.Users;
-
   for (var index in usersJSON) {
     var currObj = usersJSON[index];
     var newObj = new User(

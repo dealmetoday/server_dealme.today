@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Utils = require('./utils')
+const Misc = require('../utils/misc')
+const cb = require('../utils/callbacks')
 const constants = require('../config/constants')
 
 var Mall = null;
@@ -25,15 +26,15 @@ module.exports = function(app, mallsDB) {
         numOfStores: jsonData.numOfStores
       });
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   // Read
   app.get('/malls', function(req, res) {
     const jsonData = req.body;
 
-    if (Utils.isEmptyObject(jsonData)) {
-      Mall.find((err, result) => Utils.callBack(res, err, result));
+    if (Misc.isEmptyObject(jsonData)) {
+      Mall.find((err, result) => cb.regCallback(res, err, result));
     } else {
       var query =
       {
@@ -42,7 +43,7 @@ module.exports = function(app, mallsDB) {
           $all : jsonData.tags
         }
       }
-      Mall.find(query, (err, result) => Utils.callBack(res, err, result));
+      Mall.find(query, (err, result) => cb.regCallback(res, err, result));
     }
   });
 
@@ -52,14 +53,14 @@ module.exports = function(app, mallsDB) {
     var id = jsonData.id;
     delete jsonData.id;
 
-    Mall.findByIdAndUpdate(id, jsonData, (err, result) => Utils.putCallback(res, err, result));
+    Mall.findByIdAndUpdate(id, jsonData, (err, result) => cb.putCallback(res, err, result));
   });
 
   // delete
   app.delete('/malls', function(req, res) {
     const jsonData = req.body;
 
-    Mall.findByIdAndDelete(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+    Mall.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
   });
 
   /****************************************************************************/
@@ -80,57 +81,61 @@ module.exports = function(app, mallsDB) {
         parentCompany: jsonData.parentCompany
       });
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   // Read
   app.get('/stores', function(req, res) {
     const jsonData = req.body;
 
-    // Default distance of 100m
-    var closestDistance = 100;
-    var closestMallID = null;
+    if (Misc.isEmptyObject(jsonData)) {
+      Store.find((err, result) => cb.regCallback(res, err, result));
+    } else {
+      // Default distance of 100m
+      var closestDistance = 100;
+      var closestMallID = null;
 
-    // Get the Mall that you are close to
-    Mall.find((err, result) => {
-      if (err) {
-        res.send(constants.ERR);
-      }
-
-      // Does not work without Google API to convert address to Lat Long
-      // for (var key in result) {
-      //   var currObj = result[key];
-      //   var currDistance = getDistance(jsonData.location, currObj.location)
-      //   if (currDistance < closestDistance) {
-      //     closestDistance = currDistance;
-      //     closestMallID = currObj["_id"];
-      //   }
-      // }
-
-      // Hardcoded to Pacific Center mall instead
-      for (var key in result) {
-        var currObj = result[key];
-
-        if (currObj.name == "Pacific Center") {
-          closestMallID = currObj["_id"];
+      // Get the Mall that you are close to
+      Mall.find((err, result) => {
+        if (err) {
+          res.send(constants.ERR);
         }
-      }
 
-      // If tags exist, then return stores that have tags user is interested in
-      // Else, return all stores
-      var query =
-      {
-        mall: closestMallID
-      };
+        // Does not work without Google API to convert address to Lat Long
+        // for (var key in result) {
+        //   var currObj = result[key];
+        //   var currDistance = getDistance(jsonData.location, currObj.location)
+        //   if (currDistance < closestDistance) {
+        //     closestDistance = currDistance;
+        //     closestMallID = currObj["_id"];
+        //   }
+        // }
 
-      if ("tags" in jsonData) {
-        query.tags = {
-          $all : jsonData.tags
+        // Hardcoded to Pacific Center mall instead
+        for (var key in result) {
+          var currObj = result[key];
+
+          if (currObj.name == "Pacific Center") {
+            closestMallID = currObj["_id"];
+          }
         }
-      }
 
-      Store.find(query, (err, result) => Utils.callBack(res, err, result));
-    });
+        // If tags exist, then return stores that have tags user is interested in
+        // Else, return all stores
+        var query =
+        {
+          mall: closestMallID
+        };
+
+        if ("tags" in jsonData) {
+          query.tags = {
+            $all : jsonData.tags
+          }
+        }
+
+        Store.find(query, (err, result) => cb.regCallback(res, err, result));
+      });
+    }
   });
 
   // Update
@@ -141,7 +146,7 @@ module.exports = function(app, mallsDB) {
     const storeID = jsonData.store;
     delete jsonData.store;
 
-    Store.findByIdAndUpdate(storeID, jsonData, (err, result) => Utils.putCallback(res, err, result));
+    Store.findByIdAndUpdate(storeID, jsonData, (err, result) => cb.putCallback(res, err, result));
   });
 
   // delete
@@ -152,7 +157,7 @@ module.exports = function(app, mallsDB) {
     const mallID = jsonData.mall;
     const Store = mallIDToModel[mallID];
 
-    Store.findByIdAndDelete(jsonData.store, (err, result) => Utils.callBack(res, err, result));
+    Store.findByIdAndDelete(jsonData.store, (err, result) => cb.regCallback(res, err, result));
   });
 };
 

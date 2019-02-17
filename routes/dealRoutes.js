@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Utils = require('./utils')
+const Misc = require('../utils/misc')
+const cb = require('../utils/callbacks')
 const constants = require('../config/constants')
 
 var Deal = null;
@@ -31,18 +32,18 @@ module.exports = function(app, dealsDB, usersDB) {
         store: jsonData.store
       });
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   // Read
   app.get('/deals', function(req, res) {
     const jsonData = req.body;
 
-    if (Utils.isEmptyObject(jsonData)) {
-      Deal.find((err, result) => Utils.callBack(res, err, result));
+    if (Misc.isEmptyObject(jsonData)) {
+      Deal.find((err, result) => cb.regCallback(res, err, result));
     } else {
-      const query = Utils.dealsQuery(jsonData);
-      Deal.find(query, (err, result) => Utils.callBack(res, err, result));
+      const query = Misc.dealsQuery(jsonData);
+      Deal.find(query, (err, result) => cb.regCallback(res, err, result));
     }
   });
 
@@ -53,14 +54,14 @@ module.exports = function(app, dealsDB, usersDB) {
     delete jsonData.id;
     console.log(jsonData);
 
-    Deal.findByIdAndUpdate(id, jsonData, (err, result) => Utils.putCallback(res, err, result));
+    Deal.findByIdAndUpdate(id, jsonData, (err, result) => cb.putCallback(res, err, result));
   });
 
   // delete
   app.delete('/deals', function(req, res) {
     const jsonData = req.body;
 
-    Deal.findByIdAndDelete(jsonData.id, (err, result) => Utils.callBack(res, err, result));
+    Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
   });
 
   // Increment the number of claims a deal has given a deal and user ID
@@ -80,7 +81,7 @@ module.exports = function(app, dealsDB, usersDB) {
     console.log(dealID);
     console.log(userID);
 
-    if (!Utils.isValidObjectId(dealID) || !Utils.isValidObjectId(userID)) {
+    if (!Misc.isValidObjectId(dealID) || !Misc.isValidObjectId(userID)) {
       res.send(constants.ID_ERROR);
       return;
     }
@@ -108,7 +109,7 @@ module.exports = function(app, dealsDB, usersDB) {
                 // Should never get here
                 res.send(constants.ERR);
               } else {
-                Deal.findOneAndUpdate({_id: dealID}, {$inc: {'claims': 1}}, (err, result) => Utils.putCallback(res, err, result, null));
+                Deal.findOneAndUpdate({_id: dealID}, {$inc: {'claims': 1}}, (err, result) => cb.putCallback(res, err, result, null));
               }
             });
           }

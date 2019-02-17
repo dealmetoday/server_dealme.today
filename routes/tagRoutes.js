@@ -1,5 +1,6 @@
 const mongoose = require('mongoose')
-const Utils = require('./utils')
+const Misc = require('../utils/misc')
+const cb = require('../utils/callbacks')
 const constants = require('../config/constants')
 
 var Tag = null;
@@ -15,12 +16,12 @@ module.exports = function(app, tagsDB) {
 
     var newObj = new Tag({ _id: newID, key: jsonData.key});
 
-    newObj.save((err, result) => Utils.callBack(res, err, result));
+    newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   // Read
   app.get('/tags', function(req, res) {
-    Tag.find((err, result) => Utils.callBack(res, err, result));
+    Tag.find((err, result) => cb.regCallback(res, err, result));
   });
 
   // Update
@@ -33,13 +34,13 @@ module.exports = function(app, tagsDB) {
     };
 
     if (jsonData.index == "name") {
-      Tag.findOneAndUpdate({ key: jsonData.key}, update, (err, result) => Utils.putCallback(res, err, result));
+      Tag.findOneAndUpdate({ key: jsonData.key}, update, (err, result) => cb.putCallback(res, err, result));
     } else if (jsonData.index == "ID") {
-      if (!(Utils.isValidObjectId(jsonData.key))) {
+      if (!(Misc.isValidObjectId(jsonData.key))) {
         res.send(constants.ID_ERROR);
         return;
       }
-      Tag.findByIdAndUpdate(jsonData.key, update, (err, result) => Utils.putCallback(res, err, result));
+      Tag.findByIdAndUpdate(jsonData.key, update, (err, result) => cb.putCallback(res, err, result));
     }
   });
 
@@ -47,6 +48,6 @@ module.exports = function(app, tagsDB) {
   app.delete('/tags', function(req, res) {
     const jsonData = req.body;
 
-    Tag.findOneAndDelete(jsonData, (err, result) => Utils.callBack(res, err, result));
+    Tag.findOneAndDelete(jsonData, (err, result) => cb.regCallback(res, err, result));
   });
 };
