@@ -16,6 +16,7 @@ passport.use(new GoogleStrategy({
   clientID: configs.GOOGLE_CLIENT_ID,
   clientSecret: configs.GOOGLE_CLIENT_SECRET,
   callbackURL: `${configs.SERVER_URL}/auth/google/callback`,
+  // callbackURL: `http://ec2-18-222-167-8.us-east-2.compute.amazonaws.com:5000/auth/google/callback`,
   accessType: 'offline'
 }, (accessToken, refreshToken, profile, callback) => {
   // Extract the minimal profile information we need from the profile object

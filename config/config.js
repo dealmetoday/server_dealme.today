@@ -19,10 +19,7 @@ else{
     FACEBOOK_CLIENT_SECRET : "c010fc0b17f887cb8fa9fb1658ad210f",
     GOOGLE_CLIENT_ID: '84477259757-3di3d87li4lgq4pr7q7987h6n83f5boo.apps.googleusercontent.com',
     GOOGLE_CLIENT_SECRET: 'TV0scPwooyMMGb2oaOmLoXe4'
-
   }
 }
 
 module.exports = configs
-
-

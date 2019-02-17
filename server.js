@@ -72,10 +72,10 @@ app.get('/', function(req, res) {
 });
 
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join('./dist')));
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve('./dist/index.html'));
-  });
+  // app.use(express.static(path.join('./dist')));
+  // app.get('*', (req, res) => {
+  //   res.sendFile(path.resolve('./dist/index.html'));
+  // });
 }
 
 app.listen(PORT, () => console.log(`App is running on port ${PORT}`));
