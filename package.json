@@ -8,7 +8,9 @@
     "serve-prod": "NODE_ENV=production npm run genkey && node server.js -port 5000",
     "clean": "mongo dropDB.js",
     "dbon": "sudo service mongod start",
-    "genkey": "./config/keys/rsa_keygen.sh"
+    "genkey": "./config/keys/rsa_keygen.sh",
+    "win-genkey": "./config/keys/rsa_keygen.bat",
+    "win-serve": "set NODE_ENV=development npm run win-genkey && nodemon ./server.js"
   },
   "repository": {
     "type": "git",
