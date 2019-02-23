@@ -22,6 +22,18 @@ module.exports = Object.freeze({
   {
     "Error" : "An error has occured"
   },
+  AUTH_ERROR_NO_EMAIL:
+  {
+    "Error" : "Must provide email when logging in or signing up"
+  },
+  AUTH_ERROR_NO_PASSWORD:
+  {
+    "Error" : "Must provide password when logging in or signing up"
+  },
+  AUTH_ERROR_INVALID:
+  {
+    "Error" : "Email or password provided is invalid"
+  },
   ID_ERROR:
   {
     "Error" : "Input ID is not a valid ObjectID"
