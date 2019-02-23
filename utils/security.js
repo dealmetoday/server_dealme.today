@@ -29,30 +29,45 @@ let hashPassword = async (password) => {
 }
 
 let verifyPassword = async (User, Auth, email, password) => {
-  User.find({'email': email}, async (err, userResult) => {
-    if (err) {
-      console.log("LELOUCH - I'm at soup!");
-      return null;
-    } else {
-      Auth.findById(userResult[0]._id, async (err, authResult) => {
-        if (err) {
-          console.log("LELOUCH - I'm at soup!");
-          return null;
-        } else {
-          try {
-            const verified = await argon2.verify(authResult.password, password);
-            if (verified) {
-              return true;
-            } else {
-              return false;
-            }
-          } catch (err) {
-            return null;
-          }
-        }
-      });
-    }
-  })
+  console.log("Finding user");
+  console.log("\tEmail:    " + email);
+  console.log("\tPassword: " + password);
+
+  var authResult;
+  var userResult;
+
+  // Verify and get the user given their email
+  try {
+    userResult = await User.find({'email': email}).cursor().next();
+  } catch (err) {
+    console.log("Error trying to find user with email '" + email + "'");
+    console.log(err);
+    return false;
+  }
+  if (!userResult) {
+    console.log("Could not find user with email '" + email + "'");
+    return false;
+  }
+
+  // Get that user's auth entry
+  try {
+    authResult = await Auth.findById(userResult._id).cursor().next();
+  } catch (err) {
+    console.log("Error trying to find user with id '" + userResult._id + "'");
+    console.log(err);
+    return false;
+  }
+  if (!authResult) {
+    console.log("Could not find auth entry for userID '" + userResult._id + "'");
+    return false;
+  }
+
+  // Verify the provided password with the database hash
+  const verified = await argon2.verify(authResult.password, password);
+  if (verified) {
+    return true;
+  }
+  return false;
 };
 
 module.exports = {
