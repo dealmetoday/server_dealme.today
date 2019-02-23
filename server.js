@@ -58,6 +58,7 @@ require('./routes/dealRoutes')(app, databases.dealsDB, databases.usersDB);
 
 // Misc connections
 require('./routes/keyRoutes')(app);
+require('./routes/testRoutes')(app);
 
 // Initialize all the databases
 init(databases);
