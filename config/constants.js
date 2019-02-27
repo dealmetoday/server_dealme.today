@@ -9,6 +9,8 @@ module.exports = Object.freeze({
   DEALS: 'DEALS',
   USER_AUTH: 'USER_AUTH',
   STORE_AUTH: 'STORE_AUTH',
+  ISSUER: 'dealme.today',
+  AUDIENCE: 'api.dealme.today',
   PRIVATE_KEY_PATH: './config/keys/private_key.pem',
   PUBLIC_KEY_PATH: './config/keys/public_key.pem',
   ARGON2_PROPERTIES:
@@ -46,4 +48,12 @@ module.exports = Object.freeze({
   {
     "Error" : "Performed duplicate action"
   },
+  SUCCESS:
+  {
+    "status" : "Success"
+  },
+  FAILURE:
+  {
+    "status": "Failed. Check your input."
+  }
 });

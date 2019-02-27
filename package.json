@@ -4,7 +4,7 @@
   "description": "dealme.today - online discount platform",
   "main": "./server.js",
   "scripts": {
-    "serve": "NODE_ENV=development npm run genkey && nodemon ./server.js",
+    "serve": "NODE_ENV=development npm run genkey && nodemon ./server.js || true",
     "serve-prod": "NODE_ENV=production npm run genkey && node server.js -port 5000",
     "clean": "mongo dropDB.js",
     "dbon": "sudo service mongod start",
@@ -32,17 +32,12 @@
   "license": "MIT",
   "dependencies": {
     "argon2": "^0.20.1",
-    "axios": "^0.18.0",
     "cors": "^2.8.4",
     "express": "^4.16.3",
     "express-validator": "^5.3.0",
     "jsonwebtoken": "^8.4.0",
     "mongoose": "^5.2.13",
-    "mongoose-multi": "^0.4.4",
-    "passport": "^0.4.0",
-    "passport-facebook": "^2.1.1",
-    "passport-google-oauth20": "^1.0.0",
-    "passport-local": "^1.0.0"
+    "mongoose-multi": "^0.4.4"
   },
   "devDependencies": {
     "nodemon": "^1.18.4"

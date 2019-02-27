@@ -26,7 +26,7 @@ module.exports = function(app, mallsDB) {
         numOfStores: jsonData.numOfStores
       });
 
-    newObj.save((err, result) => cb.regCallback(res, err, result));
+    newObj.save((err, result) => cb.callback(res, err, result));
   });
 
   // Read
@@ -34,7 +34,7 @@ module.exports = function(app, mallsDB) {
     const jsonData = req.body;
 
     if (Misc.isEmptyObject(jsonData)) {
-      Mall.find((err, result) => cb.regCallback(res, err, result));
+      Mall.find((err, result) => cb.callback(res, err, result));
     } else {
       var query =
       {
@@ -43,7 +43,7 @@ module.exports = function(app, mallsDB) {
           $all : jsonData.tags
         }
       }
-      Mall.find(query, (err, result) => cb.regCallback(res, err, result));
+      Mall.find(query, (err, result) => cb.callback(res, err, result));
     }
   });
 
@@ -60,7 +60,7 @@ module.exports = function(app, mallsDB) {
   app.delete('/malls', function(req, res) {
     const jsonData = req.body;
 
-    Mall.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
+    Mall.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
   /****************************************************************************/
@@ -81,7 +81,7 @@ module.exports = function(app, mallsDB) {
         parentCompany: jsonData.parentCompany
       });
 
-    newObj.save((err, result) => cb.regCallback(res, err, result));
+    newObj.save((err, result) => cb.callback(res, err, result));
   });
 
   // Read
@@ -89,7 +89,7 @@ module.exports = function(app, mallsDB) {
     const jsonData = req.body;
 
     if (Misc.isEmptyObject(jsonData)) {
-      Store.find((err, result) => cb.regCallback(res, err, result));
+      Store.find((err, result) => cb.callback(res, err, result));
     } else {
       // Default distance of 100m
       var closestDistance = 100;
@@ -133,7 +133,7 @@ module.exports = function(app, mallsDB) {
           }
         }
 
-        Store.find(query, (err, result) => cb.regCallback(res, err, result));
+        Store.find(query, (err, result) => cb.callback(res, err, result));
       });
     }
   });
@@ -157,7 +157,7 @@ module.exports = function(app, mallsDB) {
     const mallID = jsonData.mall;
     const Store = mallIDToModel[mallID];
 
-    Store.findByIdAndDelete(jsonData.store, (err, result) => cb.regCallback(res, err, result));
+    Store.findByIdAndDelete(jsonData.store, (err, result) => cb.callback(res, err, result));
   });
 };
 

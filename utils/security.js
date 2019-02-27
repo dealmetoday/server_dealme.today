@@ -70,9 +70,19 @@ let verifyPassword = async (User, Auth, email, password) => {
   return false;
 };
 
+let otherVerify = async (password, hashed) => {
+  const verified = await argon2.verify(hashed, password);
+  if (verified) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 module.exports = {
   encrypt,
   decrypt,
   hashPassword,
-  verifyPassword
+  verifyPassword,
+  otherVerify
 }

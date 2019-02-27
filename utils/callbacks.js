@@ -1,6 +1,7 @@
-const constants = require('../config/constants')
+const Security = require('../utils/security');
+const constants = require('../config/constants');
 
-let regCallback = (res, err, output) => {
+let callback = (res, err, output) => {
   if (err) {
     console.log(err);
     res.send(constants.ERR);
@@ -10,14 +11,26 @@ let regCallback = (res, err, output) => {
   }
 };
 
+let regCallback = (res, err, output) => {
+  if (err) {
+    res.send(constants.ERR);
+  } else {
+    let result = checkResult(output);
+    if (result == constants.FAILURE) {
+      res.send(result);
+    } else {
+      res.send(constants.SUCCESS);
+    }
+  }
+}
+
 let putCallback = (res, err, output) => {
   if (err) {
     res.send(constants.ERR);
   }
   else {
-      // var retVal = {"Updated": "Updated", message: `Congrats! Thanks for claiming your deal. ${output.claims} have claimed this deal so far`};
-      let result = checkResult(output);
-      res.send(result);
+    let result = checkResult(output);
+    res.send(result);
   }
 };
 
@@ -41,13 +54,26 @@ let getObjCallback = (res, err, output) => {
   }
 };
 
-let redirectCallback = (res, redirect, isFirst, id) => {
-  if (isFirst) {
-    res.redirect(`appdealme://LaunchScreen`)
-    // res.redirect(`http://localhost:8080/auth/success#user_id=${id}`)
+let loginCallback = (res, err, output) => {
+  if (err) {
+    return;
   } else {
-    res.redirect(`appdealme://LaunchScreen`)
-    // res.redirect(`http://localhost:8080/auth/success#user_id=${id}`)
+    res.send(constants.SUCCESS);
+  }
+};
+
+let emailCallback = (res, err, output, password) => {
+  if (err) {
+    return;
+  } else {
+    let hashed = output.password;
+    let verifyResult = Security.otherVerify(password, hashed);
+
+    if (verifyResult) {
+      res.send(constants.SUCCESS);
+    } else {
+      res.send(constants.FAILURE);
+    }
   }
 };
 
@@ -55,14 +81,14 @@ let checkResult = (result) => {
   if (result) {
     return result;
   } else {
-    return {'Message': 'Result was null. Check your input.'};
+    return constants.FAILURE;
   }
 }
 
 module.exports = {
-  regCallback,
+  callback,
   putCallback,
   getArrCallback,
   getObjCallback,
-  redirectCallback
+  loginCallback
 }

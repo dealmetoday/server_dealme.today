@@ -73,9 +73,9 @@ module.exports = function(app, usersDB, dealsDB) {
     const jsonData = req.body;
 
     if (Misc.isEmptyObject(jsonData)) {
-      User.find((err, result) => cb.regCallback(res, err, result));
+      User.find((err, result) => cb.callback(res, err, result));
     } else {
-      User.findOne({ email: jsonData.email }, (err, result) => cb.regCallback(res, err, result));
+      User.findOne({ email: jsonData.email }, (err, result) => cb.callback(res, err, result));
     }
   });
 
@@ -92,7 +92,7 @@ module.exports = function(app, usersDB, dealsDB) {
   app.delete('/users', function(req, res) {
     const jsonData = req.body;
 
-    User.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
+    User.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
   /****************************************************************************/
@@ -100,7 +100,7 @@ module.exports = function(app, usersDB, dealsDB) {
   app.get('/user/profile', function(req, res) {
     const jsonData = req.body;
 
-    User.findById(jsonData.id, (err, result) => cb.regCallback(res, err, result));
+    User.findById(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
   // Get deals for a specific User
@@ -108,6 +108,6 @@ module.exports = function(app, usersDB, dealsDB) {
     const jsonData = req.body;
     const query = Misc.dealsQuery(jsonData);
 
-    Deal.find(query, (err, result) => cb.regCallback(res, err, result));
+    Deal.find(query, (err, result) => cb.callback(res, err, result));
   });
 };

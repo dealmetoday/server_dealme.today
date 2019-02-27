@@ -16,12 +16,12 @@ module.exports = function(app, tagsDB) {
 
     var newObj = new Tag({ _id: newID, key: jsonData.key});
 
-    newObj.save((err, result) => cb.regCallback(res, err, result));
+    newObj.save((err, result) => cb.callback(res, err, result));
   });
 
   // Read
   app.get('/tags', function(req, res) {
-    Tag.find((err, result) => cb.regCallback(res, err, result));
+    Tag.find((err, result) => cb.callback(res, err, result));
   });
 
   // Update
@@ -48,6 +48,6 @@ module.exports = function(app, tagsDB) {
   app.delete('/tags', function(req, res) {
     const jsonData = req.body;
 
-    Tag.findOneAndDelete(jsonData, (err, result) => cb.regCallback(res, err, result));
+    Tag.findOneAndDelete(jsonData, (err, result) => cb.callback(res, err, result));
   });
 };

@@ -32,7 +32,7 @@ module.exports = function(app, dealsDB, usersDB) {
         store: jsonData.store
       });
 
-    newObj.save((err, result) => cb.regCallback(res, err, result));
+    newObj.save((err, result) => cb.callback(res, err, result));
   });
 
   // Read
@@ -40,10 +40,10 @@ module.exports = function(app, dealsDB, usersDB) {
     const jsonData = req.body;
 
     if (Misc.isEmptyObject(jsonData)) {
-      Deal.find((err, result) => cb.regCallback(res, err, result));
+      Deal.find((err, result) => cb.callback(res, err, result));
     } else {
       const query = Misc.dealsQuery(jsonData);
-      Deal.find(query, (err, result) => cb.regCallback(res, err, result));
+      Deal.find(query, (err, result) => cb.callback(res, err, result));
     }
   });
 
@@ -61,7 +61,7 @@ module.exports = function(app, dealsDB, usersDB) {
   app.delete('/deals', function(req, res) {
     const jsonData = req.body;
 
-    Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
+    Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
   // Increment the number of claims a deal has given a deal and user ID
