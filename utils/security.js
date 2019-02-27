@@ -20,10 +20,8 @@ let decrypt = (input) => {
 
 let hashPassword = async (password) => {
   try {
-    const hash = await argon2.hash(password, constants.ARGON2_PROPERTIES);
-    return hash;
+    return await argon2.hash(password, constants.ARGON2_PROPERTIES);
   } catch (err) {
-    console.log('err.......');
     return null;
   }
 }

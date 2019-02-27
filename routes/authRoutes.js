@@ -14,18 +14,19 @@ module.exports = function(app, authDB, usersDB) {
   User = usersDB.Users;
 
   // Social media login
-  app.put('/auth/login/social', (req,res) => {
+  app.put('/auth/login/social', function(req, res) {
     // Assume that:
     // 1. login was successful
     // 2. User exists in database (created user beforehand)
     const jsonData = req.body;
     let query = Misc.usersQuery(jsonData);
 
-    User.find(query, (err, result) => {
+    User.findOne(query, (err, result) => {
       if (err) {
         res.send(constants.ERR);
       } else {
         let update = { password: jsonData.token };
+        console.log(result._id);
 
         if (jsonData.role == constants.USERS) {
           userAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result));
@@ -37,7 +38,7 @@ module.exports = function(app, authDB, usersDB) {
   });
 
   // Email login
-  app.put('/auth/login/email', function(req, res) {
+  app.put('/auth/login/email', async function(req, res) {
     const jsonData = req.body;
 
     let ePassword = jsonData.password;
@@ -45,28 +46,28 @@ module.exports = function(app, authDB, usersDB) {
 
     // Check if user with email exists
     // If not, no response
-    let queryResult = Misc.userExists(jsonData.email);
+    let queryResult = await Misc.userExists(User, jsonData.email);
     if (queryResult.status) {
       if (jsonData.role == constants.USERS) {
-        userAuth.findOneById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password));
+        userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password));
       } else if (jsonData.role == constants.STORES) {
-        storeAuth.findOneById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password));
+        storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password));
       }
     }
   });
 
   // Updating password
-  app.put('/auth/password', function(req, res) {
+  app.put('/auth/password', async function(req, res) {
     const jsonData = req.body;
 
     let ePassword = jsonData.password;
     let password = Security.decrypt(ePassword);
-    let hashed = Security.hashPassword(password);
+    let hashed = await Security.hashPassword(password);
     let update = { password: hashed };
-
+    
     // Check if user with email exists
     // If not, reply with constants.FAILURE
-    let queryResult = Misc.userExists(jsonData.email);
+    let queryResult = await Misc.userExists(User, jsonData.email);
     if (queryResult.status) {
       if (jsonData.role == constants.USERS) {
         userAuth.findOneAndUpdate(queryResult.id, update, (err, result) => cb.putCallback(res, err, result));

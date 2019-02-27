@@ -78,7 +78,7 @@ let userExists = async (User, email) => {
   }
 
   return retVal;
-}
+};
 
 module.exports = {
   isEmptyObject,

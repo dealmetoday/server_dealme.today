@@ -27,6 +27,7 @@ module.exports = function(app, usersDB, dealsDB) {
         location: ""
       });
 
+    // TODO: Create entry in Auth database too
     newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 

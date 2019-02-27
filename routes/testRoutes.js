@@ -1,4 +1,4 @@
-const security = require('../utils/security');
+const Security = require('../utils/security');
 
 module.exports = function(app) {
   app.get('/test/encrypt', (req, res) => {
@@ -6,7 +6,7 @@ module.exports = function(app) {
     if (!toencrypt.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
     }
-    res.send({encrypted: security.encrypt(toencrypt.data)});
+    res.send({encrypted: Security.encrypt(toencrypt.data)});
   });
 
   app.get('/test/hash', (req, res) => {
@@ -15,7 +15,7 @@ module.exports = function(app) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
     }
 
-    security.hashPassword(tohash.data).then(hashedData => {
+    Security.hashPassword(tohash.data).then(hashedData => {
       return res.send({hashed: hashedData});
     }).catch(err => {
       console.log(err);
@@ -37,17 +37,12 @@ module.exports = function(app) {
       result.encryption = "Encryption doesn't works :("
     }
 
+    console.log(ePw + "\n");
+
     let hashed = Security.hashPassword(password);
     hashed.then((data) => {
-      console.log("Hashed Password: " + hashed);
+      console.log("Hashed Password: " + data);
     })
-
-    let verifyResult = Security.verifyPassword(User, userAuth, 'mihailo@shaw.ca', password);
-    if (verifyResult) {
-      result.verify = "yessir";
-    } else {
-      result.verify = "No ma'am :(";
-    }
 
     res.send(result);
   });

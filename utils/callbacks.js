@@ -87,8 +87,10 @@ let checkResult = (result) => {
 
 module.exports = {
   callback,
+  regCallback,
   putCallback,
   getArrCallback,
   getObjCallback,
-  loginCallback
+  loginCallback,
+  emailCallback
 }
