@@ -77,34 +77,4 @@ module.exports = function(app, authDB, usersDB) {
       res.send(constants.FAILURE);
     }
   });
-
-  // tests
-  app.get('/authTests', function(req, res) {
-    result = {};
-
-    let password = "my name is jeff";
-
-    let ePw = Security.encrypt(password);
-    let dPw = Security.decrypt(ePw);
-
-    if (password.localeCompare(dPw) == 0) {
-      result.encryption = "Encryption works :)"
-    }  else {
-      result.encryption = "Encryption doesn't works :("
-    }
-
-    let hashed = Security.hashPassword(password);
-    hashed.then((data) => {
-      console.log("Hashed Password: " + hashed);
-    })
-
-    let verifyResult = Security.verifyPassword(User, userAuth, 'mihailo@shaw.ca', password);
-    if (verifyResult) {
-      result.verify = "yessir";
-    } else {
-      result.verify = "No ma'am :(";
-    }
-
-    res.send(result);
-  });
 };
