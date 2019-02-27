@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
-const Misc = require('../utils/misc')
-const cb = require('../utils/callbacks')
+const JWT = require('../utils/jwt');
+const mongoose = require('mongoose');
+const Misc = require('../utils/misc');
+const cb = require('../utils/callbacks');
 const Security = require('../utils/security');
 const constants = require('../config/constants');
 
@@ -26,12 +27,12 @@ module.exports = function(app, authDB, usersDB) {
         res.send(constants.ERR);
       } else {
         let update = { password: jsonData.token };
-        console.log(result._id);
+        let email = result.email;
 
         if (jsonData.role == constants.USERS) {
-          userAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result));
+          userAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result, email));
         } else if (jsonData.role == constants.STORES) {
-          storeAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result));
+          storeAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result, email));
         }
       }
     });
@@ -49,22 +50,26 @@ module.exports = function(app, authDB, usersDB) {
     let queryResult = await Misc.userExists(User, jsonData.email);
     if (queryResult.status) {
       if (jsonData.role == constants.USERS) {
-        userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password));
+        userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
       } else if (jsonData.role == constants.STORES) {
-        storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password));
+        storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
       }
     }
   });
 
   // Updating password
   app.put('/auth/password', async function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     let ePassword = jsonData.password;
     let password = Security.decrypt(ePassword);
     let hashed = await Security.hashPassword(password);
     let update = { password: hashed };
-    
+
     // Check if user with email exists
     // If not, reply with constants.FAILURE
     let queryResult = await Misc.userExists(User, jsonData.email);

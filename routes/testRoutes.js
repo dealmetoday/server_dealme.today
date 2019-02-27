@@ -1,7 +1,13 @@
+const JWT = require('../utils/jwt');
 const Security = require('../utils/security');
+const constants = require('../config/constants');
 
 module.exports = function(app) {
   app.get('/test/encrypt', (req, res) => {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+    
     const toencrypt = req.body;
     if (!toencrypt.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
@@ -10,6 +16,10 @@ module.exports = function(app) {
   });
 
   app.get('/test/hash', (req, res) => {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const tohash = req.body;
     if (!tohash.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
@@ -24,6 +34,10 @@ module.exports = function(app) {
   });
 
   app.get('/test/auth', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     result = {};
 
     let password = "my name is jeff";
@@ -48,7 +62,10 @@ module.exports = function(app) {
   });
 
   app.get('/test/basic', function(req, res) {
-    console.log("Yes");
-    console.log(req.body);
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
+    res.send(constants.SUCCESS);
   });
 };

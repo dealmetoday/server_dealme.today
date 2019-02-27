@@ -1,3 +1,4 @@
+const JWT = require('../utils/jwt');
 const Security = require('../utils/security');
 const constants = require('../config/constants');
 
@@ -54,15 +55,21 @@ let getObjCallback = (res, err, output) => {
   }
 };
 
-let loginCallback = (res, err, output) => {
+let loginCallback = (res, err, output, email) => {
   if (err) {
     return;
   } else {
-    res.send(constants.SUCCESS);
+    let payload = {};
+    payload.id = output._id;
+    payload.email = email;
+
+    let retVal = constants.SUCCESS;
+    retVal[constants.BEARER] = JWT.sign(payload);
+    res.send(retVal);
   }
 };
 
-let emailCallback = (res, err, output, password) => {
+let emailCallback = (res, err, output, password, email) => {
   if (err) {
     return;
   } else {
@@ -70,7 +77,14 @@ let emailCallback = (res, err, output, password) => {
     let verifyResult = Security.otherVerify(password, hashed);
 
     if (verifyResult) {
-      res.send(constants.SUCCESS);
+      let payload = {};
+      payload.id = output._id;
+      payload.email = email;
+
+      let retVal = constants.SUCCESS;
+      retVal[constants.BEARER] = JWT.sign(payload);
+
+      res.send(retVal);
     } else {
       res.send(constants.FAILURE);
     }

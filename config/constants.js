@@ -11,6 +11,7 @@ module.exports = Object.freeze({
   STORE_AUTH: 'STORE_AUTH',
   ISSUER: 'dealme.today',
   AUDIENCE: 'api.dealme.today',
+  BEARER: 'Bearer',
   PRIVATE_KEY_PATH: './config/keys/private_key.pem',
   PUBLIC_KEY_PATH: './config/keys/public_key.pem',
   ARGON2_PROPERTIES:

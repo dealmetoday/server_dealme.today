@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
-const Misc = require('../utils/misc')
-const cb = require('../utils/callbacks')
-const constants = require('../config/constants')
+const JWT = require('../utils/jwt');
+const mongoose = require('mongoose');
+const Misc = require('../utils/misc');
+const cb = require('../utils/callbacks');
+const constants = require('../config/constants');
 
 var Mall = null;
 var Store = null;
@@ -14,6 +15,10 @@ module.exports = function(app, mallsDB) {
   /****************************************************************************/
   // Create
   app.post('/malls', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
@@ -31,6 +36,10 @@ module.exports = function(app, mallsDB) {
 
   // Read
   app.get('/malls', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     if (Misc.isEmptyObject(jsonData)) {
@@ -49,6 +58,10 @@ module.exports = function(app, mallsDB) {
 
   // Update
   app.put('/malls', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     var id = jsonData.id;
     delete jsonData.id;
@@ -58,6 +71,10 @@ module.exports = function(app, mallsDB) {
 
   // delete
   app.delete('/malls', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     Mall.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
@@ -66,6 +83,10 @@ module.exports = function(app, mallsDB) {
   /****************************************************************************/
   // Create
   app.post('/stores', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
@@ -87,6 +108,10 @@ module.exports = function(app, mallsDB) {
 
   // Read
   app.get('/stores', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     Store.find((err, result) => cb.callback(res, err, result));
@@ -94,6 +119,10 @@ module.exports = function(app, mallsDB) {
 
   // Update
   app.put('/stores', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     // Retrieve constructor for model based on which Mall the store falls under
@@ -105,6 +134,10 @@ module.exports = function(app, mallsDB) {
 
   // delete
   app.delete('/stores', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+    
     const jsonData = req.body;
 
     // Retrieve constructor for model based on which Mall the store falls under

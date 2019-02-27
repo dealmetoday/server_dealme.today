@@ -48,20 +48,20 @@ module.exports = {
   decode
 }
 
-let testPayload = {
-  email: 'dio.ryanliu@hotmail.com',
-  id: '5c386f357eb1a4767f9f1bb0'
-};
-
-// Generating token
-let token = sign(testPayload);
-console.log("JWT:\n" + token)
-
-// Decode token
-let decoded = decode(token);
-console.log(decoded.header);
-console.log(decoded.payload);
-
-// Verifying token
-let status = verify(token);
-console.log(status);
+// let testPayload = {
+//   email: 'dio.ryanliu@hotmail.com',
+//   id: '5c386f357eb1a4767f9f1bb0'
+// };
+// 
+// // Generating token
+// let token = sign(testPayload);
+// console.log("JWT:\n" + token)
+//
+// // Decode token
+// let decoded = decode(token);
+// console.log(decoded.header);
+// console.log(decoded.payload);
+//
+// // Verifying token
+// let status = verify(token);
+// console.log(status);

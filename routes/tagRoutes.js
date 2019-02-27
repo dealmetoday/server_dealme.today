@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
-const Misc = require('../utils/misc')
-const cb = require('../utils/callbacks')
-const constants = require('../config/constants')
+const JWT = require('../utils/jwt');
+const mongoose = require('mongoose');
+const Misc = require('../utils/misc');
+const cb = require('../utils/callbacks');
+const constants = require('../config/constants');
 
 var Tag = null;
 
@@ -11,6 +12,10 @@ module.exports = function(app, tagsDB) {
 
   // Create
   app.post('/tags', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
@@ -21,11 +26,19 @@ module.exports = function(app, tagsDB) {
 
   // Read
   app.get('/tags', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     Tag.find((err, result) => cb.callback(res, err, result));
   });
 
   // Update
   app.put('/tags', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     var update =
@@ -46,6 +59,10 @@ module.exports = function(app, tagsDB) {
 
   // delete
   app.delete('/tags', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+    
     const jsonData = req.body;
 
     Tag.findOneAndDelete(jsonData, (err, result) => cb.callback(res, err, result));
