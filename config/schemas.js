@@ -19,14 +19,6 @@ module.exports = {
     })
   },
 
-  checkInDB: {
-    CheckIn: new Schema({
-      time: Date,
-      mall: ID,
-      user: ID
-    })
-  },
-
   dealsDB: {
     Deal: new Schema({
       id: ID,

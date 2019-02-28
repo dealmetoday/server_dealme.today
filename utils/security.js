@@ -20,10 +20,8 @@ let decrypt = (input) => {
 
 let hashPassword = async (password) => {
   try {
-    const hash = await argon2.hash(password, constants.ARGON2_PROPERTIES);
-    return hash;
+    return await argon2.hash(password, constants.ARGON2_PROPERTIES);
   } catch (err) {
-    console.log('err.......');
     return null;
   }
 }
@@ -70,9 +68,19 @@ let verifyPassword = async (User, Auth, email, password) => {
   return false;
 };
 
+let otherVerify = async (password, hashed) => {
+  const verified = await argon2.verify(hashed, password);
+  if (verified) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 module.exports = {
   encrypt,
   decrypt,
   hashPassword,
-  verifyPassword
+  verifyPassword,
+  otherVerify
 }

@@ -1,7 +1,8 @@
-const mongoose = require('mongoose')
-const Misc = require('../utils/misc')
-const cb = require('../utils/callbacks')
-const constants = require('../config/constants')
+const JWT = require('../utils/jwt');
+const mongoose = require('mongoose');
+const Misc = require('../utils/misc');
+const cb = require('../utils/callbacks');
+const constants = require('../config/constants');
 
 var Deal = null;
 var User = null;
@@ -13,6 +14,10 @@ module.exports = function(app, dealsDB, usersDB) {
 
   // Create
   app.post('/deals', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
@@ -32,23 +37,31 @@ module.exports = function(app, dealsDB, usersDB) {
         store: jsonData.store
       });
 
-    newObj.save((err, result) => cb.regCallback(res, err, result));
+    newObj.save((err, result) => cb.callback(res, err, result));
   });
 
   // Read
   app.get('/deals', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     if (Misc.isEmptyObject(jsonData)) {
-      Deal.find((err, result) => cb.regCallback(res, err, result));
+      Deal.find((err, result) => cb.callback(res, err, result));
     } else {
       const query = Misc.dealsQuery(jsonData);
-      Deal.find(query, (err, result) => cb.regCallback(res, err, result));
+      Deal.find(query, (err, result) => cb.callback(res, err, result));
     }
   });
 
   // Update
   app.put('/deals', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     var id = jsonData.id;
     delete jsonData.id;
@@ -59,13 +72,21 @@ module.exports = function(app, dealsDB, usersDB) {
 
   // delete
   app.delete('/deals', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
-    Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
+    Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
   // Increment the number of claims a deal has given a deal and user ID
   app.put('/deals/claim', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+    
     const queryArgs = req.query;
     var dealID = null;
     var userID = null;

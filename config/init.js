@@ -1,6 +1,5 @@
 const mongoose = require('mongoose')
 const authJSON = require('../data/auth.json')
-const checkinJSON = require('../data/checkin.json')
 const dealsJSON = require('../data/deals.json')
 const mallsJSON = require('../data/malls.json')
 const tagsJSON = require('../data/tags.json')
@@ -22,7 +21,6 @@ module.exports = function(databases) {
 
   userAuth = dbs.authDB.UserAuths;
   storeAuth = dbs.authDB.StoreAuths;
-  CheckIn = dbs.checkInDB.CheckIns;
   Deal = dbs.dealsDB.Deals;
   Mall = dbs.mallsDB.Malls;
   Store = dbs.mallsDB.Stores;
@@ -32,7 +30,6 @@ module.exports = function(databases) {
   let deletePromise = deleteAll();
   deletePromise.then(() => {
     loadAuth();
-    loadCheckin();
     loadDeals();
     loadMalls();
     loadTags();
@@ -43,7 +40,6 @@ module.exports = function(databases) {
 let deleteAll = async () => {
   await userAuth.deleteMany({}).exec();
   await storeAuth.deleteMany({}).exec();
-  await CheckIn.deleteMany({}).exec()
   await Deal.deleteMany({}).exec();
   await Mall.deleteMany({}).exec();
   await Store.deleteMany({}).exec();
@@ -77,25 +73,6 @@ function loadAuth() {
   }
 
   console.log('Finished populating the Auth database.');
-}
-
-function loadCheckin() {
-  // Get data from users.json and insert into the database
-  for (var index in checkinJSON) {
-    var currObj = checkinJSON[index];
-    mallID = currObj.mall;
-
-    var newObj = new CheckIn(
-      {
-        time: currObj.time,
-        mall: currObj.mall,
-        user: currObj.user
-      });
-
-    newObj.save();
-  }
-
-  console.log('Finished populating the CheckIn database.');
 }
 
 function loadDeals() {

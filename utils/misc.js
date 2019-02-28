@@ -67,10 +67,24 @@ let createUser = (User, inputObj) => {
   return newObj;
 };
 
+let userExists = async (User, email) => {
+  let retVal = {};
+  let result = await User.findOne({ email: email }).exec();
+  if (isEmptyObject(result)) {
+    retVal.status = false;
+  } else {
+    retVal.status = true;
+    retVal.id = result._id;
+  }
+
+  return retVal;
+};
+
 module.exports = {
   isEmptyObject,
   isValidObjectId,
   dealsQuery,
   usersQuery,
-  createUser
+  createUser,
+  userExists
 }

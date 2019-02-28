@@ -1,23 +1,12 @@
-const passport = require('passport');
-const mongoose = require('mongoose')
-const Misc = require('../utils/misc')
-const cb = require('../utils/callbacks')
-const configs = require('../config/config');
+const JWT = require('../utils/jwt');
+const mongoose = require('mongoose');
+const Misc = require('../utils/misc');
+const cb = require('../utils/callbacks');
 const Security = require('../utils/security');
 const constants = require('../config/constants');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
-const LocalStrategy = require('passport-local').Strategy;
 
 var userAuth = null;
 var storeAuth = null;
-
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    //TODO find user in database here and store in a user obnject
-    return done(null, user)
-  }
-))
 
 module.exports = function(app, authDB, usersDB) {
   // Setting constructors
@@ -25,139 +14,73 @@ module.exports = function(app, authDB, usersDB) {
   storeAuth = authDB.StoreAuths;
   User = usersDB.Users;
 
-  // Create
-  app.post('/auth', function(req, res) {
+  // Social media login
+  app.put('/auth/login/social', function(req, res) {
+    // Assume that:
+    // 1. login was successful
+    // 2. User exists in database (created user beforehand)
     const jsonData = req.body;
+    let query = Misc.usersQuery(jsonData);
 
-    var newObj = null;
+    User.findOne(query, (err, result) => {
+      if (err) {
+        res.send(constants.ERR);
+      } else {
+        let update = { password: jsonData.token };
+        let email = result.email;
 
-    if (jsonData["collection"] === constants.USERS) {
-      newObj = new userAuth(
-        {
-        _id: jsonData.id,
-        role: jsonData.role,
-        password: jsonData.password
-      });
-    } else if (jsonData["collection"] === constants.STORES) {
-      newObj = new storeAuth(
-        {
-        _id: jsonData.id,
-        role: jsonData.role,
-        password: jsonData.password
-      });
-    }
-
-    newObj.save((err, result) => cb.regCallback(res, err, result));
-  });
-
-  // Read
-  app.get('/auth', function(req, res) {
-    const jsonData = req.body;
-
-    if (jsonData["collection"] === constants.USERS) {
-      userAuth.findById(jsonData.id, (err, result) => cb.regCallback(res, err, result));
-    } else if (jsonData["collection"] === constants.STORES) {
-      storeAuth.findById(jsonData.id, (err, result) => cb.regCallback(res, err, result));
-    }
-  });
-
-  app.get('/auth/login/email',
-    passport.authenticate('local', { failureRedirect: '/loginError' }),
-    (req,res) => {
-      // Check to see if user exist in database
-      // If not, create and return the new userID
-      // If yes, return userID
-      console.log(req) //HERE IS YOUR USER DATA
-
-      const query = Misc.usersQuery(req)
-      const redirect = req.session.oauth2return || '/user?';
-      delete req.session.oauth2return;
-
-      User.findOne(query, function(err, result) {
-        // If result exists, return that userID
-        // If result doesn't exist, create user and return newID
-        if (result) {
-          cb.redirectCallback(res, redirect, result.id)
-        } else {
-          const newUser = Misc.createUser(query);
-          newUser.save((err, result) => cb.redirectCallback(res, redirect, result.id));
+        if (jsonData.role == constants.USERS) {
+          userAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result, email));
+        } else if (jsonData.role == constants.STORES) {
+          storeAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result, email));
         }
-      });
+      }
+    });
+  });
+
+  // Email login
+  app.put('/auth/login/email', async function(req, res) {
+    const jsonData = req.body;
+
+    let ePassword = jsonData.password;
+    let password = Security.decrypt(ePassword);
+
+    // Check if user with email exists
+    // If not, no response
+    let queryResult = await Misc.userExists(User, jsonData.email);
+    if (queryResult.status) {
+      if (jsonData.role == constants.USERS) {
+        userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
+      } else if (jsonData.role == constants.STORES) {
+        storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
+      }
     }
-  )
-
-  app.get('/loginError', (req,res) => {
-    res.redirect(configs.CLIENT_URL);
-  })
-
-  passport.serializeUser((user, callback) => {
-    callback(null, user);
   });
 
-  passport.deserializeUser((obj, callback) => {
-    callback(null, obj);
-  });
-
-  // Update
-  app.put('/auth/login/email', function(req, res) {
-    const jsonData = req.body.params;
-
-    var update =
-    {
-      role: jsonData.role,
-      password: jsonData.password
-    };
-
-    if (!(Misc.isValidObjectId(jsonData.id))) {
-      res.send(constants.ID_ERROR);
+  // Updating password
+  app.put('/auth/password', async function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
 
-    if (jsonData["collection"] === constants.USERS) {
-      userAuth.findByIdAndUpdate(jsonData.id, update, (err, result) => cb.putCallback(res, err, result));
-    } else if (jsonData["collection"] === constants.STORES) {
-      storeAuth.findByIdAndUpdate(jsonData.id, update, (err, result) => cb.putCallback(res, err, result));
-    }
-  });
-
-  // delete
-  app.delete('/auth', function(req, res) {
     const jsonData = req.body;
 
-    if (jsonData["collection"] === constants.USERS) {
-      userAuth.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
-    } else if (jsonData["collection"] === constants.STORES) {
-      storeAuth.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
-    }
-  });
+    let ePassword = jsonData.password;
+    let password = Security.decrypt(ePassword);
+    let hashed = await Security.hashPassword(password);
+    let update = { password: hashed };
 
-  // tests
-  app.get('/authTests', function(req, res) {
-    result = {};
-
-    let password = "my name is jeff";
-
-    let ePw = Security.encrypt(password);
-    let dPw = Security.decrypt(ePw);
-
-    if (password.localeCompare(dPw) == 0) {
-      result.encryption = "Encryption works :)"
-    }  else {
-      result.encryption = "Encryption doesn't works :("
-    }
-
-    let hashed = Security.hashPassword(password);
-    hashed.then((data) => {
-      console.log("Hashed Password: " + hashed);
-    })
-
-    let verifyResult = Security.verifyPassword(User, userAuth, 'mihailo@shaw.ca', password);
-    if (verifyResult) {
-      result.verify = "yessir";
+    // Check if user with email exists
+    // If not, reply with constants.FAILURE
+    let queryResult = await Misc.userExists(User, jsonData.email);
+    if (queryResult.status) {
+      if (jsonData.role == constants.USERS) {
+        userAuth.findOneAndUpdate(queryResult.id, update, (err, result) => cb.putCallback(res, err, result));
+      } else if (jsonData.role == constants.STORES) {
+        storeAuth.findOneAndUpdate(queryResult.id, update, (err, result) => cb.putCallback(res, err, result));
+      }
     } else {
-      result.verify = "No ma'am :(";
+      res.send(constants.FAILURE);
     }
-
-    res.send(result);
   });
 };

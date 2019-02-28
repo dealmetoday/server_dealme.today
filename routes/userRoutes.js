@@ -1,6 +1,7 @@
-const mongoose = require('mongoose')
-const Misc = require('../utils/misc')
-const cb = require('../utils/callbacks')
+const JWT = require('../utils/jwt');
+const mongoose = require('mongoose');
+const Misc = require('../utils/misc');
+const cb = require('../utils/callbacks');
 
 var User = null;
 
@@ -11,6 +12,10 @@ module.exports = function(app, usersDB, dealsDB) {
 
   // Create
   app.post('/users/email', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
@@ -27,10 +32,15 @@ module.exports = function(app, usersDB, dealsDB) {
         location: ""
       });
 
+    // TODO: Create entry in Auth database too
     newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
   app.post('users/facebook', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     var newObj = new User(
@@ -50,6 +60,10 @@ module.exports = function(app, usersDB, dealsDB) {
   });
 
   app.post('users/google', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     var newObj = new User(
@@ -70,17 +84,25 @@ module.exports = function(app, usersDB, dealsDB) {
 
   // Read
   app.get('/users', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
     if (Misc.isEmptyObject(jsonData)) {
-      User.find((err, result) => cb.regCallback(res, err, result));
+      User.find((err, result) => cb.callback(res, err, result));
     } else {
-      User.findOne({ email: jsonData.email }, (err, result) => cb.regCallback(res, err, result));
+      User.findOne({ email: jsonData.email }, (err, result) => cb.callback(res, err, result));
     }
   });
 
   // Update
   app.put('/users', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
     var id = jsonData.id;
     delete jsonData.id;
@@ -90,24 +112,36 @@ module.exports = function(app, usersDB, dealsDB) {
 
   // delete
   app.delete('/users', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
-    User.findByIdAndDelete(jsonData.id, (err, result) => cb.regCallback(res, err, result));
+    User.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
   /****************************************************************************/
   // Get user profile by ID
   app.get('/user/profile', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
     const jsonData = req.body;
 
-    User.findById(jsonData.id, (err, result) => cb.regCallback(res, err, result));
+    User.findById(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
   // Get deals for a specific User
   app.get('/user/deals', function(req, res) {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+    
     const jsonData = req.body;
     const query = Misc.dealsQuery(jsonData);
 
-    Deal.find(query, (err, result) => cb.regCallback(res, err, result));
+    Deal.find(query, (err, result) => cb.callback(res, err, result));
   });
 };

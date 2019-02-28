@@ -1,67 +1,67 @@
-"use strict";
-
 const fs   = require('fs');
 const jwt  = require('jsonwebtoken');
+const Misc = require('../utils/misc')
 const constants = require('../config/constants');
 
-class JWT {
-  constructor() {
-    this._issuer = "dealme.today";
-    this._audience = "api.dealme.today";
+const prvKey = fs.readFileSync(constants.PRIVATE_KEY_PATH, 'utf8');
+const pubKey = fs.readFileSync(constants.PUBLIC_KEY_PATH, 'utf8');
 
-    this._prvKey = fs.readFileSync(constants.PRIVATE_KEY_PATH, 'utf8')
-    this._pubKey = fs.readFileSync(constants.PUBLIC_KEY_PATH, 'utf8');
-  }
+let sign = (payload) => {
+  let options = {
+    issuer: constants.ISSUER,
+    subject: payload.email,
+    audience: constants.AUDIENCE,
+    expiresIn: "30d", // token is valid for 30 days
+    algorithm: "RS256"
+  };
 
-  sign(payload) {
-    let options = {
-      issuer: this._issuer,
-      subject: payload.email,
-      audience: this._audience,
-      expiresIn: "30d", // token is valid for 30 days
-      algorithm: "RS256"
-    };
-
-    return jwt.sign(payload, this._prvKey, options);
-  }
-
-  verify(token, payload) {
-    let options = {
-      issuer: this._issuer,
-      audience: this._audience,
-      expiresIn: "30d", // token is valid for 30 days
-      algorithm: "RS256"
-    }
-
-    try {
-      return jwt.verify(token, this._pubKey, options);
-    } catch (err) {
-      return false
-    }
-  }
-
-  decode(token) {
-    return jwt.decode(token, {complete: true});
-  }
-}
-
-module.exports = JWT
-
-let tester = new JWT();
-let testPayload = {
-  email: 'dio.ryanliu@hotmail.com',
-  id: '5c386f357eb1a4767f9f1bb0'
+  return jwt.sign(payload, prvKey, options);
 };
 
-// Generating token
-let token = tester.sign(testPayload);
-console.log("JWT:\n" + token)
+let verify = (token) => {
+  let options = {
+    issuer: constants.ISSUER,
+    audience: constants.AUDIENCE,
+    expiresIn: "30d", // token is valid for 30 days
+    algorithm: "RS256"
+  }
 
-// Decode token
-let decoded = tester.decode(token);
-console.log(decoded.header);
-console.log(decoded.payload);
+  try {
+    let verifyStatus = jwt.verify(token, pubKey, options);
+    if (!Misc.isEmptyObject(verifyStatus)) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return false
+  }
+};
 
-// Verifying token
-let verify = tester.verify(token);
-console.log(verify);
+let decode = (token) => {
+  return jwt.decode(token, {complete: true});
+};
+
+module.exports = {
+  sign,
+  verify,
+  decode
+}
+
+// let testPayload = {
+//   email: 'dio.ryanliu@hotmail.com',
+//   id: '5c386f357eb1a4767f9f1bb0'
+// };
+// 
+// // Generating token
+// let token = sign(testPayload);
+// console.log("JWT:\n" + token)
+//
+// // Decode token
+// let decoded = decode(token);
+// console.log(decoded.header);
+// console.log(decoded.payload);
+//
+// // Verifying token
+// let status = verify(token);
+// console.log(status);
