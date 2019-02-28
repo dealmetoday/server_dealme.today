@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "serve": "sls offline start --skipCacheInvalidation"
+    "serve": "sls offline start --skipCacheInvalidation",
+    "deploy": "sls deploy"
   },
   "keywords": [],
   "author": "",
