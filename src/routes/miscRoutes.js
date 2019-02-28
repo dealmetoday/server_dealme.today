@@ -1,8 +1,27 @@
 const JWT = require('../utils/jwt');
 const Security = require('../utils/security');
 const constants = require('../config/constants');
+const DBOperations = require('../utils/dbOperations');
 
-module.exports = (app) => {
+module.exports = (app, databases) => {
+  app.get('/init', (req, res) => {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
+    DBOperations.loadAll(databases);
+    res.send(constants.SUCCESS);
+  });
+
+  app.get('/drop', (req, res) => {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
+    DBOperations.deleteAll(databases);
+    res.send(constants.SUCCESS);
+  })
+
   app.get('/test/encrypt', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;

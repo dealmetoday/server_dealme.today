@@ -3,7 +3,6 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongooseMulti = require('mongoose-multi')
 
-const init = require('./config/init');
 const dbConfig = require('./config/config');
 const schemaFile = require('./config/schemas');
 
@@ -23,7 +22,7 @@ require('./routes/dealRoutes')(app, databases.dealsDB, databases.usersDB);
 
 // Misc connections
 require('./routes/keyRoutes')(app);
-require('./routes/testRoutes')(app);
+require('./routes/miscRoutes')(app, databases);
 
 app.get('/', (req, res) => {
   let body = "";

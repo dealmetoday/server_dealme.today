@@ -15,9 +15,6 @@ module.exports = (app, tagsDB) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
-
-    console.log("At POST");
-
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
@@ -31,8 +28,6 @@ module.exports = (app, tagsDB) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
-
-    console.log("At GET");
 
     Tag.find((err, result) => cb.callback(res, err, result));
   });

@@ -12,8 +12,8 @@ module.exports = Object.freeze({
   ISSUER: 'dealme.today',
   AUDIENCE: 'api.dealme.today',
   BEARER: 'Bearer',
-  PRIVATE_KEY_PATH: './config/keys/private_key.pem',
-  PUBLIC_KEY_PATH: './config/keys/public_key.pem',
+  PRIVATE_KEY_PATH: './src/config/keys/private_key.pem',
+  PUBLIC_KEY_PATH: './src/config/keys/public_key.pem',
   ARGON2_PROPERTIES:
   {
     type: argon2.argon2d,

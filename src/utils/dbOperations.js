@@ -4,38 +4,37 @@ const dealsJSON = require('../data/deals.json')
 const mallsJSON = require('../data/malls.json')
 const tagsJSON = require('../data/tags.json')
 const usersJSON = require('../data/users.json')
-const constants = require('./constants')
+const constants = require('../config/constants')
 
-var dbs = null;
-var userAuth = null;
-var storeAuth = null;
-var CheckIn = null;
-var Deal = null;
-var Mall = null;
-var Store = null;
-var Tag = null;
-var User = null;
+let loadAll = async (databases) => {
+  let userAuth = databases.authDB.UserAuths;
+  let storeAuth = databases.authDB.StoreAuths;
+  let Deal = databases.dealsDB.Deals;
+  let Mall = databases.mallsDB.Malls;
+  let Store = databases.mallsDB.Stores;
+  let Tag = databases.tagsDB.Tags;
+  let User = databases.usersDB.Users;
 
-module.exports = async (databases) => {
-  dbs = databases;
+  // First delete everything
+  await deleteAll(databases);
 
-  userAuth = dbs.authDB.UserAuths;
-  storeAuth = dbs.authDB.StoreAuths;
-  Deal = dbs.dealsDB.Deals;
-  Mall = dbs.mallsDB.Malls;
-  Store = dbs.mallsDB.Stores;
-  Tag = dbs.tagsDB.Tags;
-  User = dbs.usersDB.Users;
-
-  await deleteAll();
-  loadAuth();
-  loadDeals();
-  loadMalls();
-  loadTags();
-  loadUsers();
+  // Then load it all
+  loadAuth(userAuth, storeAuth);
+  loadDeals(Deal);
+  loadMalls(Mall, Store);
+  loadTags(Tag);
+  loadUsers(User);
 }
 
-let deleteAll = async () => {
+let deleteAll = async (databases) => {
+  let userAuth = databases.authDB.UserAuths;
+  let storeAuth = databases.authDB.StoreAuths;
+  let Deal = databases.dealsDB.Deals;
+  let Mall = databases.mallsDB.Malls;
+  let Store = databases.mallsDB.Stores;
+  let Tag = databases.tagsDB.Tags;
+  let User = databases.usersDB.Users;
+
   await userAuth.deleteMany({}).exec();
   await storeAuth.deleteMany({}).exec();
   await Deal.deleteMany({}).exec();
@@ -45,7 +44,7 @@ let deleteAll = async () => {
   await User.deleteMany({}).exec();
 }
 
-let loadAuth = () => {
+let loadAuth = (userAuth, storeAuth) => {
   // Get data from auth.json and insert into the database
   for (var index in authJSON) {
     var currObj = authJSON[index];
@@ -73,7 +72,7 @@ let loadAuth = () => {
   console.log('Finished populating the Auth database.');
 }
 
-let loadDeals = () => {
+let loadDeals = (Deal) => {
   // Get data from tags.json and insert into the database
   for (var index in dealsJSON) {
     var currObj = dealsJSON[index];
@@ -98,7 +97,7 @@ let loadDeals = () => {
   console.log('Finished populating the Deals database.');
 }
 
-let loadMalls = () => {
+let loadMalls = (Mall, Store) => {
   // Get data from users.json and insert into the database
   for (var index in mallsJSON) {
     var currI = mallsJSON[index];
@@ -138,7 +137,7 @@ let loadMalls = () => {
   console.log('Finished populating the Malls database.');
 }
 
-let loadTags = () => {
+let loadTags = (Tag) => {
   // Get data from tags.json and insert into the database
   for (var index in tagsJSON) {
     var currObj = tagsJSON[index];
@@ -149,7 +148,7 @@ let loadTags = () => {
   console.log('Finished populating the Tags database.');
 }
 
-let loadUsers = () => {
+let loadUsers = (User) => {
   // Get data from users.json and insert into the database
   for (var index in usersJSON) {
     var currObj = usersJSON[index];
@@ -169,4 +168,9 @@ let loadUsers = () => {
   }
 
   console.log('Finished populating the User database.');
+}
+
+module.exports = {
+  loadAll,
+  deleteAll
 }
