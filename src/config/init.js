@@ -16,7 +16,7 @@ var Store = null;
 var Tag = null;
 var User = null;
 
-module.exports = function(databases) {
+module.exports = async (databases) => {
   dbs = databases;
 
   userAuth = dbs.authDB.UserAuths;
@@ -27,14 +27,12 @@ module.exports = function(databases) {
   Tag = dbs.tagsDB.Tags;
   User = dbs.usersDB.Users;
 
-  let deletePromise = deleteAll();
-  deletePromise.then(() => {
-    loadAuth();
-    loadDeals();
-    loadMalls();
-    loadTags();
-    loadUsers();
-  })
+  await deleteAll();
+  loadAuth();
+  loadDeals();
+  loadMalls();
+  loadTags();
+  loadUsers();
 }
 
 let deleteAll = async () => {
@@ -47,7 +45,7 @@ let deleteAll = async () => {
   await User.deleteMany({}).exec();
 }
 
-function loadAuth() {
+let loadAuth = () => {
   // Get data from auth.json and insert into the database
   for (var index in authJSON) {
     var currObj = authJSON[index];
@@ -75,7 +73,7 @@ function loadAuth() {
   console.log('Finished populating the Auth database.');
 }
 
-function loadDeals() {
+let loadDeals = () => {
   // Get data from tags.json and insert into the database
   for (var index in dealsJSON) {
     var currObj = dealsJSON[index];
@@ -100,7 +98,7 @@ function loadDeals() {
   console.log('Finished populating the Deals database.');
 }
 
-function loadMalls() {
+let loadMalls = () => {
   // Get data from users.json and insert into the database
   for (var index in mallsJSON) {
     var currI = mallsJSON[index];
@@ -140,7 +138,7 @@ function loadMalls() {
   console.log('Finished populating the Malls database.');
 }
 
-function loadTags() {
+let loadTags = () => {
   // Get data from tags.json and insert into the database
   for (var index in tagsJSON) {
     var currObj = tagsJSON[index];
@@ -151,7 +149,7 @@ function loadTags() {
   console.log('Finished populating the Tags database.');
 }
 
-function loadUsers() {
+let loadUsers = () => {
   // Get data from users.json and insert into the database
   for (var index in usersJSON) {
     var currObj = usersJSON[index];

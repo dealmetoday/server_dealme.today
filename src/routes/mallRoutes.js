@@ -7,14 +7,14 @@ const constants = require('../config/constants');
 var Mall = null;
 var Store = null;
 
-module.exports = function(app, mallsDB) {
+module.exports = (app, mallsDB) => {
   // Setting constructor
   Mall = mallsDB.Malls;
   Store = mallsDB.Stores;
 
   /****************************************************************************/
   // Create
-  app.post('/malls', function(req, res) {
+  app.post('/malls', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -35,7 +35,7 @@ module.exports = function(app, mallsDB) {
   });
 
   // Read
-  app.get('/malls', function(req, res) {
+  app.get('/malls', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -57,7 +57,7 @@ module.exports = function(app, mallsDB) {
   });
 
   // Update
-  app.put('/malls', function(req, res) {
+  app.put('/malls', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -70,7 +70,7 @@ module.exports = function(app, mallsDB) {
   });
 
   // delete
-  app.delete('/malls', function(req, res) {
+  app.delete('/malls', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -82,7 +82,7 @@ module.exports = function(app, mallsDB) {
 
   /****************************************************************************/
   // Create
-  app.post('/stores', function(req, res) {
+  app.post('/stores', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -107,7 +107,7 @@ module.exports = function(app, mallsDB) {
   });
 
   // Read
-  app.get('/stores', function(req, res) {
+  app.get('/stores', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -118,7 +118,7 @@ module.exports = function(app, mallsDB) {
   });
 
   // Update
-  app.put('/stores', function(req, res) {
+  app.put('/stores', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -133,11 +133,11 @@ module.exports = function(app, mallsDB) {
   });
 
   // delete
-  app.delete('/stores', function(req, res) {
+  app.delete('/stores', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
-    
+
     const jsonData = req.body;
 
     // Retrieve constructor for model based on which Mall the store falls under

@@ -1,7 +1,7 @@
 const fs = require('fs')
 const constants = require('../config/constants')
 
-module.exports = function(app) {
+module.exports = (app) => {
   // Initialize keys
   let pubKey = null;
 
@@ -12,7 +12,7 @@ module.exports = function(app) {
   }
 
   // Read
-  app.get('/pubkey', function(req, res) {
+  app.get('/pubkey', => (req, res) {
     console.log(pubKey);
     res.send(pubKey);
   });

@@ -6,12 +6,12 @@ const constants = require('../config/constants');
 
 var Tag = null;
 
-module.exports = function(app, tagsDB) {
+module.exports = (app, tagsDB) => {
   // Setting constructor
   Tag = tagsDB.Tags;
 
   // Create
-  app.post('/tags', function(req, res) {
+  app.post('/tags', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -27,7 +27,7 @@ module.exports = function(app, tagsDB) {
   });
 
   // Read
-  app.get('/tags', function(req, res) {
+  app.get('/tags', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -38,7 +38,7 @@ module.exports = function(app, tagsDB) {
   });
 
   // Update
-  app.put('/tags', function(req, res) {
+  app.put('/tags', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -62,7 +62,7 @@ module.exports = function(app, tagsDB) {
   });
 
   // delete
-  app.delete('/tags', function(req, res) {
+  app.delete('/tags', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }

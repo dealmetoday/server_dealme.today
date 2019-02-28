@@ -8,14 +8,14 @@ const constants = require('../config/constants');
 var userAuth = null;
 var storeAuth = null;
 
-module.exports = function(app, authDB, usersDB) {
+module.exports = (app, authDB, usersDB) => {
   // Setting constructors
   userAuth = authDB.UserAuths;
   storeAuth = authDB.StoreAuths;
   User = usersDB.Users;
 
   // Social media login
-  app.put('/auth/login/social', function(req, res) {
+  app.put('/auth/login/social', (req, res) => {
     // Assume that:
     // 1. login was successful
     // 2. User exists in database (created user beforehand)
@@ -39,7 +39,7 @@ module.exports = function(app, authDB, usersDB) {
   });
 
   // Email login
-  app.put('/auth/login/email', async function(req, res) {
+  app.put('/auth/login/email', async (req, res) => {
     const jsonData = req.body;
 
     let ePassword = jsonData.password;
@@ -58,7 +58,7 @@ module.exports = function(app, authDB, usersDB) {
   });
 
   // Updating password
-  app.put('/auth/password', async function(req, res) {
+  app.put('/auth/password', async (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
