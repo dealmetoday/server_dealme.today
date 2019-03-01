@@ -5,6 +5,13 @@ const Schema = mongoose.Schema;
 const ID = Schema.Types.ObjectId;
 
 module.exports = {
+  requestDB: {
+    Request: new Schema({
+      _id: ID,
+      content: Schema.Types.Mixed
+    })
+  },
+
   authDB: {
     UserAuth: new Schema({
       _id: ID,
@@ -21,7 +28,7 @@ module.exports = {
 
   dealsDB: {
     Deal: new Schema({
-      id: ID,
+      _id: ID,
       tags: [ID],
       isActive: Boolean,
       description: String,

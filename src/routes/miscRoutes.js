@@ -5,7 +5,7 @@ const DBOperations = require('../utils/dbOperations');
 
 module.exports = (app, databases) => {
   app.get('/init', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer", constants.JWT_DEV))) {
       return;
     }
 
@@ -14,7 +14,7 @@ module.exports = (app, databases) => {
   });
 
   app.get('/drop', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer", constants.JWT_DEV))) {
       return;
     }
 
@@ -23,28 +23,28 @@ module.exports = (app, databases) => {
   });
 
   app.get('/bearer', (req, res) => {
-    const jsonData = req.body;
+    const jsonData = JSON.parse(JSON.stringify(req.query));
 
     let result = {};
     let val = null;
 
-    switch (jsonData.role) {
+    switch (jsonData.access) {
       case constants.JWT_DEV:
       case constants.JWT_USER:
       case constants.JWT_STORE:
-        val = JWT.sign(jsonData.payload);
+        val = JWT.sign(jsonData);
         break;
       default:
-        val = "Invalid Role."
+        val = "Invalid Access."
         break;
     }
-    
+
     result[constants.BEARER] = val;
     res.send(result)
   });
 
   app.get('/test/encrypt', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
 
@@ -56,7 +56,7 @@ module.exports = (app, databases) => {
   });
 
   app.get('/test/hash', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
 
@@ -74,7 +74,7 @@ module.exports = (app, databases) => {
   });
 
   app.get('/test/auth', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
 
@@ -102,7 +102,7 @@ module.exports = (app, databases) => {
   });
 
   app.get('/test/basic', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEFAULT)) {
       return;
     }
 

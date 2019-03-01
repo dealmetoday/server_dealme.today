@@ -11,13 +11,25 @@ module.exports = Object.freeze({
   USER_AUTH: 'USER_AUTH',
   STORE_AUTH: 'STORE_AUTH',
 
-  // JWT + Encryption constants
+  // JWT constants
   BEARER: 'Bearer',
   ISSUER: 'dealme.today',
-  JWT_DEV: '',
   JWT_USER: 'user',
   JWT_STORE: 'store',
+  JWT_DEV: 'developer',
+  JWT_DEFAULT: 'default',
   AUDIENCE: 'api.dealme.today',
+
+  // JWT Access Levels
+  JWT_ACCESS:
+  {
+    'user': 1,
+    'store': 1,
+    'developer': 2,
+    'default': 0
+  },
+
+  // Permission keys
   PRIVATE_KEY_PATH: './src/config/keys/private_key.pem',
   PUBLIC_KEY_PATH: './src/config/keys/public_key.pem',
 
@@ -66,5 +78,9 @@ module.exports = Object.freeze({
   FAILURE:
   {
     "status": "Failed. Check your input."
+  },
+  REQUESTED:
+  {
+    "status": "Your request has been submitted."
   }
 });
