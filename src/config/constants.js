@@ -14,6 +14,7 @@ module.exports = Object.freeze({
   BEARER: 'Bearer',
   PRIVATE_KEY_PATH: './src/config/keys/private_key.pem',
   PUBLIC_KEY_PATH: './src/config/keys/public_key.pem',
+  BCRYPT_ROUNDS: 10,
   ARGON2_PROPERTIES:
   {
     type: argon2.argon2d,
