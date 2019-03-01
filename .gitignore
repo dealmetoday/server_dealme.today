@@ -62,3 +62,6 @@ typings/
 
 # Do not add private keys to the repo
 *.pem
+
+# Serverless
+.serverless/*
