@@ -48,11 +48,12 @@ module.exports = (app, databases) => {
       return;
     }
 
-    const toencrypt = req.body;
-    if (!toencrypt.data) {
+    const jsonData = JSON.parse(JSON.stringify(req.query));
+
+    if (!jsonData.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
     }
-    res.send({encrypted: Security.encrypt(toencrypt.data)});
+    res.send({encrypted: Security.encrypt(jsonData.data)});
   });
 
   app.get('/test/hash', (req, res) => {
@@ -60,12 +61,13 @@ module.exports = (app, databases) => {
       return;
     }
 
-    const tohash = req.body;
-    if (!tohash.data) {
+    const jsonData = JSON.parse(JSON.stringify(req.query));
+
+    if (!jsonData.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
     }
 
-    Security.hashPassword(tohash.data).then(hashedData => {
+    Security.hashPassword(jsonData.data).then(hashedData => {
       return res.send({hashed: hashedData});
     }).catch(err => {
       console.log(err);
