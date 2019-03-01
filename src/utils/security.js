@@ -1,6 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const crypto = require('crypto')
 //const argon2 = require('argon2')
 const constants = require('../config/constants')
