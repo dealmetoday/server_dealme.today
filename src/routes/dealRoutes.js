@@ -7,13 +7,13 @@ const constants = require('../config/constants');
 var Deal = null;
 var User = null;
 
-module.exports = function(app, dealsDB, usersDB) {
+module.exports = (app, dealsDB, usersDB) => {
   // Setting constructor
   Deal = dealsDB.Deals;
   User = usersDB.Users;
 
   // Create
-  app.post('/deals', function(req, res) {
+  app.post('/deals', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -41,7 +41,7 @@ module.exports = function(app, dealsDB, usersDB) {
   });
 
   // Read
-  app.get('/deals', function(req, res) {
+  app.get('/deals', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -57,7 +57,7 @@ module.exports = function(app, dealsDB, usersDB) {
   });
 
   // Update
-  app.put('/deals', function(req, res) {
+  app.put('/deals', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -71,7 +71,7 @@ module.exports = function(app, dealsDB, usersDB) {
   });
 
   // delete
-  app.delete('/deals', function(req, res) {
+  app.delete('/deals', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -82,11 +82,11 @@ module.exports = function(app, dealsDB, usersDB) {
   });
 
   // Increment the number of claims a deal has given a deal and user ID
-  app.put('/deals/claim', function(req, res) {
+  app.put('/deals/claim', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
-    
+
     const queryArgs = req.query;
     var dealID = null;
     var userID = null;

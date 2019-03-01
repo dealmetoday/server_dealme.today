@@ -1,13 +1,32 @@
 const JWT = require('../utils/jwt');
 const Security = require('../utils/security');
 const constants = require('../config/constants');
+const DBOperations = require('../utils/dbOperations');
 
-module.exports = function(app) {
+module.exports = (app, databases) => {
+  app.get('/init', (req, res) => {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
+    DBOperations.loadAll(databases);
+    res.send(constants.SUCCESS);
+  });
+
+  app.get('/drop', (req, res) => {
+    if (!JWT.verify(req.get("Bearer"))) {
+      return;
+    }
+
+    DBOperations.deleteAll(databases);
+    res.send(constants.SUCCESS);
+  })
+
   app.get('/test/encrypt', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
-    
+
     const toencrypt = req.body;
     if (!toencrypt.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
@@ -33,7 +52,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/test/auth', function(req, res) {
+  app.get('/test/auth', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }
@@ -61,7 +80,7 @@ module.exports = function(app) {
     res.send(result);
   });
 
-  app.get('/test/basic', function(req, res) {
+  app.get('/test/basic', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
       return;
     }

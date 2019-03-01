@@ -2,15 +2,15 @@
   "name": "dealme.today",
   "version": "1.0.0",
   "description": "dealme.today - online discount platform",
-  "main": "./server.js",
+  "main": "server.js",
   "scripts": {
-    "serve": "NODE_ENV=development npm run genkey && nodemon ./server.js || true",
-    "serve-prod": "NODE_ENV=production npm run genkey && node server.js -port 5000",
-    "clean": "mongo dropDB.js",
-    "dbon": "sudo service mongod start",
-    "genkey": "./config/keys/rsa_keygen.sh",
-    "win-genkey": "./config/keys/rsa_keygen.bat",
-    "win-serve": "set NODE_ENV=development npm run win-genkey && nodemon ./server.js"
+    "serve": "npm run genkey && npm run reload-serve",
+    "win-serve": "npm run win-genkey && npm run reload-serve",
+    "reload-serve": "nodemon --exec \"sls offline start --skipCacheInvalidation\"",
+    "deploy": "npm run prep && sls deploy",
+    "genkey": "./src/config/keys/rsa_keygen.sh",
+    "win-genkey": "./src/config/keys/rsa_keygen.bat",
+    "prep": "rm -rf node_modules && npm install --production"
   },
   "repository": {
     "type": "git",
@@ -32,14 +32,16 @@
   "license": "MIT",
   "dependencies": {
     "argon2": "^0.20.1",
-    "cors": "^2.8.4",
-    "express": "^4.16.3",
-    "express-validator": "^5.3.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "helmet": "^3.15.1",
     "jsonwebtoken": "^8.4.0",
-    "mongoose": "^5.2.13",
-    "mongoose-multi": "^0.4.4"
+    "mongoose": "^5.4.16",
+    "mongoose-multi": "^0.4.6",
+    "serverless-http": "^1.9.1"
   },
   "devDependencies": {
-    "nodemon": "^1.18.4"
+    "nodemon": "^1.18.4",
+    "serverless-offline": "^4.7.1"
   }
 }
