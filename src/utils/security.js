@@ -1,7 +1,8 @@
 const fs = require('fs')
 const path = require('path')
+const bcrypt = require('bcrypt');
 const crypto = require('crypto')
-const argon2 = require('argon2')
+//const argon2 = require('argon2')
 const constants = require('../config/constants')
 
 let encrypt = (input) => {
@@ -20,7 +21,7 @@ let decrypt = (input) => {
 
 let hashPassword = async (password) => {
   try {
-    return await argon2.hash(password, constants.ARGON2_PROPERTIES);
+    return await bcrypt.hash(password, constants.BCRYPT_ROUNDS);
   } catch (err) {
     return null;
   }
@@ -61,7 +62,7 @@ let verifyPassword = async (User, Auth, email, password) => {
   }
 
   // Verify the provided password with the database hash
-  const verified = await argon2.verify(authResult.password, password);
+  const verified = await bcrypt.compare(password, authResults.password);
   if (verified) {
     return true;
   }
@@ -69,7 +70,7 @@ let verifyPassword = async (User, Auth, email, password) => {
 };
 
 let otherVerify = async (password, hashed) => {
-  const verified = await argon2.verify(hashed, password);
+  const verified = await bcrypt.compare(password, hashed);
   if (verified) {
     return true;
   } else {

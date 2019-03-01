@@ -33,7 +33,9 @@ module.exports = Object.freeze({
   PRIVATE_KEY_PATH: './src/config/keys/private_key.pem',
   PUBLIC_KEY_PATH: './src/config/keys/public_key.pem',
 
-  // Argon2 constants
+  // Hashing constants
+  BCRYPT_ROUNDS: 10,
+  
   ARGON2_PROPERTIES:
   {
     type: argon2.argon2d,
