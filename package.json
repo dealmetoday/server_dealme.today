@@ -9,7 +9,7 @@
     "reload-serve": "nodemon --exec \"sls offline start --skipCacheInvalidation\"",
     "deploy": "npm run prep && sls deploy",
     "genkey": "./src/config/keys/rsa_keygen.sh",
-    "win-genkey": "./src/config/keys/rsa_keygen.bat",
+    "win-genkey": ".\\src\\config\\keys\\rsa_keygen.bat",
     "prep": "rm -rf node_modules && npm install --production"
   },
   "repository": {
