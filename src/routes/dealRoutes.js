@@ -14,7 +14,7 @@ module.exports = (app, dealsDB, usersDB) => {
 
   // Create
   app.post('/deals', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
@@ -42,7 +42,7 @@ module.exports = (app, dealsDB, usersDB) => {
 
   // Read
   app.get('/deals', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER, true)) {
       return;
     }
 
@@ -58,7 +58,7 @@ module.exports = (app, dealsDB, usersDB) => {
 
   // Update
   app.put('/deals', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
@@ -72,7 +72,7 @@ module.exports = (app, dealsDB, usersDB) => {
 
   // delete
   app.delete('/deals', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
@@ -83,7 +83,7 @@ module.exports = (app, dealsDB, usersDB) => {
 
   // Increment the number of claims a deal has given a deal and user ID
   app.put('/deals/claim', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
       return;
     }
 

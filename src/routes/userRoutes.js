@@ -3,19 +3,17 @@ const mongoose = require('mongoose');
 const Misc = require('../utils/misc');
 const cb = require('../utils/callbacks');
 
-var User = null;
+let User = null;
+let Request = null;
 
-module.exports = (app, usersDB, dealsDB) => {
+module.exports = (app, usersDB, dealsDB, requestDB) => {
   // Setting constructors
   User = usersDB.Users;
   Deal = dealsDB.Deals;
+  Request = requestDB.Requests;
 
   // Create
   app.post('/users/email', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
-      return;
-    }
-
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
@@ -37,10 +35,6 @@ module.exports = (app, usersDB, dealsDB) => {
   });
 
   app.post('users/facebook', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
-      return;
-    }
-
     const jsonData = req.body;
 
     var newObj = new User(
@@ -60,10 +54,6 @@ module.exports = (app, usersDB, dealsDB) => {
   });
 
   app.post('users/google', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
-      return;
-    }
-
     const jsonData = req.body;
 
     var newObj = new User(
@@ -84,7 +74,7 @@ module.exports = (app, usersDB, dealsDB) => {
 
   // Read
   app.get('/users', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
 
@@ -99,7 +89,7 @@ module.exports = (app, usersDB, dealsDB) => {
 
   // Update
   app.put('/users', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
       return;
     }
 
@@ -112,7 +102,12 @@ module.exports = (app, usersDB, dealsDB) => {
 
   // delete
   app.delete('/users', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = "Delete Users";
+
+      let newReq = Misc.createRequest(Request, jsonData);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 
@@ -124,7 +119,7 @@ module.exports = (app, usersDB, dealsDB) => {
   /****************************************************************************/
   // Get user profile by ID
   app.get('/user/profile', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
       return;
     }
 
@@ -135,7 +130,7 @@ module.exports = (app, usersDB, dealsDB) => {
 
   // Get deals for a specific User
   app.get('/user/deals', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
       return;
     }
 

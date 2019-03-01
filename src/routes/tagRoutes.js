@@ -4,18 +4,27 @@ const Misc = require('../utils/misc');
 const cb = require('../utils/callbacks');
 const constants = require('../config/constants');
 
-var Tag = null;
+let Tag = null;
+let Request = null;
 
-module.exports = (app, tagsDB) => {
+module.exports = (app, tagsDB, requestDB) => {
   // Setting constructor
   Tag = tagsDB.Tags;
+  Request = requestDB.Requests;
 
   // Create
   app.post('/tags', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    const jsonData = req.body;
+
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = "Create Tags";
+
+      let newReq = Misc.createRequest(Request, jsonData);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
-    const jsonData = req.body;
+
     const newID = mongoose.Types.ObjectId();
 
     var newObj = new Tag({ _id: newID, key: jsonData.key});
@@ -25,7 +34,7 @@ module.exports = (app, tagsDB) => {
 
   // Read
   app.get('/tags', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER, true)) {
       return;
     }
 
@@ -34,7 +43,7 @@ module.exports = (app, tagsDB) => {
 
   // Update
   app.put('/tags', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER, true)) {
       return;
     }
 
@@ -58,7 +67,12 @@ module.exports = (app, tagsDB) => {
 
   // delete
   app.delete('/tags', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = "Delete Tags";
+
+      let newReq = Misc.createRequest(Request, jsonData);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 
