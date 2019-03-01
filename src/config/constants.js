@@ -1,4 +1,4 @@
-const argon2 = require('argon2')
+// const argon2 = require('argon2')
 
 module.exports = Object.freeze({
   // Database constants
@@ -35,14 +35,14 @@ module.exports = Object.freeze({
 
   // Hashing constants
   BCRYPT_ROUNDS: 10,
-  
-  ARGON2_PROPERTIES:
-  {
-    type: argon2.argon2d,
-    memoryCost: 2048,     // 2MB per thread
-    parallelism: 8,       // 8 threads (32MB RAM per hash)
-    hashLength: 50,
-  },
+
+  // ARGON2_PROPERTIES:
+  // {
+  //   type: argon2.argon2d,
+  //   memoryCost: 2048,     // 2MB per thread
+  //   parallelism: 8,       // 8 threads (32MB RAM per hash)
+  //   hashLength: 50,
+  // },
 
   // Message constants
   ERR:
