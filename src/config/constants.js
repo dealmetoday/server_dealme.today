@@ -1,6 +1,7 @@
 const argon2 = require('argon2')
 
 module.exports = Object.freeze({
+  // Database constants
   TAGS: 'TAGS',
   MALLS: 'MALLS',
   USERS: 'USERS',
@@ -9,11 +10,18 @@ module.exports = Object.freeze({
   DEALS: 'DEALS',
   USER_AUTH: 'USER_AUTH',
   STORE_AUTH: 'STORE_AUTH',
-  ISSUER: 'dealme.today',
-  AUDIENCE: 'api.dealme.today',
+
+  // JWT + Encryption constants
   BEARER: 'Bearer',
+  ISSUER: 'dealme.today',
+  JWT_DEV: '',
+  JWT_USER: 'user',
+  JWT_STORE: 'store',
+  AUDIENCE: 'api.dealme.today',
   PRIVATE_KEY_PATH: './src/config/keys/private_key.pem',
   PUBLIC_KEY_PATH: './src/config/keys/public_key.pem',
+
+  // Argon2 constants
   ARGON2_PROPERTIES:
   {
     type: argon2.argon2d,
@@ -21,6 +29,8 @@ module.exports = Object.freeze({
     parallelism: 8,       // 8 threads (32MB RAM per hash)
     hashLength: 50,
   },
+
+  // Message constants
   ERR:
   {
     "Error" : "An error has occured"

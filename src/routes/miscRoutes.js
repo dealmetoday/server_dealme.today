@@ -20,7 +20,28 @@ module.exports = (app, databases) => {
 
     DBOperations.deleteAll(databases);
     res.send(constants.SUCCESS);
-  })
+  });
+
+  app.get('/bearer', (req, res) => {
+    const jsonData = req.body;
+
+    let result = {};
+    let val = null;
+
+    switch (jsonData.role) {
+      case constants.JWT_DEV:
+      case constants.JWT_USER:
+      case constants.JWT_STORE:
+        val = JWT.sign(jsonData.payload);
+        break;
+      default:
+        val = "Invalid Role."
+        break;
+    }
+    
+    result[constants.BEARER] = val;
+    res.send(result)
+  });
 
   app.get('/test/encrypt', (req, res) => {
     if (!JWT.verify(req.get("Bearer"))) {
