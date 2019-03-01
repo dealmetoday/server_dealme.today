@@ -4,18 +4,20 @@ const Misc = require('../utils/misc');
 const cb = require('../utils/callbacks');
 const constants = require('../config/constants');
 
-var Mall = null;
-var Store = null;
+let Mall = null;
+let Store = null;
+let Request = null;
 
-module.exports = (app, mallsDB) => {
+module.exports = (app, mallsDB, requestDB) => {
   // Setting constructor
   Mall = mallsDB.Malls;
   Store = mallsDB.Stores;
+  Request = requestDB.Requests;
 
   /****************************************************************************/
   // Create
   app.post('/malls', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
@@ -36,7 +38,7 @@ module.exports = (app, mallsDB) => {
 
   // Read
   app.get('/malls', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
@@ -58,11 +60,16 @@ module.exports = (app, mallsDB) => {
 
   // Update
   app.put('/malls', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    const jsonData = req.body;
+
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = "Update Malls";
+      let newReq = Misc.createRequest(Request, jsonData);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 
-    const jsonData = req.body;
     var id = jsonData.id;
     delete jsonData.id;
 
@@ -71,7 +78,11 @@ module.exports = (app, mallsDB) => {
 
   // delete
   app.delete('/malls', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = "Delete Malls";
+      let newReq = Misc.createRequest(Request, jsonData);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 
@@ -83,7 +94,7 @@ module.exports = (app, mallsDB) => {
   /****************************************************************************/
   // Create
   app.post('/stores', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
@@ -108,7 +119,7 @@ module.exports = (app, mallsDB) => {
 
   // Read
   app.get('/stores', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER, true)) {
       return;
     }
 
@@ -119,7 +130,7 @@ module.exports = (app, mallsDB) => {
 
   // Update
   app.put('/stores', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
@@ -134,7 +145,12 @@ module.exports = (app, mallsDB) => {
 
   // delete
   app.delete('/stores', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = "Delete Stores";
+
+      let newReq = Misc.createRequest(Request, jsonData);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 

@@ -29,10 +29,10 @@ module.exports = (app, authDB, usersDB) => {
         let update = { password: jsonData.token };
         let email = result.email;
 
-        if (jsonData.role == constants.USERS) {
-          userAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result, email));
-        } else if (jsonData.role == constants.STORES) {
-          storeAuth.findOneAndUpdate(result._id, update, (err, result) => cb.loginCallback(res, err, result, email));
+        if (jsonData.role == constants.JWT_USER) {
+          userAuth.findByIdAndUpdate(result._id, update, (err, result) => cb.socialCallback(res, err, result, email));
+        } else if (jsonData.role == constants.JWT_STORE) {
+          storeAuth.findByIdAndUpdate(result._id, update, (err, result) => cb.socialCallback(res, err, result, email));
         }
       }
     });
@@ -49,9 +49,9 @@ module.exports = (app, authDB, usersDB) => {
     // If not, no response
     let queryResult = await Misc.userExists(User, jsonData.email);
     if (queryResult.status) {
-      if (jsonData.role == constants.USERS) {
+      if (jsonData.role == constants.JWT_USER) {
         userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
-      } else if (jsonData.role == constants.STORES) {
+      } else if (jsonData.role == constants.JWT_STORE) {
         storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
       }
     }
@@ -59,11 +59,12 @@ module.exports = (app, authDB, usersDB) => {
 
   // Updating password
   app.put('/auth/password', async (req, res) => {
-    if (!JWT.verify(req.get("Bearer"))) {
+    const jsonData = req.body;
+    let role = jsonData.role;
+
+    if (!JWT.verify(req.get("Bearer"), role)) {
       return;
     }
-
-    const jsonData = req.body;
 
     let ePassword = jsonData.password;
     let password = Security.decrypt(ePassword);
@@ -74,10 +75,10 @@ module.exports = (app, authDB, usersDB) => {
     // If not, reply with constants.FAILURE
     let queryResult = await Misc.userExists(User, jsonData.email);
     if (queryResult.status) {
-      if (jsonData.role == constants.USERS) {
-        userAuth.findOneAndUpdate(queryResult.id, update, (err, result) => cb.putCallback(res, err, result));
-      } else if (jsonData.role == constants.STORES) {
-        storeAuth.findOneAndUpdate(queryResult.id, update, (err, result) => cb.putCallback(res, err, result));
+      if (role == constants.JWT_USER) {
+        userAuth.findByIdAndUpdate(queryResult.id, update, (err, result) => cb.putCallback(res, err, result));
+      } else if (role == constants.JWT_STORE) {
+        storeAuth.findByIdAndUpdate(queryResult.id, update, (err, result) => cb.putCallback(res, err, result));
       }
     } else {
       res.send(constants.FAILURE);

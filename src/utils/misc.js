@@ -48,25 +48,6 @@ let usersQuery = (obj) => {
   return query
 };
 
-let createUser = (User, inputObj) => {
-  const newID = mongoose.Types.ObjectId();
-
-  var newObj = new User(
-    {
-      _id: newID,
-      provider: "Email",
-      email: inputObj.email,
-      first: inputObj.first,
-      middle: "",
-      last: inputObj.last,
-      age: -1,
-      gender: "",
-      location: ""
-    });
-
-  return newObj;
-};
-
 let userExists = async (User, email) => {
   let retVal = {};
   let result = await User.findOne({ email: email }).exec();
@@ -80,11 +61,23 @@ let userExists = async (User, email) => {
   return retVal;
 };
 
+let createRequest = (Request, inputObj) => {
+  const newID = mongoose.Types.ObjectId();
+
+  let newObj = new Request(
+    {
+      _id: newID,
+      content: inputObj
+    });
+
+  return newObj;
+}
+
 module.exports = {
   isEmptyObject,
   isValidObjectId,
   dealsQuery,
   usersQuery,
-  createUser,
-  userExists
+  userExists,
+  createRequest
 }

@@ -4,7 +4,6 @@ const constants = require('../config/constants');
 
 let callback = (res, err, output) => {
   if (err) {
-    console.log(err);
     res.send(constants.ERR);
   } else {
     let result = checkResult(output);
@@ -55,13 +54,14 @@ let getObjCallback = (res, err, output) => {
   }
 };
 
-let loginCallback = (res, err, output, email) => {
+let socialCallback = (res, err, output, email) => {
   if (err) {
     return;
   } else {
     let payload = {};
     payload.id = output._id;
     payload.email = email;
+    payload.access = constants.JWT_USER;
 
     let retVal = constants.SUCCESS;
     retVal[constants.BEARER] = JWT.sign(payload);
@@ -80,6 +80,7 @@ let emailCallback = (res, err, output, password, email) => {
       let payload = {};
       payload.id = output._id;
       payload.email = email;
+      payload.access = constants.JWT_USER;
 
       let retVal = constants.SUCCESS;
       retVal[constants.BEARER] = JWT.sign(payload);
@@ -90,6 +91,19 @@ let emailCallback = (res, err, output, password, email) => {
     }
   }
 };
+
+let reqCallback = (res, err, output) => {
+  if (err) {
+    res.send(constants.ERR);
+  } else {
+    let result = checkResult(output);
+    if (result == constants.FAILURE) {
+      res.send(result);
+    } else {
+      res.send(constants.REQUESTED);
+    }
+  }
+}
 
 let checkResult = (result) => {
   if (result) {
@@ -105,6 +119,7 @@ module.exports = {
   putCallback,
   getArrCallback,
   getObjCallback,
-  loginCallback,
-  emailCallback
+  socialCallback,
+  emailCallback,
+  reqCallback
 }
