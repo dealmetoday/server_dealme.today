@@ -124,7 +124,7 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
       return;
     }
 
-    const jsonData = req.body;
+    const jsonData = JSON.parse(JSON.stringify(req.query));
 
     User.findById(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
@@ -135,9 +135,17 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
       return;
     }
 
-    const jsonData = req.body;
-    const query = Misc.dealsQuery(jsonData);
+    const jsonData = JSON.parse(JSON.stringify(req.query));
 
-    Deal.find(query, (err, result) => cb.callback(res, err, result));
+    User.findById(jsonData.id, (err, result) => {
+      if (err) {
+        res.send(constants.FAILURE);
+      } else {
+        let send = constants.SUCCESS;
+        send.data = result.dealHistory;
+
+        res.send(send);
+      }
+    });
   });
 };
