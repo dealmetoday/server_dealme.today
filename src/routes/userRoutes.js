@@ -2,6 +2,7 @@ const JWT = require('../utils/jwt');
 const mongoose = require('mongoose');
 const Misc = require('../utils/misc');
 const cb = require('../utils/callbacks');
+const constants = require('../config/constants')
 
 let User = null;
 let Request = null;
