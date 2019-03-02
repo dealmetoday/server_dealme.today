@@ -25,6 +25,12 @@ module.exports = (app, tagsDB, requestDB) => {
       return;
     }
 
+    // Validate jsonData
+    if (!Misc.validObject(jsonData, ["key"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     const newID = mongoose.Types.ObjectId();
 
     var newObj = new Tag({ _id: newID, key: jsonData.key});
@@ -43,11 +49,16 @@ module.exports = (app, tagsDB, requestDB) => {
 
   // Update
   app.put('/tags', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER, true)) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV, true)) {
       return;
     }
 
     const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["index", "key", "Update"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
 
     var update =
     {
@@ -78,6 +89,11 @@ module.exports = (app, tagsDB, requestDB) => {
 
     const jsonData = req.body;
 
-    Tag.findOneAndDelete(jsonData, (err, result) => cb.callback(res, err, result));
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    Tag.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 };

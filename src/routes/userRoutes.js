@@ -18,6 +18,11 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
+    if (!Misc.validObject(jsonData, ["first", "last", "email"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     var newObj = new User(
       {
         _id: newID,
@@ -38,6 +43,11 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
   app.post('users/facebook', (req, res) => {
     const jsonData = req.body;
 
+    if (!Misc.validObject(jsonData, ["first", "last"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     var newObj = new User(
       {
         _id: jsonData.token,
@@ -56,6 +66,11 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
 
   app.post('users/google', (req, res) => {
     const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["first", "last"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
 
     var newObj = new User(
       {
@@ -79,18 +94,17 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
       return;
     }
 
-    const jsonData = req.body;
-
-    if (Misc.isEmptyObject(jsonData)) {
-      User.find((err, result) => cb.callback(res, err, result));
-    } else {
-      User.findOne({ email: jsonData.email }, (err, result) => cb.callback(res, err, result));
-    }
+    User.find((err, result) => cb.callback(res, err, result));
   });
 
   // Update
   app.put('/users', (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
+      return;
+    }
+
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
       return;
     }
 
@@ -114,6 +128,11 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
 
     const jsonData = req.body;
 
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     User.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
@@ -126,6 +145,11 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
 
     const jsonData = JSON.parse(JSON.stringify(req.query));
 
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     User.findById(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
@@ -136,6 +160,11 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
     }
 
     const jsonData = JSON.parse(JSON.stringify(req.query));
+
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
 
     User.findById(jsonData.id, (err, result) => {
       if (err) {

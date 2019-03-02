@@ -22,6 +22,12 @@ module.exports = (app, authDB, usersDB) => {
     const jsonData = req.body;
     let query = Misc.usersQuery(jsonData);
 
+    // Validate jsonData and query
+    if (Misc.isEmptyObject(query) || !Misc.validObject(jsonData, ["role", "token"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     User.findOne(query, (err, result) => {
       if (err) {
         res.send(constants.ERR);
@@ -41,6 +47,12 @@ module.exports = (app, authDB, usersDB) => {
   // Email login
   app.put('/auth/login/email', async (req, res) => {
     const jsonData = req.body;
+
+    // Validate jsonData and query
+    if (!Misc.validObject(jsonData, ["email", "password", "role"]) || !Misc.validEmail(jsonData.email)) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
 
     let ePassword = jsonData.password;
     let password = Security.decrypt(ePassword);
@@ -63,6 +75,12 @@ module.exports = (app, authDB, usersDB) => {
     let role = jsonData.role;
 
     if (!JWT.verify(req.get("Bearer"), role)) {
+      return;
+    }
+
+    // Validate jsonData and query
+    if (!Misc.validObject(jsonData, ["email", "password", "role"])) {
+      res.send(constants.ARGS_ERROR);
       return;
     }
 

@@ -22,6 +22,12 @@ module.exports = (app, mallsDB, requestDB) => {
     }
 
     const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["address", "name", "tags"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     const newID = mongoose.Types.ObjectId();
 
     var newObj = new Mall(
@@ -30,7 +36,7 @@ module.exports = (app, mallsDB, requestDB) => {
         address: jsonData.address,
         name: jsonData.name,
         tags: jsonData.tags,
-        numOfStores: jsonData.numOfStores
+        numOfStores: 0
       });
 
     newObj.save((err, result) => cb.callback(res, err, result));
@@ -47,6 +53,11 @@ module.exports = (app, mallsDB, requestDB) => {
     if (Misc.isEmptyObject(jsonData)) {
       Mall.find((err, result) => cb.callback(res, err, result));
     } else {
+      if (!Misc.validObject(jsonData, ["tags"])) {
+        res.send(constants.ARGS_ERROR);
+        return;
+      }
+
       var query =
       {
         "tags":
@@ -70,6 +81,11 @@ module.exports = (app, mallsDB, requestDB) => {
       return;
     }
 
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     var id = jsonData.id;
     delete jsonData.id;
 
@@ -88,6 +104,11 @@ module.exports = (app, mallsDB, requestDB) => {
 
     const jsonData = req.body;
 
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     Mall.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
@@ -99,6 +120,12 @@ module.exports = (app, mallsDB, requestDB) => {
     }
 
     const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["mall", "location", "name", "email", "tags", "description", "parentCompany"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     const newID = mongoose.Types.ObjectId();
 
     var newObj = new Store(
@@ -136,15 +163,21 @@ module.exports = (app, mallsDB, requestDB) => {
 
     const jsonData = req.body;
 
-    // Retrieve constructor for model based on which Mall the store falls under
-    const storeID = jsonData.store;
-    delete jsonData.store;
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    const storeID = jsonData.id;
+    delete jsonData.id;
 
     Store.findByIdAndUpdate(storeID, jsonData, (err, result) => cb.putCallback(res, err, result));
   });
 
   // delete
   app.delete('/stores', (req, res) => {
+    const jsonData = req.body;
+    
     if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       jsonData.request = "Delete Stores";
 
@@ -154,12 +187,11 @@ module.exports = (app, mallsDB, requestDB) => {
       return;
     }
 
-    const jsonData = req.body;
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
 
-    // Retrieve constructor for model based on which Mall the store falls under
-    const mallID = jsonData.mall;
-    const Store = mallIDToModel[mallID];
-
-    Store.findByIdAndDelete(jsonData.store, (err, result) => cb.callback(res, err, result));
+    Store.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 };

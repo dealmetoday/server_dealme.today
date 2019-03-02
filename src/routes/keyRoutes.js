@@ -13,7 +13,6 @@ module.exports = (app) => {
 
   // Read
   app.get('/pubkey', (req, res) => {
-    console.log(pubKey);
     res.send(pubKey);
   });
 };

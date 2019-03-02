@@ -19,6 +19,12 @@ module.exports = (app, dealsDB, usersDB) => {
     }
 
     const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["tags", "mall", "store", "description"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     const newID = mongoose.Types.ObjectId();
 
     var newObj = new Deal(
@@ -31,8 +37,8 @@ module.exports = (app, dealsDB, usersDB) => {
         expiryDate: jsonData.expiryDate,
         format: jsonData.format,
         usesLeft: jsonData.usesLeft,
-        views: jsonData.views,
-        claims: jsonData.claims,
+        views: 0,
+        claims: 0,
         mall: jsonData.mall,
         store: jsonData.store
       });
@@ -63,6 +69,12 @@ module.exports = (app, dealsDB, usersDB) => {
     }
 
     const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["id"]) || Misc.validObject(jsonData, ["creationDate", "views", "claims"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     var id = jsonData.id;
     delete jsonData.id;
     console.log(jsonData);
@@ -78,6 +90,11 @@ module.exports = (app, dealsDB, usersDB) => {
 
     const jsonData = req.body;
 
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
     Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
@@ -87,18 +104,15 @@ module.exports = (app, dealsDB, usersDB) => {
       return;
     }
 
-    const queryArgs = req.query;
-    var dealID = null;
-    var userID = null;
+    const jsonData = JSON.parse(JSON.stringify(req.query));
 
-    if (!queryArgs.hasOwnProperty('dealID') || !queryArgs.hasOwnProperty('userID')) {
-      // The query is required to have both "dealID" and "userID"
+    if (!Misc.validObject(jsonData, ["dealID", "userID"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
 
-    dealID = queryArgs['dealID'].toString();
-    userID = queryArgs['userID'].toString();
+    let dealID = queryArgs['dealID'].toString();
+    let userID = queryArgs['userID'].toString();
     console.log(dealID);
     console.log(userID);
 

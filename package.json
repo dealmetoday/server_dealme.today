@@ -31,7 +31,6 @@
   "author": "Ryan Liu, Alfred Hong, Mihailo Stefanovic",
   "license": "MIT",
   "dependencies": {
-    "argon2": "^0.20.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",

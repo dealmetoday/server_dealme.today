@@ -39,13 +39,17 @@ let dealsQuery = (obj) => {
 }
 
 let usersQuery = (obj) => {
-  var query =
-  {
-    email: obj.email,
-    first: obj.firstName,
-    last: obj.lastName
+  let query = {};
+
+  if (noProperty(obj, "email") || noProperty(obj, "firstName") || noProperty(obj, "lastName")) {
+    return null;
+  } else {
+    query.email = obj.email;
+    query.first = obj.firstName;
+    query.last = obj.lastName;
+
+    return query;
   }
-  return query
 };
 
 let userExists = async (User, email) => {
@@ -73,11 +77,39 @@ let createRequest = (Request, inputObj) => {
   return newObj;
 }
 
+let validEmail = (email) => {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))
+  {
+    return true;
+  }
+    return false;
+}
+
+let validObject = (object, properties) => {
+  if (isEmptyObject(object)) {
+    return false;
+  }
+
+  for (let index in properties) {
+    let property = properties[index];
+    if (noProperty(object, property)) {
+      return false;
+    }
+  }
+
+  return true;
+}
+let noProperty = (object, property) => {
+  return !object.hasOwnProperty(property);
+}
+
 module.exports = {
   isEmptyObject,
   isValidObjectId,
   dealsQuery,
   usersQuery,
   userExists,
-  createRequest
+  createRequest,
+  validEmail,
+  validObject
 }

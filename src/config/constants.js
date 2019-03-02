@@ -61,6 +61,10 @@ module.exports = Object.freeze({
   {
     "Error" : "Email or password provided is invalid"
   },
+  ARGS_ERROR:
+  {
+    "Error" : "Check your arguments"
+  },
   ID_ERROR:
   {
     "Error" : "Input ID is not a valid ObjectID"
