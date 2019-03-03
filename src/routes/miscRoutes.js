@@ -58,12 +58,12 @@ module.exports = (app, databases) => {
     res.send({encrypted: Security.encrypt(jsonData.data)});
   });
 
-  app.get('/test/decrypt', (req, res) => {
+  app.put('/test/decrypt', (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
 
-    const jsonData = JSON.parse(JSON.stringify(req.query));
+    const jsonData = req.body;
 
     if (!jsonData.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);

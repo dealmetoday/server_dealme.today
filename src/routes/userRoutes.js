@@ -2,6 +2,7 @@ const JWT = require('../utils/jwt');
 const mongoose = require('mongoose');
 const Misc = require('../utils/misc');
 const cb = require('../utils/callbacks');
+const Security = require('../utils/security');
 const constants = require('../config/constants')
 
 let User = null;
@@ -178,16 +179,8 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
 
         if (!Misc.isEmptyObject(result)) {
           let ePassword = jsonData.password;
-
-          console.log(atob(ePassword));
-          console.log("\n");
-          console.log(btoa(ePassword));
-
           let password = Security.decrypt(ePassword);
           let hashed = await Security.hashPassword(password);
-
-          console.log(result._id);
-          console.log(hashed);
 
           newObj = new userAuth({
             _id: result._id,
