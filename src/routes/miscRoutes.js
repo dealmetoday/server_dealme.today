@@ -50,10 +50,26 @@ module.exports = (app, databases) => {
 
     const jsonData = JSON.parse(JSON.stringify(req.query));
 
+    console.log(jsonData.data);
+
     if (!jsonData.data) {
       return res.send(constants.AUTH_ERROR_NO_PASSWORD);
     }
     res.send({encrypted: Security.encrypt(jsonData.data)});
+  });
+
+  app.put('/test/decrypt', (req, res) => {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      return;
+    }
+
+    const jsonData = req.body;
+
+    if (!jsonData.data) {
+      return res.send(constants.AUTH_ERROR_NO_PASSWORD);
+    }
+    res.send({decrypted: Security.decrypt(jsonData.data)});
+
   });
 
   app.get('/test/hash', (req, res) => {

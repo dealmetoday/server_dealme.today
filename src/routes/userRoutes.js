@@ -2,15 +2,18 @@ const JWT = require('../utils/jwt');
 const mongoose = require('mongoose');
 const Misc = require('../utils/misc');
 const cb = require('../utils/callbacks');
+const Security = require('../utils/security');
 const constants = require('../config/constants')
 
 let User = null;
 let Request = null;
+var userAuth = null;
 
-module.exports = (app, usersDB, dealsDB, requestDB) => {
+module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
   // Setting constructors
   User = usersDB.Users;
   Deal = dealsDB.Deals;
+  userAuth = authDB.UserAuths;
   Request = requestDB.Requests;
 
   // Create
@@ -43,7 +46,7 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
   app.post('users/facebook', (req, res) => {
     const jsonData = req.body;
 
-    if (!Misc.validObject(jsonData, ["first", "last"])) {
+    if (!Misc.validObject(jsonData, ["first", "last", "email"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
@@ -67,7 +70,7 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
   app.post('users/google', (req, res) => {
     const jsonData = req.body;
 
-    if (!Misc.validObject(jsonData, ["first", "last"])) {
+    if (!Misc.validObject(jsonData, ["first", "last", "email"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
@@ -137,6 +140,76 @@ module.exports = (app, usersDB, dealsDB, requestDB) => {
   });
 
   /****************************************************************************/
+  // Check if a user exists already
+  app.put('/user/check', async (req, res) => {
+    const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["first", "last", "email", "password"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    let query =
+    {
+      email: jsonData.email
+    };
+
+    // Check if an user with the same details already exist
+    try {
+      let result = await User.findOne(query).exec();
+
+      if (Misc.isEmptyObject(result)) {
+        const newID = mongoose.Types.ObjectId();
+
+        let newObj = new User(
+          {
+            _id: newID,
+            provider: "Email",
+            email: jsonData.email,
+            first: jsonData.first,
+            middle: "",
+            last: jsonData.last,
+            age: -1,
+            gender: "",
+            location: ""
+          });
+
+        result = await newObj.save()
+        console.log(result);
+
+        if (!Misc.isEmptyObject(result)) {
+          let ePassword = jsonData.password;
+          let password = Security.decrypt(ePassword);
+          let hashed = await Security.hashPassword(password);
+
+          newObj = new userAuth({
+            _id: result._id,
+            role: constants.JWT_USER,
+            password: hashed
+          })
+
+          result = await newObj.save()
+
+          if (!Misc.isEmptyObject(result)) {
+            res.send(constants.SUCCESS);
+          } else {
+            console.log("Auth creation failed");
+            res.send(constants.FAILURE);
+          }
+        } else {
+          console.log("User creation failed");
+          res.send(constants.FAILURE);
+        }
+      } else {
+        console.log("User already exists");
+        res.send(constants.SUCCESS);
+      }
+    } catch (err) {
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
+  });
+
   // Get user profile by ID
   app.get('/user/profile', (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {

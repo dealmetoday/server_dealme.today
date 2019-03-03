@@ -50,18 +50,18 @@ let loadAuth = (userAuth, storeAuth) => {
     var currObj = authJSON[index];
     var newObj = null;
 
-    if (currObj["collection"] === constants.USERS) {
+    if (currObj["role"] === constants.JWT_USER) {
       newObj = new userAuth(
         {
         _id: currObj.id,
         role: currObj.role,
         password: currObj.password
       });
-    } else if (currObj["collection"] === constants.STORES) {
+    } else if (currObj["role"] === constants.JWT_STORE) {
       newObj = new storeAuth(
         {
         _id: currObj.id,
-        role: currObj.role,
+        role: currObj.position,
         password: currObj.password
       });
     }
