@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "a2c8610b-65ce-4514-9965-857f7273314c",
+		"_postman_id": "028fd903-7743-465f-ac53-ab04fa0f1db3",
 		"name": "TAGS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,19 +9,33 @@
 			"name": "GET Tags",
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTQ4MjY2MCwiZXhwIjoxNTU0MDc0NjYwLCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.ELeRJUsdhWBwMjkHGB7w_enhEnFPfG8ycqgu3L_UmZMyyKNg9XjhIye1XOROtiZLPdwm2FzoBLcRNAySmEHzZnINv9BsjfiuL6EozccJt3HUJLz20fqkUD3qmsWYcVA-hQGlb8H3XY00DAO9yq46QxLlpKRRc-otAys1Qmmw3EflI6hZlNYejJdY5Z-XpKrmoSTYZ0CKGUWjFInVGctuvtaWQqqnLQnp8lLLUmbv_gjajcKs-v8HVDXamex0z47-z-ec3OM-jO8WYdp-JensYMRVkfmcvrts7GA6h255kvydi-yQ9kdBYUm3NxY-7hxU-_tUyo6PjKXgdujU29i8U-QxGgS8xKzZwmpubvxZX3yox8vmprEJAeirMz2guv5c-p5ebpNlOfkAEjfchlcmfsCeyZzEHGby5M4kHKNRt--zg-k4wa06pkivLQaZ0CeMCj1YkA9LvzCNT4esdQbYx3mKJdJISC0FU5hUzBfzttnfIn00JZ0QGIbBgtGDWuxMeWX_tZ8QNgTjya94LKpIYSJPLpk1AWhe0swzWLQilU1oP33LLcEc9XHabjZx0dgpPhFuzvYeJf483xlN5-9aJmRl-M-042abo2kxrWmzDpJwbTvqnAYAhTcv7GP3yBrc8KJroTh17HpcdMv5v_wfIm5PzoLKqKK2jUUPhw3XejM",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "raw",
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:5000/tags",
+					"raw": "api.dealme.today/tags?",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"tags"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
 					]
 				}
 			},
@@ -37,18 +51,24 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTQ4MjY2MCwiZXhwIjoxNTU0MDc0NjYwLCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.ELeRJUsdhWBwMjkHGB7w_enhEnFPfG8ycqgu3L_UmZMyyKNg9XjhIye1XOROtiZLPdwm2FzoBLcRNAySmEHzZnINv9BsjfiuL6EozccJt3HUJLz20fqkUD3qmsWYcVA-hQGlb8H3XY00DAO9yq46QxLlpKRRc-otAys1Qmmw3EflI6hZlNYejJdY5Z-XpKrmoSTYZ0CKGUWjFInVGctuvtaWQqqnLQnp8lLLUmbv_gjajcKs-v8HVDXamex0z47-z-ec3OM-jO8WYdp-JensYMRVkfmcvrts7GA6h255kvydi-yQ9kdBYUm3NxY-7hxU-_tUyo6PjKXgdujU29i8U-QxGgS8xKzZwmpubvxZX3yox8vmprEJAeirMz2guv5c-p5ebpNlOfkAEjfchlcmfsCeyZzEHGby5M4kHKNRt--zg-k4wa06pkivLQaZ0CeMCj1YkA9LvzCNT4esdQbYx3mKJdJISC0FU5hUzBfzttnfIn00JZ0QGIbBgtGDWuxMeWX_tZ8QNgTjya94LKpIYSJPLpk1AWhe0swzWLQilU1oP33LLcEc9XHabjZx0dgpPhFuzvYeJf483xlN5-9aJmRl-M-042abo2kxrWmzDpJwbTvqnAYAhTcv7GP3yBrc8KJroTh17HpcdMv5v_wfIm5PzoLKqKK2jUUPhw3XejM",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"key\": \"Gunpla\"\n}"
+					"raw": "{\n\t\"key\": \"Shoes\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/tags",
+					"raw": "api.dealme.today/tags",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"tags"
 					]
@@ -66,6 +86,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -73,11 +98,12 @@
 					"raw": "{\n    \"index\": \"name\",\n    \"key\": \"Gunpla\",\n    \"update\": \"Model Kits\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/tags",
+					"raw": "api.dealme.today/tags",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"tags"
 					]
@@ -95,18 +121,24 @@
 						"name": "Content-Type",
 						"type": "text",
 						"value": "application/json"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"index\": \"ID\",\n    \"key\": \"5c38f38645347c78b5ba344b\",\n    \"update\": \"Model Kits\"\n}"
+					"raw": "{\n    \"index\": \"ID\",\n    \"key\": \"5c386cec8e83417366a2685b\",\n    \"update\": \"Men's Shoes\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/tags",
+					"raw": "api.dealme.today/tags",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"tags"
 					]
@@ -124,6 +156,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTQxNjI0NSwiZXhwIjoxNTU0MDA4MjQ1LCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.G-4kmoTwgb8o1Z9QaA-QfQL9OKqAl7oLTKnAmWi6FYb-rH3DVY5WuFZNDDDrmNnNXy8yzAgb-wzLF5IfgrOqwe2ljaXQzUKHUcnQOaRNxl6Kmbm6_m4-LG53IttdIRPzjjVfyC9jbO8L-8jIE2CCoI_sjbXdQ9ZGWaO2j-G1HXbBFSnUlHsIvc2_afb5_GmH91sNYTQDgAhxZJKO4rhXkeRLEDxYOhyZnm4ghAGs1DFHNU_sjMLwzpS2VFRQNHpL50BiUpMEycIJVSgRUlvt3gw5WtlSMU93NbCUJbjIwJj5eu21RdHqbn2EfttYwhrjmklxEqgBnddaj8djNomzOhN1sEB-ZQph-I_rt8RNM645wyFQu3JBO9vN7JXrZzaIvkEUPoFVi95CF-DttG81dmip7fbjrR_aSXqhzu7oyYWe3Df-lmvN-iSEajAciwpXr_-ygLjH62uMZ2baGxfbKruuF5dGM8xUpYKLwQ9OP9-l5wvTrhXKUAOEHNaJas8OfnzyVJVw6KkvuQIDdeLKi4MCLWcfs9vU6eXOlEW4I_rrRHrHKjG_cDuczb10UlEbw_oDm9iPxXojltEmJRpsBv-dSHVW8iS5Q2pOnC8o_sDvOTtQziXgs0LibSVQhlFIRo8St4rPgiZZ5kLY5dUmeQbmFTTXJkQo2NuG217NheQ",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -131,11 +168,12 @@
 					"raw": "{\n\t\"key\": \"Gunpla\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/tags",
+					"raw": "api.dealme.today/tags",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"tags"
 					]

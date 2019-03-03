@@ -1,19 +1,21 @@
 {
 	"info": {
-		"_postman_id": "4074bdbd-61e9-4cce-a2f8-c655fd46f2f2",
+		"_postman_id": "6aeac0ab-ace8-4224-a172-baea0ba619f7",
 		"name": "USER",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "GET User",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
 				"method": "GET",
 				"header": [
 					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"value": "application/json",
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTUwNTU4OSwiZXhwIjoxNTU0MDk3NTg5LCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.fU0lO26TXqiP_aJPU3sSS_AwJ4eHTAbfRLS4qZ_F5Il7Ljj7nEyBc5YJdtrhsQnA5c31qtbAQdbhQZHDnlGziCgLcicIT6FQ3Hxy6byT569qY_U6iWNuaYLy4VdV25Abd1vj7nQY4mEiQrx4_yHO43wKVvqByNfvNphg3-arjWL14pJog2jN5IJ8ih2Dol-VMzcMy9WgqRKIjLsLHs4smY68PLPOVSij2AUImFNKYfOE9euJcAftwKTYgI4mG42PKTzgtSr18P9Bmr7t5FnofPSfpNI1o_eMGclwyE-vrfpuMjRn_zE0mfAAPh7hL4mhP5AHBraiXP2KDLyRCHAv93ixvUTGpsJEUKgY5VmqP0MB2NtXxtfdGytMVl5a1g66q-A0q9Tpn1uH9VKR8X24g94mZLVvOSg-OufVX2jCaNoucUpHWra1CZ15B5a3EnJYkiaHp4tw1PnAprmZo34HIyJniIV7QpPfP-DhJgQfUh8gvwFpwLnaQsNiArQvP2UR1-KbcRqrU5FRzHil24w2YY-cLRuehVFBRxB5Oah7nL3THsHQYPXpip29QZsJZZ5Iqq238yKSbQMRb17J11P8HIXgUXfI8zl6qMWlTbSN1wnq0me7HJnIOW9l8PpfbYQJ8c9nbb9O512fOXsAyiB_MpAKWWV7QIcM-OxEIkhgBho",
 						"type": "text"
 					}
 				],
@@ -22,11 +24,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:5000/users",
+					"raw": "api.dealme.today/users",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"users"
 					]
@@ -36,31 +39,34 @@
 		},
 		{
 			"name": "GET User (Email)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [
 					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"email\": \"dio.ryanliu@hotmail.com\"\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:5000/users",
+					"raw": "api.dealme.today/users?email=dio.ryanliu@hotmail.com",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"users"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "dio.ryanliu@hotmail.com"
+						}
 					]
 				}
 			},
@@ -76,6 +82,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -83,13 +94,15 @@
 					"raw": "{\n    \"email\": \"test@test.ca\",\n    \"first\": \"Lelouch\",\n    \"last\": \"Britannia\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/users",
+					"raw": "api.dealme.today/users/email",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
-						"users"
+						"users",
+						"email"
 					]
 				}
 			},
@@ -105,18 +118,24 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c397ee7f2380641fcd25d06\",\n\t\"age\": 18,\n\t\"middle\": \"vi\",\n\t\"gender\": \"Male\",\n\t\"location\": \"Holy Britannian Empire\",\n\t\"tags\": [\"5c3935f9a61d744404db8a10\"],\n\t\"email\": \"lelouch.vi@britannia.com\"\n}"
+					"raw": "{\n\t\"id\": \"5c7667a124a624432fcd8bd8\",\n\t\"age\": 18,\n\t\"middle\": \"vi\",\n\t\"gender\": \"Male\",\n\t\"location\": \"Holy Britannian Empire\",\n\t\"tags\": [\"5c3935f9a61d744404db8a10\"],\n\t\"email\": \"lelouch.vi@britannia.com\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/users",
+					"raw": "api.dealme.today/users",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"users"
 					]
@@ -134,20 +153,129 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c397d9e3b10fd40ad54a2e6\"\n}"
+					"raw": "{\n\t\"id\": \"5c7667a124a624432fcd8bd8\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/users",
+					"raw": "api.dealme.today/users",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET User By ID",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTUwNTU4OSwiZXhwIjoxNTU0MDk3NTg5LCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.fU0lO26TXqiP_aJPU3sSS_AwJ4eHTAbfRLS4qZ_F5Il7Ljj7nEyBc5YJdtrhsQnA5c31qtbAQdbhQZHDnlGziCgLcicIT6FQ3Hxy6byT569qY_U6iWNuaYLy4VdV25Abd1vj7nQY4mEiQrx4_yHO43wKVvqByNfvNphg3-arjWL14pJog2jN5IJ8ih2Dol-VMzcMy9WgqRKIjLsLHs4smY68PLPOVSij2AUImFNKYfOE9euJcAftwKTYgI4mG42PKTzgtSr18P9Bmr7t5FnofPSfpNI1o_eMGclwyE-vrfpuMjRn_zE0mfAAPh7hL4mhP5AHBraiXP2KDLyRCHAv93ixvUTGpsJEUKgY5VmqP0MB2NtXxtfdGytMVl5a1g66q-A0q9Tpn1uH9VKR8X24g94mZLVvOSg-OufVX2jCaNoucUpHWra1CZ15B5a3EnJYkiaHp4tw1PnAprmZo34HIyJniIV7QpPfP-DhJgQfUh8gvwFpwLnaQsNiArQvP2UR1-KbcRqrU5FRzHil24w2YY-cLRuehVFBRxB5Oah7nL3THsHQYPXpip29QZsJZZ5Iqq238yKSbQMRb17J11P8HIXgUXfI8zl6qMWlTbSN1wnq0me7HJnIOW9l8PpfbYQJ8c9nbb9O512fOXsAyiB_MpAKWWV7QIcM-OxEIkhgBho",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "api.dealme.today/user/profile?id=5c386f357eb1a4767f9f1baf",
+					"host": [
+						"api",
+						"dealme",
+						"today"
+					],
+					"path": [
+						"user",
+						"profile"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5c386f357eb1a4767f9f1baf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET User Deals",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTUwNTU4OSwiZXhwIjoxNTU0MDk3NTg5LCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.fU0lO26TXqiP_aJPU3sSS_AwJ4eHTAbfRLS4qZ_F5Il7Ljj7nEyBc5YJdtrhsQnA5c31qtbAQdbhQZHDnlGziCgLcicIT6FQ3Hxy6byT569qY_U6iWNuaYLy4VdV25Abd1vj7nQY4mEiQrx4_yHO43wKVvqByNfvNphg3-arjWL14pJog2jN5IJ8ih2Dol-VMzcMy9WgqRKIjLsLHs4smY68PLPOVSij2AUImFNKYfOE9euJcAftwKTYgI4mG42PKTzgtSr18P9Bmr7t5FnofPSfpNI1o_eMGclwyE-vrfpuMjRn_zE0mfAAPh7hL4mhP5AHBraiXP2KDLyRCHAv93ixvUTGpsJEUKgY5VmqP0MB2NtXxtfdGytMVl5a1g66q-A0q9Tpn1uH9VKR8X24g94mZLVvOSg-OufVX2jCaNoucUpHWra1CZ15B5a3EnJYkiaHp4tw1PnAprmZo34HIyJniIV7QpPfP-DhJgQfUh8gvwFpwLnaQsNiArQvP2UR1-KbcRqrU5FRzHil24w2YY-cLRuehVFBRxB5Oah7nL3THsHQYPXpip29QZsJZZ5Iqq238yKSbQMRb17J11P8HIXgUXfI8zl6qMWlTbSN1wnq0me7HJnIOW9l8PpfbYQJ8c9nbb9O512fOXsAyiB_MpAKWWV7QIcM-OxEIkhgBho",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "api.dealme.today/user/deals?id=5c386f357eb1a4767f9f1baf",
+					"host": [
+						"api",
+						"dealme",
+						"today"
+					],
+					"path": [
+						"user",
+						"deals"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5c386f357eb1a4767f9f1baf"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Check User",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"first\": \"Mihailo\",\n\t\"last\": \"Stefanovic\",\n\t\"email\": \"mihailo2@shaw.ca\",\n\t\"password\": \"Cs7Qs9qTAduZQCv8/dAxhgWHE/TuZ4N8MoNT4d+Vph7eh5Zoaf/sLzFU3K6GMjiIETb5gY5R2szTzBal+7lmr1xARLQ8dtuMOswVJeazwOcVJCukpXz0+707oPleYmGCYFYdCalwV0K709jXRyj0HLkO+dBiBNGGQN5yCqH9/gViCEVsR6zQ0WBEYmuTg4tqiC5G2Qss11bhlfmZmKBss7dBWFQk8Caj+kY0SJQ+XciU2+FYcJP4iiU3LVjP/VjvUB/tW02siDltSG/th873maxrLVpmgpeJJz0ue8G53TCfLpvCcnrbcAfaQyUdR/kdHN+DoldRBp3OwJhq+Sd5BEe72W4WaAfWFT95Ja6JR3j4jjV64o6dYxI0kzPio4faOU8IaS7BzQO+ydzk7Hi9yVqr1SII6k7b/zZDt6GtHYmIGGZceQ2L5oxi/fG1qzxbSW589GyF2zNOl6t2pSMHPSGtTzdaKa+ttcRCBeB5T5ELN0SZSZDogpbcpHjS1NVYyrH+RPmG94XmjJaWVdXfSQTgonuwH6LA4AXbCtaWgXRmQA6G/J72jRpw5cPS6XNAuuz5vLJK6NtKu9OBOc3iJMj7VwrSmVtzf6Nu/yyEdsIrGuGNe27UpZWag2uqEkEUy0yn2OGmiuQQc0uZ8xu//qBLWJOdl0jL8vGkvCKCnnE=\"\n}"
+				},
+				"url": {
+					"raw": "api.dealme.today/user/check",
+					"host": [
+						"api",
+						"dealme",
+						"today"
+					],
+					"path": [
+						"user",
+						"check"
 					]
 				}
 			},

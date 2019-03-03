@@ -1,192 +1,35 @@
 {
 	"info": {
-		"_postman_id": "9084cc33-7286-47d3-919e-88021141b2ea",
+		"_postman_id": "2ebdd7b6-8ee3-4003-8239-7e64f6f1c654",
 		"name": "AUTH",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "GET Auth (Store)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
+			"name": "GET pubkey",
 			"request": {
 				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c396e5a284515282d62edd2\",\n    \"collection\": \"STORES\"\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:5000/auth",
+					"raw": "api.dealme.today/pubkey",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
-						"auth"
+						"pubkey"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "GET Auth (User)",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c3970d546fb9d299ce4e21d\",\n    \"collection\": \"USERS\"\n}"
-				},
-				"url": {
-					"raw": "localhost:5000/auth",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"auth"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST Auth (Store)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c396e5a284515282d62edd2\",\n    \"collection\": \"STORES\",\n    \"role\": \"manager\",\n    \"password\": \"/7+0N/WFAj0qW4SQJDe3uQ==\"\n}"
-				},
-				"url": {
-					"raw": "localhost:5000/auth",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"auth"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "POST Auth (User)",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c3970d546fb9d299ce4e21d\",\n    \"collection\": \"USERS\",\n    \"role\": \"user\",\n    \"password\": \"TcsHcWTluHLZ2ZvyXTP9EA==\"\n}"
-				},
-				"url": {
-					"raw": "localhost:5000/auth",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"auth"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Auth (Store)",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c396e5a284515282d62edd2\",\n    \"collection\": \"STORES\"\n}"
-				},
-				"url": {
-					"raw": "localhost:5000/auth",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"auth"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "DELETE Auth (User)",
-			"request": {
-				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"name": "Content-Type",
-						"type": "text",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c3970d546fb9d299ce4e21d\",\n    \"collection\": \"USERS\"\n}"
-				},
-				"url": {
-					"raw": "localhost:5000/auth",
-					"host": [
-						"localhost"
-					],
-					"port": "5000",
-					"path": [
-						"auth"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "UPDATE Auth (Store)",
+			"name": "Authenticate Social Media Login",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -199,23 +42,26 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c396e5a284515282d62edd2\",\n    \"collection\": \"STORES\",\n    \"role\": \"manager\",\n    \"password\": \"TcsHcWTluHLZ2ZvyXTP9EA==\"\n}"
+					"raw": "{\n\t\"email\": \"mihailo@shaw.ca\",\n\t\"firstName\": \"Mihailo\",\n\t\"lastName\": \"Stefanovic\",\n\t\"role\": \"user\",\n    \"token\": \"/7+0N/WFAj0qW4SQJDe3uQ==\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/auth",
+					"raw": "api.dealme.today/auth/login/social",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
-						"auth"
+						"auth",
+						"login",
+						"social"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "UPDATE Auth (User)",
+			"name": "Authenticate Email Login",
 			"request": {
 				"method": "PUT",
 				"header": [
@@ -228,16 +74,55 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"id\": \"5c3970d546fb9d299ce4e21d\",\n    \"collection\": \"USERS\",\n    \"role\": \"user\",\n    \"password\": \"/7+0N/WFAj0qW4SQJDe3uQ==\"\n}"
+					"raw": "{\n\t\"email\": \"mihailo@shaw.ca\",\n\t\"role\": \"user\",\n\t\"password\": \"pwI261dQyYlGoXrVVlM5X7fOsv7U/RwWhe1w47NX6k03+dkFWIAd+ufJIdwnVm69CiDFjZ7PXcejGsEs/laDynpBgvgfTWoSEQ405kOAKbKRhV7dMtyPsTN/3yoF5WBjo/s+DKfBy/AFNVXoeoxL88ov+sadFjgSj5PXTwLwTFzeJDsPQV6Xu7Ke1Muj4F7H3gKtzEpuPvAYSPmCNozshcW4FwoPlgFuvFxl3PlKeDL6T5FeHPPejcGc2aDiWq1AUj6CSuEe9lQeNPqQYkOWcDJ/ALdrsepdsmJaiCFGKrE+n/L4sRQkpw/7YTBDQX5FaucDZZ9OekjDomGTa+tBwn7VD7R1C6X9oKae982OM6yewvwzcKiwvLImjbsnfga+wJYmMglcWN1p8RdjNfh5/d4Nlx/g+Rux5GciDMaZgIj8vUF3U0e7OsOXsoCj1f1RWz1p69HZE8ZXtehlqopp+s+gKFD0R2h1cl+qfzmanInNvpvRWemD+BdPNcafQKY0mIN2c7krUXCQ6kBotZCro0y4yRIoqDhecW`bWztsEiXxES1jr9kKSkWn9UiNUqbcPTvKkcXNlrX12KmNMlnzPWyjvDSotZ8gIJje4/i0ZfDA8e84ALn2fq+FGSmUEeJV5zQkCsAq8oXm3II4fr1eOEdGenzitm5Jh/2GdINdeK1Y=\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/auth",
+					"raw": "api.dealme.today/auth/login/email",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
-						"auth"
+						"auth",
+						"login",
+						"email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Updating Password",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTQ4MjY2MCwiZXhwIjoxNTU0MDc0NjYwLCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.ELeRJUsdhWBwMjkHGB7w_enhEnFPfG8ycqgu3L_UmZMyyKNg9XjhIye1XOROtiZLPdwm2FzoBLcRNAySmEHzZnINv9BsjfiuL6EozccJt3HUJLz20fqkUD3qmsWYcVA-hQGlb8H3XY00DAO9yq46QxLlpKRRc-otAys1Qmmw3EflI6hZlNYejJdY5Z-XpKrmoSTYZ0CKGUWjFInVGctuvtaWQqqnLQnp8lLLUmbv_gjajcKs-v8HVDXamex0z47-z-ec3OM-jO8WYdp-JensYMRVkfmcvrts7GA6h255kvydi-yQ9kdBYUm3NxY-7hxU-_tUyo6PjKXgdujU29i8U-QxGgS8xKzZwmpubvxZX3yox8vmprEJAeirMz2guv5c-p5ebpNlOfkAEjfchlcmfsCeyZzEHGby5M4kHKNRt--zg-k4wa06pkivLQaZ0CeMCj1YkA9LvzCNT4esdQbYx3mKJdJISC0FU5hUzBfzttnfIn00JZ0QGIbBgtGDWuxMeWX_tZ8QNgTjya94LKpIYSJPLpk1AWhe0swzWLQilU1oP33LLcEc9XHabjZx0dgpPhFuzvYeJf483xlN5-9aJmRl-M-042abo2kxrWmzDpJwbTvqnAYAhTcv7GP3yBrc8KJroTh17HpcdMv5v_wfIm5PzoLKqKK2jUUPhw3XejM",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"mihailo@shaw.ca\",\n\t\"role\": \"user\",\n\t\"password\": \"pwI261dQyYlGoXrVVlM5X7fOsv7U/RwWhe1w47NX6k03+dkFWIAd+ufJIdwnVm69CiDFjZ7PXcejGsEs/laDynpBgvgfTWoSEQ405kOAKbKRhV7dMtyPsTN/3yoF5WBjo/s+DKfBy/AFNVXoeoxL88ov+sadFjgSj5PXTwLwTFzeJDsPQV6Xu7Ke1Muj4F7H3gKtzEpuPvAYSPmCNozshcW4FwoPlgFuvFxl3PlKeDL6T5FeHPPejcGc2aDiWq1AUj6CSuEe9lQeNPqQYkOWcDJ/ALdrsepdsmJaiCFGKrE+n/L4sRQkpw/7YTBDQX5FaucDZZ9OekjDomGTa+tBwn7VD7R1C6X9oKae982OM6yewvwzcKiwvLImjbsnfga+wJYmMglcWN1p8RdjNfh5/d4Nlx/g+Rux5GciDMaZgIj8vUF3U0e7OsOXsoCj1f1RWz1p69HZE8ZXtehlqopp+s+gKFD0R2h1cl+qfzmanInNvpvRWemD+BdPNcafQKY0mIN2c7krUXCQ6kBotZCro0y4yRIoqDhecWbWztsEiXxES1jr9kKSkWn9UiNUqbcPTvKkcXNlrX12KmNMlnzPWyjvDSotZ8gIJje4/i0ZfDA8e84ALn2fq+FGSmUEeJV5zQkCsAq8oXm3II4fr1eOEdGenzitm5Jh/2GdINdeK1Y=\"\n}"
+				},
+				"url": {
+					"raw": "api.dealme.today/auth/password",
+					"host": [
+						"api",
+						"dealme",
+						"today"
+					],
+					"path": [
+						"auth",
+						"password"
 					]
 				}
 			},

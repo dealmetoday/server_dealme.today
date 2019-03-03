@@ -1,15 +1,12 @@
 {
 	"info": {
-		"_postman_id": "13dc23cb-4b09-4c23-a838-e7a4aa6e8f28",
+		"_postman_id": "d450b34c-57d7-4ac4-a67a-88ed3342acf1",
 		"name": "STORES",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
 			"name": "GET Stores",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
 			"request": {
 				"method": "GET",
 				"header": [
@@ -18,18 +15,24 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTUxOTIwMCwiZXhwIjoxNTU0MTExMjAwLCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.X_ztYyBZbgS8pV7BpHhS0iXk5zJXHasLpB5FqqWQZeKSMNB8rJDek3er72lmW0yFP4aosVXQmoIIL9EkM89nPoDIaKjBOJL04jJEYxDVAg_FGM_IQWfToxfeFO76vUu3LaXpn-C8BIbBbx9dYqtHzq4kAk5fD-DULiVmNDuNIxvVnTy77o9SO2hPOgtpIwRFlRxz_Wc2H-SrcrDjrrjuhfFDA6mbpVklQjeT4rnkqbTL4voHbrAbik5FX5XY-5LU6zwb47fw_kS4hQYFIJFJDRMoz-C-L5Z--UMHba5bObyRxHia73m1ygTp3prCuLXv2IiTqVSOOduG2rwRTNQXF6X9Muc3xRUHVlvVWzTBlzFVK14-gekTOsZ2FEYt0TaG2rf8gDKQEcXBELsMQzCDWfOR5TLj8bb9ZDtdLGSnkHTkQh3m91D3viWeRhAv_9u--JZApDVVK1OZyEToGQodzY2VWVu3LuNIdo-UnaZrK4FVIHacco_8DQrwot1NeGz70tCwXnaWFcFfMRnJoCuBZ5fDxa0WVO1V_XjsU8mSJAXIPes8c83mP1Pt9oTHcIz1uJDt3Vn2zilAzyB0uWV2BUe7kRT2UttVePrw3N9XJYH3mt9a0Y8b8590bhyuiVPeB9lGDvh6bTSFiepuHnjb4HjbRmhCwCI4LtYqeCweS7A",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"location\": [49.2834041, -123.1172924]\n}"
+					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:5000/stores",
+					"raw": "api.dealme.today/stores",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"stores"
 					]
@@ -50,6 +53,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -57,11 +65,12 @@
 					"raw": "{\n\t\"location\": [49.2834041, -123.1172924],\n\t\"tags\": [\"5c386cec8e83417366a26861\"]\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/stores",
+					"raw": "api.dealme.today/stores",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"stores"
 					]
@@ -79,18 +88,24 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTUxOTIwMCwiZXhwIjoxNTU0MTExMjAwLCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.X_ztYyBZbgS8pV7BpHhS0iXk5zJXHasLpB5FqqWQZeKSMNB8rJDek3er72lmW0yFP4aosVXQmoIIL9EkM89nPoDIaKjBOJL04jJEYxDVAg_FGM_IQWfToxfeFO76vUu3LaXpn-C8BIbBbx9dYqtHzq4kAk5fD-DULiVmNDuNIxvVnTy77o9SO2hPOgtpIwRFlRxz_Wc2H-SrcrDjrrjuhfFDA6mbpVklQjeT4rnkqbTL4voHbrAbik5FX5XY-5LU6zwb47fw_kS4hQYFIJFJDRMoz-C-L5Z--UMHba5bObyRxHia73m1ygTp3prCuLXv2IiTqVSOOduG2rwRTNQXF6X9Muc3xRUHVlvVWzTBlzFVK14-gekTOsZ2FEYt0TaG2rf8gDKQEcXBELsMQzCDWfOR5TLj8bb9ZDtdLGSnkHTkQh3m91D3viWeRhAv_9u--JZApDVVK1OZyEToGQodzY2VWVu3LuNIdo-UnaZrK4FVIHacco_8DQrwot1NeGz70tCwXnaWFcFfMRnJoCuBZ5fDxa0WVO1V_XjsU8mSJAXIPes8c83mP1Pt9oTHcIz1uJDt3Vn2zilAzyB0uWV2BUe7kRT2UttVePrw3N9XJYH3mt9a0Y8b8590bhyuiVPeB9lGDvh6bTSFiepuHnjb4HjbRmhCwCI4LtYqeCweS7A",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"mall\": \"5c39aa2a8020f87e2f380dcf\",\n\t\"location\": [49.2834041, -123.1172924],\n\t\"name\": \"Apple Store\",\n\t\"email\": \"sample@sample.com\",\n    \"tags\": [\"5c386cec8e83417366a26861\"],\n\t\"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.\",\n\t\"parentCompany\": \"Apple\"\n}\n"
+					"raw": "{\n\t\"mall\": \"5c3870d4a52e367a33673527\",\n\t\"location\": [49.2834041, -123.1172924],\n\t\"name\": \"Apple Store\",\n\t\"email\": \"sample@sample.com\",\n    \"tags\": [\"5c386cec8e83417366a26861\"],\n\t\"description\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis mattis orci sed egestas congue. Donec consectetur mi vel turpis volutpat, eget pretium metus sagittis. Phasellus orci diam, molestie consectetur leo et, hendrerit tincidunt ligula. Morbi interdum mattis sem eu porttitor. In vitae vestibulum purus. Duis augue purus, bibendum sit amet maximus quis, auctor vel lectus. Maecenas convallis, nisi sed rutrum mattis, nisi tellus dictum ex, nec aliquam dui risus ut purus. Nulla tempus sem nec dui feugiat ultrices. Duis justo augue, ultrices eget lorem et, blandit convallis arcu. Morbi malesuada nunc at cursus tempus. Ut tempor a est sit amet suscipit.\",\n\t\"parentCompany\": \"Apple\"\n}\n"
 				},
 				"url": {
-					"raw": "localhost:5000/stores",
+					"raw": "api.dealme.today/stores",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"stores"
 					]
@@ -108,18 +123,24 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTUxOTIwMCwiZXhwIjoxNTU0MTExMjAwLCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.X_ztYyBZbgS8pV7BpHhS0iXk5zJXHasLpB5FqqWQZeKSMNB8rJDek3er72lmW0yFP4aosVXQmoIIL9EkM89nPoDIaKjBOJL04jJEYxDVAg_FGM_IQWfToxfeFO76vUu3LaXpn-C8BIbBbx9dYqtHzq4kAk5fD-DULiVmNDuNIxvVnTy77o9SO2hPOgtpIwRFlRxz_Wc2H-SrcrDjrrjuhfFDA6mbpVklQjeT4rnkqbTL4voHbrAbik5FX5XY-5LU6zwb47fw_kS4hQYFIJFJDRMoz-C-L5Z--UMHba5bObyRxHia73m1ygTp3prCuLXv2IiTqVSOOduG2rwRTNQXF6X9Muc3xRUHVlvVWzTBlzFVK14-gekTOsZ2FEYt0TaG2rf8gDKQEcXBELsMQzCDWfOR5TLj8bb9ZDtdLGSnkHTkQh3m91D3viWeRhAv_9u--JZApDVVK1OZyEToGQodzY2VWVu3LuNIdo-UnaZrK4FVIHacco_8DQrwot1NeGz70tCwXnaWFcFfMRnJoCuBZ5fDxa0WVO1V_XjsU8mSJAXIPes8c83mP1Pt9oTHcIz1uJDt3Vn2zilAzyB0uWV2BUe7kRT2UttVePrw3N9XJYH3mt9a0Y8b8590bhyuiVPeB9lGDvh6bTSFiepuHnjb4HjbRmhCwCI4LtYqeCweS7A",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"mall\": \"5c399fdea688506a9c432416\",\n\t\"store\": \"5c399fe4a688506a9c432417\",\n\t\"location\": [49.2834041, -123.1172924],\n\t\"name\": \"Apple Store\",\n\t\"email\": \"sample@sample.com\",\n\t\"description\": \"I love Apple and I'm a shill.\",\n\t\"parentCompany\": \"Apple\"\n}\n"
+					"raw": "{\n\t\"id\": \"5c7a4df5a8d886115f097406\",\n\t\"location\": [49.2834041, -123.1172924],\n\t\"name\": \"Apple Store\",\n\t\"email\": \"sample@sample.com\",\n\t\"description\": \"I love Apple and I'm a shill.\",\n\t\"parentCompany\": \"Apple\"\n}\n"
 				},
 				"url": {
-					"raw": "localhost:5000/stores",
+					"raw": "api.dealme.today/stores",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"stores"
 					]
@@ -137,18 +158,24 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJkZXZlbG9wZXIiLCJlbWFpbCI6ImRldkBkZXYuY29tIiwiaWQiOiJwODIxMzc1MDkxODI3MzE0MCIsImlhdCI6MTU1MTUxOTIwMCwiZXhwIjoxNTU0MTExMjAwLCJhdWQiOiJhcGkuZGVhbG1lLnRvZGF5L2RldmVsb3BlciIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRldkBkZXYuY29tIn0.X_ztYyBZbgS8pV7BpHhS0iXk5zJXHasLpB5FqqWQZeKSMNB8rJDek3er72lmW0yFP4aosVXQmoIIL9EkM89nPoDIaKjBOJL04jJEYxDVAg_FGM_IQWfToxfeFO76vUu3LaXpn-C8BIbBbx9dYqtHzq4kAk5fD-DULiVmNDuNIxvVnTy77o9SO2hPOgtpIwRFlRxz_Wc2H-SrcrDjrrjuhfFDA6mbpVklQjeT4rnkqbTL4voHbrAbik5FX5XY-5LU6zwb47fw_kS4hQYFIJFJDRMoz-C-L5Z--UMHba5bObyRxHia73m1ygTp3prCuLXv2IiTqVSOOduG2rwRTNQXF6X9Muc3xRUHVlvVWzTBlzFVK14-gekTOsZ2FEYt0TaG2rf8gDKQEcXBELsMQzCDWfOR5TLj8bb9ZDtdLGSnkHTkQh3m91D3viWeRhAv_9u--JZApDVVK1OZyEToGQodzY2VWVu3LuNIdo-UnaZrK4FVIHacco_8DQrwot1NeGz70tCwXnaWFcFfMRnJoCuBZ5fDxa0WVO1V_XjsU8mSJAXIPes8c83mP1Pt9oTHcIz1uJDt3Vn2zilAzyB0uWV2BUe7kRT2UttVePrw3N9XJYH3mt9a0Y8b8590bhyuiVPeB9lGDvh6bTSFiepuHnjb4HjbRmhCwCI4LtYqeCweS7A",
+						"type": "text"
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\t\"mall\": \"5c399e6cf4d4e367e3ef163e\",\n\t\"store\": \"5c399e7cf4d4e367e3ef163f\"\n}"
+					"raw": "{\n\t\"id\": \"5c7a4df5a8d886115f097406\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/stores",
+					"raw": "api.dealme.today/stores",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"stores"
 					]

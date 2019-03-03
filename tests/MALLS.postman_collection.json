@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3ac838e4-9691-4b9d-b837-06489f7c94b3",
+		"_postman_id": "c2a9dfcd-4faf-4726-be7b-cce2506fb71d",
 		"name": "MALLS",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,6 +15,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -22,11 +27,12 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:5000/malls",
+					"raw": "api.dealme.today/malls",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"malls"
 					]
@@ -47,6 +53,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -54,11 +65,12 @@
 					"raw": "{\n\t\"tags\": [\"5c386cec8e83417366a2685d\", \"5c386cec8e83417366a26861\"]\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/malls",
+					"raw": "api.dealme.today/malls",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"malls"
 					]
@@ -76,6 +88,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -83,11 +100,12 @@
 					"raw": "{\n\t\"address\": \"701 W Georgia St, Vancouver, BC V7Y 1G5\",\n\t\"name\": \"Pacific Center\",\n\t\"tags\": [\"5c386cec8e83417366a2685d\", \"5c386cec8e83417366a26861\", \"5c386cec8e83417366a26864\"],\n\t\"numOfStores\": 1\n}\n"
 				},
 				"url": {
-					"raw": "localhost:5000/malls",
+					"raw": "api.dealme.today/malls",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"malls"
 					]
@@ -105,6 +123,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -112,11 +135,12 @@
 					"raw": "{\n\t\"id\": \"5c399b18e4a79562e872c254\",\n\t\"address\": \"701 W Georgia St, Vancouver, BC V7Y 1G5\",\n\t\"name\": \"PC (Pacific Centre)\",\n\t\"tags\": [\"5c386cec8e83417366a2685d\", \"5c386cec8e83417366a26861\", \"5c386cec8e83417366a26864\"],\n\t\"numOfStores\": 20\n}\n"
 				},
 				"url": {
-					"raw": "localhost:5000/malls",
+					"raw": "api.dealme.today/malls",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"malls"
 					]
@@ -134,6 +158,11 @@
 						"name": "Content-Type",
 						"value": "application/json",
 						"type": "text"
+					},
+					{
+						"key": "Bearer",
+						"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIiwiaWQiOiI1YzM4NmYzNTdlYjFhNDc2N2Y5ZjFiYjAiLCJpYXQiOjE1NTEyMzY0NjksImV4cCI6MTU1MzgyODQ2OSwiYXVkIjoiYXBpLmRlYWxtZS50b2RheSIsImlzcyI6ImRlYWxtZS50b2RheSIsInN1YiI6ImRpby5yeWFubGl1QGhvdG1haWwuY29tIn0.lubP0BDL6rnZgadDWk249g2DljgkeO4bwaGIZVTaIFsfidNMP4Bdj-npsfAN-Bjq6sYMmzO5Hc4vBhR5orI6oy6OlDmtTjluy1IO-OiVuddC4Bc8nlIe2SZrQuuEdkW5ir2w6-0cbj1Rkx_ku0W9LspGHWjTUTJwSkz-HGF6f7Kjz8X81YrqvbwSqifZ5GIdvIIzwCsAqNEhN9Sl0Hz2_Phxp9bYSRRXC2nAr2_q8gvtb0qJdANO6nB8EnucJWRN1Po2SJK8JVuCVxN-qOjsyexBcsGD75IcdxIMZelj6mRhjZT6kKsl3IbsIv8jkSU9MxBpy9apwHltmvARKEI8DgR-CJAvXhZYkiAoZqb4-u6aTvVhHSE1JZm22oED36qZNgqMV9VkjqVGpSpxwcTKroj7KadSBiCxsOH4d0qH1L8s5gOmXORyNAL6__k7hrO5mq3xyNgQuGCElA-XQcBPhktjQNsRFr4YLJ2Zy0Dp3Al4p7K3X9ORPBdQoyf-2MfWl5S_--62psvK-cmx48SqAH5txd_JzL7dfdmG1sNWyYBXbd-Z_ytQJwiyCD7Nk6tj95yqIiwsBvwo4d4GVffVSzNZRoGrcfDdl9IbDkzad7MnHZQTcJiz-kjWcqQuFu-2H9gD0ynWza5S6wHn7N6kZCjWv6gnNY5zvB4FjAwNX3g",
+						"type": "text"
 					}
 				],
 				"body": {
@@ -141,11 +170,12 @@
 					"raw": "{\n\t\"id\": \"5c399a865ef325626b5ee32e\"\n}"
 				},
 				"url": {
-					"raw": "localhost:5000/malls",
+					"raw": "api.dealme.today/malls",
 					"host": [
-						"localhost"
+						"api",
+						"dealme",
+						"today"
 					],
-					"port": "5000",
 					"path": [
 						"malls"
 					]
