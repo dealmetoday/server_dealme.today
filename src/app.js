@@ -16,7 +16,7 @@ app.use(helmet());
 var databases = mongooseMulti.start(dbConfig.db, schemaFile);
 require('./routes/tagRoutes')(app, databases.tagsDB, databases.requestDB);
 require('./routes/authRoutes')(app, databases.authDB, databases.usersDB);
-require('./routes/userRoutes')(app, databases.usersDB, databases.dealsDB, databases.requestDB);
+require('./routes/userRoutes')(app, databases.usersDB, databases.authDB, databases.dealsDB, databases.requestDB);
 require('./routes/mallRoutes')(app, databases.mallsDB, databases.requestDB);
 require('./routes/dealRoutes')(app, databases.dealsDB, databases.usersDB);
 require('./routes/requestRoutes')(app, databases.requestDB);
