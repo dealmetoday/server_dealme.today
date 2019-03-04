@@ -196,10 +196,10 @@ class Deal(object):
     """
     A deal database entry that will automatically generate random data.
     """
-    def __init__(self, id, mall, store):
+    def __init__(self, id, mall, store, tags):
         self.data = {}
         self.data["id"] = id
-        self.data["tags"] = random.choice(DATABASE_TAGS)["id"]
+        self.data["tags"] = random.choice(tags)
         self.data["isActive"] = True
         self.data["creationDate"] = int(time.time())
         self.data["expiryDate"] = int(time.time()) + random.randint(1, 14)*24*3600
@@ -225,13 +225,15 @@ class Store(object):
     A store database entry that will automatically generate random data.
     """
     def __init__(self, id, mall, tag_range):
+        tags = random_subset(DATABASE_TAGS, random.randint(tag_range.min, tag_range.max))
+
         self.data = {}
         self.data["id"] = id
         self.data["mall"] = mall
         self.data["location"] = [180*random.random() - 90, 360*random.random() - 180]
         self.data["name"] = random.choice(STORE_FIRST) + random.choice(STORE_SECOND)
         self.data["email"] = "noreply@" + self.data["name"].replace(" ","").lower() + ".com"
-        self.data["tags"] = random_subset(TAGS, random.randint(tag_range.min, tag_range.max))
+        self.data["tags"] =  [tag["id"] for tag in tags]
         self.data["description"] = LOREM_IPSUM
 
         if random.random() < PROBABILITY_PARENT_COMPANY:
@@ -366,7 +368,7 @@ def generate_db_malls(mall_count, store_count, deal_range, tag_range):
 
             # Need to gerenate deals for each store, too
             for _ in xrange(random.randint(deal_range.min, deal_range.max)):
-                deal = Deal(generate_id(), mall_id, store_id)
+                deal = Deal(generate_id(), mall_id, store_id, store.data["tags"])
                 DATABASE_DEALS.append(deal.data)
             #/for
         #/for
