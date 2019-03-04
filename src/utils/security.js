@@ -8,14 +8,24 @@ const constants = require('../config/constants')
 let encrypt = (input) => {
   var publicKey = fs.readFileSync(constants.PUBLIC_KEY_PATH, "utf8");
   var buffer = Buffer.from(input);
-  var encrypted = crypto.publicEncrypt(publicKey, buffer);
+  let options =
+  {
+    'key': publicKey,
+    'padding': crypto.constants.RSA_PKCS1_PADDING
+  };
+  var encrypted = crypto.publicEncrypt(options, buffer);
   return encrypted.toString("base64");
 };
 
 let decrypt = (input) => {
   var privateKey = fs.readFileSync(constants.PRIVATE_KEY_PATH, "utf8");
   var buffer = Buffer.from(input, "base64");
-  var decrypted = crypto.privateDecrypt(privateKey, buffer);
+  let options =
+  {
+    'key': privateKey,
+    'padding': crypto.constants.RSA_PKCS1_PADDING
+  };
+  var decrypted = crypto.privateDecrypt(options, buffer);
   return decrypted.toString("utf8");
 };
 
