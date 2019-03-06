@@ -256,6 +256,7 @@ class User(object):
         self.data["first"] = random.choice(NAMES_FIRST)
         self.data["last"] =  random.choice(NAMES_LAST)
         self.data["tags"] =  [tag["id"] for tag in tags]
+        self.data["token"] = random.randint(1000000000000000, 99999999999999999999999999999999)
         self.data["email"] = "{}.{}{}@{}".format(self.data["first"],
                                                  self.data["last"],
                                                  int(id, 16) % 100,
