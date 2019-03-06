@@ -1,14 +1,182 @@
 [
   {
-    "id": "5c386cec8e83417366a2685b",
-    "tag": "Audiophile"
-  },
+    "tag": "Clothing", 
+    "id": "5c7f41635e4adf0eb0571160"
+  }, 
   {
-    "id": "5c386cec8e83417366a2685d",
-    "tag": "Beauty"
-  },
+    "tag": "Men's Clothing", 
+    "id": "5c7f41639f6a103fb8571161"
+  }, 
   {
-    "id": "5c3935f9a61d744404db8a10",
-    "tag": "Food"
+    "tag": "Women's Clothing", 
+    "id": "5c7f41635ebf74a05c571162"
+  }, 
+  {
+    "tag": "Children's Clothing", 
+    "id": "5c7f41630e1266ed09571163"
+  }, 
+  {
+    "tag": "Apparel", 
+    "id": "5c7f4163b5e75b6478571164"
+  }, 
+  {
+    "tag": "Men's Apparel", 
+    "id": "5c7f4163f4dcfe39b9571165"
+  }, 
+  {
+    "tag": "Women's Apparel", 
+    "id": "5c7f41636663f6f166571166"
+  }, 
+  {
+    "tag": "Children's Apparel", 
+    "id": "5c7f41634b2bbdb292571167"
+  }, 
+  {
+    "tag": "Footwear", 
+    "id": "5c7f4163f09c0b77a8571168"
+  }, 
+  {
+    "tag": "Men's Footwear", 
+    "id": "5c7f4163597d08db2b571169"
+  }, 
+  {
+    "tag": "Women's Footwear", 
+    "id": "5c7f4163b656853fad57116a"
+  }, 
+  {
+    "tag": "Children's Footwear", 
+    "id": "5c7f416345ee17505357116b"
+  }, 
+  {
+    "tag": "Swimwear", 
+    "id": "5c7f4163e7f41436b157116c"
+  }, 
+  {
+    "tag": "Men's Swimwear", 
+    "id": "5c7f4163fb8f53db6a57116d"
+  }, 
+  {
+    "tag": "Women's Swimwear", 
+    "id": "5c7f4163dcef01d4d757116e"
+  }, 
+  {
+    "tag": "Children's Swimwear", 
+    "id": "5c7f41633fcc2ac46b57116f"
+  }, 
+  {
+    "tag": "Sports Wear", 
+    "id": "5c7f4163d2fbbe4ccd571170"
+  }, 
+  {
+    "tag": "Men's Sports Wear", 
+    "id": "5c7f41639014d3beb5571171"
+  }, 
+  {
+    "tag": "Women's Sports Wear", 
+    "id": "5c7f4163dd45ac4369571172"
+  }, 
+  {
+    "tag": "Children's Sports Wear", 
+    "id": "5c7f41630c94bfe090571173"
+  }, 
+  {
+    "tag": "Apparel", 
+    "id": "5c7f41635d07300782571174"
+  }, 
+  {
+    "tag": "Men's Apparel", 
+    "id": "5c7f4163cb6040f76f571175"
+  }, 
+  {
+    "tag": "Women's Apparel", 
+    "id": "5c7f416372292b7efe571176"
+  }, 
+  {
+    "tag": "Children's Apparel", 
+    "id": "5c7f4163b263c8ef07571177"
+  }, 
+  {
+    "tag": "Apparel", 
+    "id": "5c7f416349c47c7775571178"
+  }, 
+  {
+    "tag": "Men's Apparel", 
+    "id": "5c7f416386155c4a0c571179"
+  }, 
+  {
+    "tag": "Women's Apparel", 
+    "id": "5c7f41638a0937683657117a"
+  }, 
+  {
+    "tag": "Children's Apparel", 
+    "id": "5c7f4163c977a3701d57117b"
+  }, 
+  {
+    "tag": "Apparel", 
+    "id": "5c7f4163dee256f9f157117c"
+  }, 
+  {
+    "tag": "Men's Apparel", 
+    "id": "5c7f4163f2dc1ff7d657117d"
+  }, 
+  {
+    "tag": "Women's Apparel", 
+    "id": "5c7f41637f4e8345f057117e"
+  }, 
+  {
+    "tag": "Children's Apparel", 
+    "id": "5c7f4163daec90409757117f"
+  }, 
+  {
+    "tag": "Games", 
+    "id": "5c7f4163fa1d7b4f1d571180"
+  }, 
+  {
+    "tag": "Video Games", 
+    "id": "5c7f41635985413dcd571181"
+  }, 
+  {
+    "tag": "Board Games", 
+    "id": "5c7f4163858dbaa596571182"
+  }, 
+  {
+    "tag": "Tabletop Games", 
+    "id": "5c7f41635eb52a0d29571183"
+  }, 
+  {
+    "tag": "Electronics", 
+    "id": "5c7f4163c2e79fd90f571184"
+  }, 
+  {
+    "tag": "Phones", 
+    "id": "5c7f4163131714527c571185"
+  }, 
+  {
+    "tag": "TVs", 
+    "id": "5c7f4163bce3e44243571186"
+  }, 
+  {
+    "tag": "Kitchen Appliences", 
+    "id": "5c7f416363308e5c34571187"
+  }, 
+  {
+    "tag": "Cooking Utensils", 
+    "id": "5c7f4163512a3cd718571188"
+  }, 
+  {
+    "tag": "Hardware", 
+    "id": "5c7f4163f8aefafd34571189"
+  }, 
+  {
+    "tag": "Power Tools", 
+    "id": "5c7f4163d46e5a76f157118a"
+  }, 
+  {
+    "tag": "Gunpla", 
+    "id": "5c7f4163b2f3f1f9ae57118b"
+  }, 
+  {
+    "tag": "Weeb Stuff", 
+    "id": "5c7f4163d1866023ca57118c"
   }
 ]
