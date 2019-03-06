@@ -21,7 +21,7 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
-    if (!Misc.validObject(jsonData, ["first", "last", "email"])) {
+    if (!Misc.validObject(jsonData, ["email"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
@@ -31,9 +31,9 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
         _id: newID,
         provider: "Email",
         email: jsonData.email,
-        first: jsonData.first,
+        first: "",
         middle: "",
-        last: jsonData.last,
+        last: "",
         age: -1,
         gender: "",
         location: ""
@@ -43,22 +43,25 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
     newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
-  app.post('users/facebook', (req, res) => {
+  app.post('/users/facebook', (req, res) => {
     const jsonData = req.body;
 
-    if (!Misc.validObject(jsonData, ["first", "last", "email"])) {
+    if (!Misc.validObject(jsonData, ["first", "last", "email", "token"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
 
+    const newID = mongoose.Types.ObjectId();
+
     var newObj = new User(
       {
-        _id: jsonData.token,
+        _id: newID,
         provider: "Facebook",
         email: jsonData.email,
         first: jsonData.first,
         middle: "",
         last: jsonData.last,
+        token: jsonData.token,
         age: -1,
         gender: "",
         location: ""
@@ -67,22 +70,25 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
     newObj.save((err, result) => cb.regCallback(res, err, result));
   });
 
-  app.post('users/google', (req, res) => {
+  app.post('/users/google', (req, res) => {
     const jsonData = req.body;
 
-    if (!Misc.validObject(jsonData, ["first", "last", "email"])) {
+    if (!Misc.validObject(jsonData, ["first", "last", "email", "token"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
 
+    const newID = mongoose.Types.ObjectId();
+
     var newObj = new User(
       {
-        _id: jsonData.token,
+        _id: newID,
         provider: "Google",
         email: jsonData.email,
         first: jsonData.first,
         middle: "",
         last: jsonData.last,
+        token: jsonData.token,
         age: -1,
         gender: "",
         location: ""

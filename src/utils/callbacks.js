@@ -13,6 +13,7 @@ let callback = (res, err, output) => {
 
 let regCallback = (res, err, output) => {
   if (err) {
+    console.log(err);
     res.send(constants.ERR);
   } else {
     let result = checkResult(output);

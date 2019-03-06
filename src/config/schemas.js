@@ -78,6 +78,7 @@ module.exports = {
       first: String,
       middle: String,
       last: String,
+      token: Number,
       age: Number,
       gender: String,
       location: String,
