@@ -43,10 +43,12 @@ LOREM_IPSUM = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis "\
 ###############################################################################
 # Probabilities that a given value with be provided by a user/store
 ###############################################################################
-PROBABILITY_AGE      = 0.5
-PROBABILITY_GENDER   = 0.5
-PROBABILITY_LOCATION = 0.5
-PROBABILITY_MNAME    = 0.25
+PROBABILITY_AGE       = 0.5
+PROBABILITY_GENDER    = 0.5
+PROBABILITY_LOCATION  = 0.5
+PROBABILITY_MNAME     = 0.25
+PROBABILITY_SOCIAL    = 0.5
+PROBABILITY_SOCIAL_FB = 0.5
 
 PROBABILITY_LIMITED_DEAL   = 0.5
 PROBABILITY_PARENT_COMPANY = 0.5
@@ -263,7 +265,7 @@ class User(object):
         self.data["first"] = random.choice(NAMES_FIRST)
         self.data["last"] =  random.choice(NAMES_LAST)
         self.data["tags"] =  [tag["id"] for tag in tags]
-        self.data["token"] = random.randint(1000000000000000, 99999999999999999999999999999999)
+        self.data["provider"] = "email"
         self.data["email"] = "{}.{}{}@{}".format(self.data["first"],
                                                  self.data["last"],
                                                  int(id, 16) % 100,
@@ -278,6 +280,13 @@ class User(object):
             self.data["gender"] = random.choice(["Male", "Female", "Other"])
         if random.random() < PROBABILITY_LOCATION:
             self.data["location"] = "Vancouver, BC"
+        if random.random() < PROBABILITY_SOCIAL:
+            self.data["token"] = random.randing(10**15, 10**32 - 1)
+            if random.random() < PROBABILITY_SOCIAL_FB:
+                self.data["provider"] = "Facebook"
+            else:
+                self.data["provider"] = "Google"
+            #/if
         #/if
     #/def
 #/class
