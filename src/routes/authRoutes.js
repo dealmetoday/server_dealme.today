@@ -14,59 +14,6 @@ module.exports = (app, authDB, usersDB) => {
   storeAuth = authDB.StoreAuths;
   User = usersDB.Users;
 
-  // // Create social media entry
-  // app.post('/auth/social', (req, res) => {
-  //   const jsonData = req.body;
-  //   let query = Misc.usersQuery(jsonData);
-  //
-  //   // Validate jsonData and query
-  //   if (Misc.isEmptyObject(query) || !Misc.validObject(jsonData, ["role", "token"])) {
-  //     res.send(constants.ARGS_ERROR);
-  //     return;
-  //   }
-  //
-  //   const newID = mongoose.Types.ObjectId();
-  //
-  //   let newObj = new userAuth(
-  //     {
-  //       _id: newID,
-  //       role: jsonData.role,
-  //       password: jsonData.token
-  //     });
-  //
-  //   newObj.save((err, result) => cb.regCallback(res, err, result));
-  // });
-  //
-  // // Create email entry
-  // app.post('/auth/email', (req, res) => {
-  //   const jsonData = req.body;
-  //   let query = Misc.usersQuery(jsonData);
-  //
-  //   // Validate jsonData and query
-  //   if (Misc.isEmptyObject(query) || !Misc.validObject(jsonData, ["role", "password"])) {
-  //     res.send(constants.ARGS_ERROR);
-  //     return;
-  //   }
-  //
-  //   const newID = mongoose.Types.ObjectId();
-  //   let actualRole = null;
-  //
-  //   if (jsonData.role == constants.JWT_USER) {
-  //     actualRole = jsonData.role;
-  //   } else {
-  //     actualRole = jsonData.position;
-  //   }
-  //
-  //   let newObj = new userAuth(
-  //     {
-  //       _id: newID,
-  //       role: actualRole,
-  //       password: jsonData.token
-  //     });
-  //
-  //   newObj.save((err, result) => cb.regCallback(res, err, result));
-  // });
-
   // Updating password
   app.put('/auth/email', async (req, res) => {
     const jsonData = req.body;
@@ -122,11 +69,7 @@ module.exports = (app, authDB, usersDB) => {
         let update = { password: jsonData.token };
         let email = result.email;
 
-        if (jsonData.role == constants.JWT_USER) {
-          userAuth.findByIdAndUpdate(result._id, update, (err, result) => cb.socialCallback(res, err, result, email));
-        } else if (jsonData.role == constants.JWT_STORE) {
-          storeAuth.findByIdAndUpdate(result._id, update, (err, result) => cb.socialCallback(res, err, result, email));
-        }
+        userAuth.findByIdAndUpdate(result._id, update, (err, result) => cb.socialCallback(res, err, result, email));
       }
     });
   });

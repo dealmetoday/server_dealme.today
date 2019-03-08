@@ -4,7 +4,7 @@
   "description": "dealme.today - online discount platform",
   "main": "server.js",
   "scripts": {
-    "serve": "npm run genkey && npm run reload-serve",
+    "serve": "npm run genkey && npm install && npm run reload-serve",
     "win-serve": "npm run win-genkey && npm run reload-serve",
     "reload-serve": "nodemon --exec \"sls offline start --skipCacheInvalidation\"",
     "deploy": "npm run prep && sls deploy",

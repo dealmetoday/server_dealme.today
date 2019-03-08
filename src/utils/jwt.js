@@ -47,6 +47,7 @@ let verify = (token, requiredAccess, storeOrUser = false) => {
         return currAccess > accessLevel;
       }
     } else {
+      console.log("Bad Bearer");
       return false;
     }
   } catch (err) {
