@@ -34,6 +34,7 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
         first: "",
         middle: "",
         last: "",
+        token: -1,
         age: -1,
         gender: "",
         location: ""

@@ -149,13 +149,21 @@ let loadTags = (Tag) => {
 let loadUsers = (User) => {
   // Get data from users.json and insert into the database
   for (var index in usersJSON) {
+    let token = -1;
     var currObj = usersJSON[index];
+
+    if (currObj.token != null) {
+      token = currObj.token;
+    }
+
     var newObj = new User(
       {
        _id: currObj.id,
        email: currObj.email,
        first: currObj.first,
        last: currObj.last,
+       token: token,
+       provider: currObj.provider,
        age: currObj.age,
        gender: currObj.gender,
        location: currObj.location,

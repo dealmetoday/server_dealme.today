@@ -82,6 +82,7 @@ module.exports = {
       age: Number,
       gender: String,
       location: String,
+      provider: String,
       tags: [ID],
       favouriteMalls: [ID],
       dealHistory: [ID]
