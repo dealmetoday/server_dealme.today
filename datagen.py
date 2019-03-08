@@ -281,7 +281,7 @@ class User(object):
         if random.random() < PROBABILITY_LOCATION:
             self.data["location"] = "Vancouver, BC"
         if random.random() < PROBABILITY_SOCIAL:
-            self.data["token"] = random.randing(10**15, 10**32 - 1)
+            self.data["token"] = random.randint(10**15, 10**32 - 1)
             if random.random() < PROBABILITY_SOCIAL_FB:
                 self.data["provider"] = "Facebook"
             else:
