@@ -52,8 +52,10 @@ let loadAuth = (userAuth, storeAuth) => {
 
     let auth = null;
     if (currObj["role"] === constants.JWT_USER) {
+      console.log("USER");
       auth = userAuth;
     } else if (currObj["role"] === constants.JWT_STORE) {
+      console.log("STORE");
       auth = storeAuth;
     }
 

@@ -17,31 +17,73 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
   Request = requestDB.Requests;
 
   // Create
-  app.post('/users/email', (req, res) => {
+  app.post('/users/email', async (req, res) => {
     const jsonData = req.body;
     const newID = mongoose.Types.ObjectId();
 
-    if (!Misc.validObject(jsonData, ["email"])) {
+    if (!Misc.validObject(jsonData, ["email", "password"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
 
-    var newObj = new User(
-      {
-        _id: newID,
-        provider: "Email",
-        email: jsonData.email,
-        first: "",
-        middle: "",
-        last: "",
-        token: -1,
-        age: -1,
-        gender: "",
-        location: ""
-      });
+    // Check if an user with the same details already exist
+    try {
+      let result = await User.findOne(query).exec();
+      let retVal = constants.SUCCESS;
 
-    // TODO: Create entry in Auth database too
-    newObj.save((err, result) => cb.regCallback(res, err, result));
+      if (Misc.isEmptyObject(result)) {
+        const newID = mongoose.Types.ObjectId();
+
+        var newObj = new User(
+          {
+            _id: newID,
+            provider: "Email",
+            email: jsonData.email,
+            first: "",
+            middle: "",
+            last: "",
+            token: -1,
+            age: -1,
+            gender: "",
+            location: ""
+          });
+
+        result = await newObj.save()
+        console.log(result);
+
+        if (!Misc.isEmptyObject(result)) {
+          let ePassword = jsonData.password;
+          let password = Security.decrypt(ePassword);
+          let hashed = await Security.hashPassword(password);
+
+          newObj = new userAuth({
+            _id: result._id,
+            role: constants.JWT_USER,
+            password: hashed
+          })
+
+          result = await newObj.save()
+
+          if (!Misc.isEmptyObject(result)) {
+            retVal.id = result.id;
+            res.send(retVal);
+          } else {
+            console.log("Auth creation failed");
+            res.send(constants.FAILURE);
+          }
+        } else {
+          console.log("User creation failed");
+          res.send(constants.FAILURE);
+        }
+      } else {
+        console.log("User already exists");
+        retVal.id = result.id;
+        res.send(retVal);
+      }
+    } catch (err) {
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
   });
 
   app.post('/users/facebook', (req, res) => {
@@ -164,6 +206,7 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
     // Check if an user with the same details already exist
     try {
       let result = await User.findOne(query).exec();
+      let retVal = constants.SUCCESS;
 
       if (Misc.isEmptyObject(result)) {
         const newID = mongoose.Types.ObjectId();
@@ -198,7 +241,8 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
           result = await newObj.save()
 
           if (!Misc.isEmptyObject(result)) {
-            res.send(constants.SUCCESS);
+            retVal.id = result.id;
+            res.send(retVal);
           } else {
             console.log("Auth creation failed");
             res.send(constants.FAILURE);
@@ -209,7 +253,8 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
         }
       } else {
         console.log("User already exists");
-        res.send(constants.SUCCESS);
+        retVal.id = result.id;
+        res.send(retVal);
       }
     } catch (err) {
       console.log("Caught error");

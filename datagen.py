@@ -189,7 +189,6 @@ class Auth(object):
         self.data = {
             "id": id,
             "role": role,
-            "collection": "USERS" if role == "user" else "STORES",
             "password": AUTH_DEFAULT_PASSWORD,
         }
     #/def
