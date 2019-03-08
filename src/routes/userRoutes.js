@@ -151,7 +151,7 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
   app.put('/user/check', async (req, res) => {
     const jsonData = req.body;
 
-    if (!Misc.validObject(jsonData, ["first", "last", "email", "password"])) {
+    if (!Misc.validObject(jsonData, ["first", "last", "email", "password", "provider"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
@@ -171,7 +171,7 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
         let newObj = new User(
           {
             _id: newID,
-            provider: "Email",
+            provider: jsonData.provider,
             email: jsonData.email,
             first: jsonData.first,
             middle: "",
