@@ -50,21 +50,19 @@ let loadAuth = (userAuth, storeAuth) => {
     var currObj = authJSON[index];
     var newObj = null;
 
+    let auth = null;
     if (currObj["role"] === constants.JWT_USER) {
-      newObj = new userAuth(
-        {
-        _id: currObj.id,
-        role: currObj.role,
-        password: currObj.password
-      });
+      auth = userAuth;
     } else if (currObj["role"] === constants.JWT_STORE) {
-      newObj = new storeAuth(
-        {
-        _id: currObj.id,
-        role: currObj.position,
-        password: currObj.password
-      });
+      auth = storeAuth;
     }
+
+    newObj = new auth(
+      {
+      _id: currObj.id,
+      role: currObj.role,
+      password: currObj.password
+    });
 
     newObj.save();
   }

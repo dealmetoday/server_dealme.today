@@ -5,18 +5,22 @@ const DBOperations = require('../utils/dbOperations');
 
 module.exports = (app, databases) => {
   app.get('/init', (req, res) => {
-    if (!JWT.verify(req.get("Bearer", constants.JWT_DEV))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
+
+    console.log("At Init");
 
     DBOperations.loadAll(databases);
     res.send(constants.SUCCESS);
   });
 
   app.get('/drop', (req, res) => {
-    if (!JWT.verify(req.get("Bearer", constants.JWT_DEV))) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
+
+    console.log("At Drop");
 
     DBOperations.deleteAll(databases);
     res.send(constants.SUCCESS);
