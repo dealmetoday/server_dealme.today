@@ -465,14 +465,14 @@ def argument_setup():
     parser.add_argument("-d", "--deal-range", type=str, default="3..10",
                         help="Range representing the number of deals any "\
                             +"store can offer (e.g. 3..10)")
-    parser.add_argument("-m", "--malls", type=int, default=2,
+    parser.add_argument("-m", "--malls", type=int, default=6,
                         help="Number of mall entries to generate")
-    parser.add_argument("-s", "--stores", type=int, default=10,
+    parser.add_argument("-s", "--stores", type=int, default=60,
                         help="Number of stores to generate")
     parser.add_argument("-t", "--tag-range", type=str, default="2..4",
                         help="Range representing the number of tags any user "\
                             +"or deal may identify with (e.g. 2..5)")
-    parser.add_argument("-u", "--users", type=int, default=100,
+    parser.add_argument("-u", "--users", type=int, default=250,
                         help="Number of user entries to generate")
     args = parser.parse_args()
 
