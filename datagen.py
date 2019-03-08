@@ -47,6 +47,8 @@ PROBABILITY_AGE      = 0.5
 PROBABILITY_GENDER   = 0.5
 PROBABILITY_LOCATION = 0.5
 PROBABILITY_MNAME    = 0.25
+
+PROBABILITY_LIMITED_DEAL   = 0.5
 PROBABILITY_PARENT_COMPANY = 0.5
 
 
@@ -203,7 +205,6 @@ class Deal(object):
         self.data["isActive"] = True
         self.data["creationDate"] = int(time.time())
         self.data["expiryDate"] = int(time.time()) + random.randint(1, 14)*24*3600
-        self.data["usesLeft"] = -1
         self.data["views"] = random.randint(0, 1000)
         self.data["claims"] = random.randint(0, 200)
         self.data["mall"] = mall
@@ -215,6 +216,12 @@ class Deal(object):
         else:
             self.data["format"] = "Dollar"
             self.data["description"] = "${} off your purchase".format(random.randrange(10,50,5))
+        #/if
+
+        if random.random() < PROBABILITY_LIMITED_DEAL:
+            self.data["usesLeft"] = random.randint(100, 1000)
+        else:
+            self.data["usesLeft"] = -1
         #/if
     #/def
 #/class
@@ -361,7 +368,7 @@ def generate_db_malls(mall_count, store_count, deal_range, tag_range):
         for _ in xrange(store_count):
             store_id = generate_id()
 
-            auth = Auth(store_id, "manager")
+            auth = Auth(store_id, "store")
             store = Store(store_id, mall_id, tag_range)
 
             DATABASE_AUTH.append(auth.data)
