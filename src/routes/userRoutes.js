@@ -160,12 +160,13 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
       return;
     }
 
+    const jsonData = req.body;
+
     if (!Misc.validObject(jsonData, ["id"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
 
-    const jsonData = req.body;
     var id = jsonData.id;
     delete jsonData.id;
 
