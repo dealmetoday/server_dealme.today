@@ -26,6 +26,11 @@ module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
       return;
     }
 
+    let query =
+    {
+      email: jsonData.email
+    };
+
     // Check if an user with the same details already exist
     try {
       let result = await User.findOne(query).exec();
