@@ -44,7 +44,7 @@ module.exports = (app, mallsDB, requestDB) => {
 
   // Read
   app.get('/malls', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
       return;
     }
 
@@ -150,9 +150,9 @@ module.exports = (app, mallsDB, requestDB) => {
       return;
     }
 
-    const jsonData = req.body;
+    const jsonData = JSON.parse(JSON.stringify(req.query));
 
-    Store.find((err, result) => cb.callback(res, err, result));
+    Store.find(jsonData? jsonData : {}, (err, result) => cb.callback(res, err, result));
   });
 
   // Update

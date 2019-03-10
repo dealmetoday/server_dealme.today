@@ -52,7 +52,7 @@ module.exports = (app, dealsDB, usersDB) => {
       return;
     }
 
-    const jsonData = req.body;
+    const jsonData = JSON.parse(JSON.stringify(req.query));
 
     if (Misc.isEmptyObject(jsonData)) {
       Deal.find((err, result) => cb.callback(res, err, result));
