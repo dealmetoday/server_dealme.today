@@ -67,13 +67,15 @@ module.exports = (app, dealsDB, usersDB) => {
           result.sort((a, b) => (a.store > b.store) ? 1 : (a.store < b.store) ? -1 : 0)
 
           result.map( aDeal => {
-            let storeObj = response.find(aStore => aStore._id === aDeal.store)
-            if(storeObj){
-              storeObj.dealList.push(aDeal)
+            let index = response.findIndex(function(aStore) {
+              return aStore._id.toString() === aDeal.store.toString()
+            })
+            if(index > -1){
+              response[index].dealList.push(aDeal)
             }
             else{
-              storeObj = {}
-              storeObj._id = aDeal.store
+              let storeObj = {}
+              storeObj._id = aDeal.store.toString()
               storeObj.dealList = [];
               storeObj.dealList.push(aDeal)
               response.push(storeObj)
