@@ -22,6 +22,13 @@ let dealsQuery = (obj) => {
       $gte: query.expiryDate
     }
   }
+
+  if("tags" in query){
+    query.tags = {
+      $in: query.tags
+    }
+  }
+
   if ("available" in query) {
     if (query.available) {
       query.usesLeft = {

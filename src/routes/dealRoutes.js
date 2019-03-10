@@ -53,6 +53,10 @@ module.exports = (app, dealsDB, usersDB) => {
     }
 
     const jsonData = JSON.parse(JSON.stringify(req.query));
+    if(jsonData.hasOwnProperty("tags")){
+      let tagsArray = jsonData.tags.split(",")
+      jsonData.tags = tagsArray
+    }
 
     if (Misc.isEmptyObject(jsonData)) {
       Deal.find((err, result) => cb.callback(res, err, result));
