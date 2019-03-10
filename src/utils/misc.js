@@ -45,6 +45,16 @@ let dealsQuery = (obj) => {
   }
 }
 
+let storeQuery = (obj) => {
+  let query = obj
+  if("_id" in query){
+    query._id = {
+      $in: query._id
+    }
+  }
+  return query
+}
+
 let usersQuery = (obj) => {
   let query = {};
 
@@ -115,6 +125,7 @@ module.exports = {
   isValidObjectId,
   dealsQuery,
   usersQuery,
+  storeQuery,
   userExists,
   createRequest,
   validEmail,

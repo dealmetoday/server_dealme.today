@@ -62,7 +62,25 @@ module.exports = (app, dealsDB, usersDB) => {
       Deal.find((err, result) => cb.callback(res, err, result));
     } else {
       const query = Misc.dealsQuery(jsonData);
-      Deal.find(query, (err, result) => cb.callback(res, err, result));
+      Deal.find(query, (err, result) => {
+          let response = []
+          result.sort((a, b) => (a.store > b.store) ? 1 : (a.store < b.store) ? -1 : 0)
+
+          result.map( aDeal => {
+            let storeObj = response.find(aStore => aStore._id === aDeal.store)
+            if(storeObj){
+              storeObj.dealList.push(aDeal)
+            }
+            else{
+              storeObj = {}
+              storeObj._id = aDeal.store
+              storeObj.dealList = [];
+              storeObj.dealList.push(aDeal)
+              response.push(storeObj)
+            }
+          })
+          cb.callback(res, err, response)
+      });
     }
   });
 

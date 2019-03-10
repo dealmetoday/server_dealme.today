@@ -152,7 +152,13 @@ module.exports = (app, mallsDB, requestDB) => {
 
     const jsonData = JSON.parse(JSON.stringify(req.query));
 
-    Store.find(jsonData? jsonData : {}, (err, result) => cb.callback(res, err, result));
+    if(jsonData.hasOwnProperty("_id")){
+      let idArray = jsonData._id.split(",")
+      jsonData._id = idArray
+    }
+    const query = Misc.storeQuery(jsonData)
+
+    Store.find(query ? query : {}, (err, result) => cb.callback(res, err, result));
   });
 
   // Update
