@@ -85,7 +85,7 @@ let emailCallback = async (res, err, output, password, email) => {
 
       let retVal = constants.SUCCESS;
       retVal[constants.BEARER] = JWT.sign(payload);
-
+      retVal['id'] = payload.id
       res.send(retVal);
     } else {
       res.send(constants.FAILURE);
