@@ -51,6 +51,7 @@ let verify = (token, requiredAccess, storeOrUser = false) => {
       return false;
     }
   } catch (err) {
+    console.log("Bad Bearer");
     return false
   }
 };

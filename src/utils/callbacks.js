@@ -70,12 +70,12 @@ let socialCallback = (res, err, output, email) => {
   }
 };
 
-let emailCallback = (res, err, output, password, email) => {
+let emailCallback = async (res, err, output, password, email) => {
   if (err) {
     return;
   } else {
     let hashed = output.password;
-    let verifyResult = Security.otherVerify(password, hashed);
+    let verifyResult = await Security.otherVerify(password, hashed);
 
     if (verifyResult) {
       let payload = {};

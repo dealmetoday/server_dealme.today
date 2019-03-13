@@ -80,12 +80,7 @@ let verifyPassword = async (User, Auth, email, password) => {
 };
 
 let otherVerify = async (password, hashed) => {
-  const verified = await bcrypt.compare(password, hashed);
-  if (verified) {
-    return true;
-  } else {
-    return false;
-  }
+  return await bcrypt.compare(password, hashed);
 }
 
 module.exports = {

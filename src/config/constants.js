@@ -83,7 +83,7 @@ module.exports = Object.freeze({
   },
   FAILURE:
   {
-    "status": "Internal Failure."
+    "status": "Failure."
   },
   REQUESTED:
   {
