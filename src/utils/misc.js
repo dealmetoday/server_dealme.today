@@ -82,6 +82,19 @@ let userExists = async (User, email) => {
   return retVal;
 };
 
+let storeExists = async (Store, email) => {
+  let retVal = {};
+  let result = await Store.findOne({ email: email }).exec();
+  if (isEmptyObject(result)) {
+    retVal.status = false;
+  } else {
+    retVal.status = true;
+    retVal.id = result._id;
+  }
+
+  return retVal;
+};
+
 let createRequest = (Request, inputObj) => {
   const newID = mongoose.Types.ObjectId();
 
@@ -127,6 +140,7 @@ module.exports = {
   usersQuery,
   storeQuery,
   userExists,
+  storeExists,
   createRequest,
   validEmail,
   validObject

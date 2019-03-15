@@ -8,11 +8,12 @@ const constants = require('../config/constants');
 var userAuth = null;
 var storeAuth = null;
 
-module.exports = (app, authDB, usersDB) => {
+module.exports = (app, authDB, usersDB, mallsDB) => {
   // Setting constructors
   userAuth = authDB.UserAuths;
   storeAuth = authDB.StoreAuths;
   User = usersDB.Users;
+  Store = mallsDB.Stores;
 
   // Updating password
   app.put('/auth/email', async (req, res) => {
@@ -89,11 +90,15 @@ module.exports = (app, authDB, usersDB) => {
 
     // Check if user with email exists
     // If not, no response
-    let queryResult = await Misc.userExists(User, jsonData.email);
-    if (queryResult.status) {
-      if (jsonData.role == constants.JWT_USER) {
+    let queryResult = null;
+    if (jsonData.role == constants.JWT_USER) {
+      queryResult = await Misc.userExists(User, jsonData.email);
+      if (queryResult.status) {
         userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
-      } else if (jsonData.role == constants.JWT_STORE) {
+      }
+    } else if (jsonData.role == constants.JWT_STORE) {
+      queryResult = await Misc.storeExists(Store, jsonData.email);
+      if (queryResult.status) {
         storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
       }
     }
