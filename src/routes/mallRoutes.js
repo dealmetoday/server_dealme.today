@@ -2,17 +2,20 @@ const JWT = require('../utils/jwt');
 const mongoose = require('mongoose');
 const Misc = require('../utils/misc');
 const cb = require('../utils/callbacks');
+const Security = require('../utils/security');
 const constants = require('../config/constants');
 
 let Mall = null;
 let Store = null;
 let Request = null;
+let storeAuth = null;
 
-module.exports = (app, mallsDB, requestDB) => {
+module.exports = (app, mallsDB, requestDB, authDB) => {
   // Setting constructor
   Mall = mallsDB.Malls;
   Store = mallsDB.Stores;
   Request = requestDB.Requests;
+  storeAuth = authDB.StoreAuths;
 
   /****************************************************************************/
   // Create
@@ -114,34 +117,82 @@ module.exports = (app, mallsDB, requestDB) => {
 
   /****************************************************************************/
   // Create
-  app.post('/stores', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
-      return;
-    }
-
+  app.post('/stores', async (req, res) => {
     const jsonData = req.body;
 
-    if (!Misc.validObject(jsonData, ["mall", "location", "name", "email", "tags", "description", "parentCompany"])) {
+    if (!Misc.validObject(jsonData, ["name", "email", "password"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
 
-    const newID = mongoose.Types.ObjectId();
+    let query =
+    {
+      email: jsonData.email
+    };
 
-    var newObj = new Store(
-      {
-        _id: newID,
-        mall: jsonData.mall,
-        location: jsonData.location,
-        name: jsonData.name,
-        email: jsonData.email,
-        tags: jsonData.tags,
-        description: jsonData.description,
-        parentCompany: jsonData.parentCompany
-      });
+    // Check if an user with the same details already exist
+    try {
+      let result = await Store.findOne(query).exec();
+      let retVal = constants.SUCCESS;
 
-    // TODO: Create entry in Auth database too
-    newObj.save((err, result) => cb.callback(res, err, result));
+      if (Misc.isEmptyObject(result)) {
+        let parent = "";
+        const newID = mongoose.Types.ObjectId();
+
+        if (jsonData.hasOwnProperty("parentCompany")) {
+          parent = jsonData.parentCompany;
+        }
+
+        var newObj = new Store(
+          {
+            _id: newID,
+            // mall: null,
+            // location: "",
+            name: jsonData.name,
+            email: jsonData.email,
+            // tags: [],
+            // description: "",
+            parentCompany: parent
+          });
+
+        result = await newObj.save();
+
+        console.log(result);
+
+        if (!Misc.isEmptyObject(result)) {
+          let ePassword = jsonData.password;
+          let password = Security.decrypt(ePassword);
+          let hashed = await Security.hashPassword(password);
+
+          newObj = new storeAuth({
+            _id: result._id,
+            role: constants.JWT_STORE,
+            password: hashed
+          })
+
+          result = await newObj.save()
+
+          if (!Misc.isEmptyObject(result)) {
+            retVal.id = result.id;
+            res.send(retVal);
+          } else {
+            console.log("Auth creation failed");
+            res.send(constants.FAILURE);
+          }
+        } else {
+          console.log("User creation failed");
+          res.send(constants.FAILURE);
+        }
+      } else {
+        console.log("Store already exists");
+        retVal.id = result.id;
+        res.send(retVal);
+      }
+    } catch (err) {
+      console.log(err);
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
   });
 
   // Read
@@ -183,7 +234,7 @@ module.exports = (app, mallsDB, requestDB) => {
   // delete
   app.delete('/stores', (req, res) => {
     const jsonData = req.body;
-    
+
     if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       jsonData.request = "Delete Stores";
 
@@ -199,5 +250,16 @@ module.exports = (app, mallsDB, requestDB) => {
     }
 
     Store.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
+  });
+
+  // Read
+  app.get('/stores/check', async  (req, res) => {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE, true)) {
+      return;
+    }
+
+    const jsonData = JSON.parse(JSON.stringify(req.query));
+
+    Store.findById(jsonData.id, (err, result) => cb.storeCheckCallback(res, err, result));
   });
 };

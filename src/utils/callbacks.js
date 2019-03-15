@@ -1,4 +1,5 @@
 const JWT = require('../utils/jwt');
+const Misc = require('../utils/misc');
 const Security = require('../utils/security');
 const constants = require('../config/constants');
 
@@ -106,6 +107,29 @@ let reqCallback = (res, err, output) => {
   }
 }
 
+let storeCheckCallback = (res, err, output) => {
+  if (err) {
+    res.send(constants.ERR);
+  } else {
+    let result = checkResult(output);
+    if (result == constants.FAILURE) {
+      res.send(result);
+    } else {
+      console.log(result);
+
+      // Checking if store has filled in everything
+      if (!Misc.validObject(result, ["mall", "location", "tags", "description", "parentCompany"])) {
+        res.send(constants.FAILURE);
+      } else if (result.location.length == 0 || results.tags.length == 0 || results.parentCompany == "") {
+        // Check if location, tags, and parentCompany are valid
+        res.send(constants.FAILURE);
+      } else {
+        res.send(constants.SUCCESS);
+      }
+    }
+  }
+}
+
 let checkResult = (result) => {
   if (result) {
     return result;
@@ -122,5 +146,6 @@ module.exports = {
   getObjCallback,
   socialCallback,
   emailCallback,
-  reqCallback
+  reqCallback,
+  storeCheckCallback
 }
