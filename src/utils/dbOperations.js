@@ -46,16 +46,19 @@ let deleteAll = async (databases) => {
 
 let loadAuth = (userAuth, storeAuth) => {
   // Get data from auth.json and insert into the database
+  let totalUser = 0;
+  let totalStore = 0;
+
   for (var index in authJSON) {
     var currObj = authJSON[index];
     var newObj = null;
 
     let auth = null;
-    if (currObj["role"] === constants.JWT_USER) {
-      console.log("USER");
+    if (currObj.role === constants.JWT_USER) {
+      totalUser += 1;
       auth = userAuth;
-    } else if (currObj["role"] === constants.JWT_STORE) {
-      console.log("STORE");
+    } else if (currObj.role === constants.JWT_STORE) {
+      totalStore += 1;
       auth = storeAuth;
     }
 
@@ -69,6 +72,8 @@ let loadAuth = (userAuth, storeAuth) => {
     newObj.save();
   }
 
+  console.log(totalUser)
+  console.log(totalStore)
   console.log('Finished populating the Auth database.');
 }
 

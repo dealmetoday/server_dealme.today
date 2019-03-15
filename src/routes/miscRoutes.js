@@ -4,25 +4,21 @@ const constants = require('../config/constants');
 const DBOperations = require('../utils/dbOperations');
 
 module.exports = (app, databases) => {
-  app.get('/init', (req, res) => {
+  app.get('/init', async (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
 
-    console.log("At Init");
-
-    DBOperations.loadAll(databases);
+    await DBOperations.loadAll(databases);
     res.send(constants.SUCCESS);
   });
 
-  app.get('/drop', (req, res) => {
+  app.get('/drop', async (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       return;
     }
 
-    console.log("At Drop");
-
-    DBOperations.deleteAll(databases);
+    await DBOperations.deleteAll(databases);
     res.send(constants.SUCCESS);
   });
 
