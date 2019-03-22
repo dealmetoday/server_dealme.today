@@ -151,7 +151,7 @@ module.exports = (app, mallsDB, requestDB, authDB) => {
             name: jsonData.name,
             email: jsonData.email,
             // tags: [],
-            // description: "",
+            description: "",
             parentCompany: parent
           });
 
