@@ -9,6 +9,10 @@ const schemaFile = require('./config/schemas');
 
 const app = express();
 
+let corsOptions = {
+  allowedHeaders: ['Content-Type','X-Amz-Date','Bearer','X-Api-Key','X-Amz-Security-Token','X-Amz-User-Agent']
+}
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
