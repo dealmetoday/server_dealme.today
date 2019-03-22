@@ -16,7 +16,7 @@ let corsOptions = {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Main connections
 var databases = mongooseMulti.start(dbConfig.db, schemaFile);
