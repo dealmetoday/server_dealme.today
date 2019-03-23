@@ -55,7 +55,7 @@ module.exports = (app, tagsDB, requestDB) => {
 
     const jsonData = req.body;
 
-    if (!Misc.validObject(jsonData, ["index", "key", "Update"])) {
+    if (!Misc.validObject(jsonData, ["index", "key", "update"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
