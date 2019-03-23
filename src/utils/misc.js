@@ -129,6 +129,14 @@ let validObject = (object, properties) => {
 
   return true;
 }
+
+let createDate = (UTCSeconds) => {
+  let curr = new Date(0);
+  curr.setUTCSeconds(UTCSeconds);
+
+  return curr;
+}
+
 let noProperty = (object, property) => {
   return !object.hasOwnProperty(property);
 }
@@ -143,5 +151,6 @@ module.exports = {
   storeExists,
   createRequest,
   validEmail,
-  validObject
+  validObject,
+  createDate
 }

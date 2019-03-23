@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Misc = require('../utils/misc');
 const authJSON = require('../data/auth.json')
 const dealsJSON = require('../data/deals.json')
 const mallsJSON = require('../data/malls.json')
@@ -86,8 +87,8 @@ let loadDeals = (Deal) => {
       tags: currObj.tags,
       isActive: currObj.isActive,
       description: currObj.description,
-      creationDate: currObj.creationDate,
-      expiryDate: currObj.expiryDate,
+      creationDate: Misc.createDate(currObj.creationDate),
+      expiryDate: Misc.createDate(currObj.expiryDate),
       format: currObj.format,
       usesLeft: currObj.usesLeft,
       views: currObj.views,
