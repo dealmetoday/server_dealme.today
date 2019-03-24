@@ -71,7 +71,7 @@ let socialCallback = (res, err, output, email) => {
   }
 };
 
-let emailCallback = async (res, err, output, password, email) => {
+let emailCallback = async (res, err, output, role, password, email) => {
   if (err) {
     return;
   } else {
@@ -82,7 +82,7 @@ let emailCallback = async (res, err, output, password, email) => {
       let payload = {};
       payload.id = output._id;
       payload.email = email;
-      payload.access = constants.JWT_USER;
+      payload.access = role;
 
       let retVal = constants.SUCCESS;
       retVal[constants.BEARER] = JWT.sign(payload);

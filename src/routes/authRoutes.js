@@ -94,12 +94,13 @@ module.exports = (app, authDB, usersDB, mallsDB) => {
     if (jsonData.role == constants.JWT_USER) {
       queryResult = await Misc.userExists(User, jsonData.email);
       if (queryResult.status) {
-        userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
+        userAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, jsonData.role, password, jsonData.email));
       }
     } else if (jsonData.role == constants.JWT_STORE) {
       queryResult = await Misc.storeExists(Store, jsonData.email);
+      console.log(queryResult);
       if (queryResult.status) {
-        storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, password, jsonData.email));
+        storeAuth.findById(queryResult.id, (err, result) => cb.emailCallback(res, err, result, jsonData.role, password, jsonData.email));
       }
     }
   });
