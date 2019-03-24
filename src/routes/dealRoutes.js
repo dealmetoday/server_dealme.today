@@ -86,6 +86,28 @@ module.exports = (app, dealsDB, usersDB) => {
     }
   });
 
+  // Get all deals belonging to a specific store
+  app.get('/deals/store', async (req, res) => {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE, true)) {
+      return;
+    }
+
+    const jsonData = JSON.parse(JSON.stringify(req.query));
+
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    let query =
+    {
+      store: jsonData.id
+    }
+
+    Deal.find(query, (err, result) => cb.callback(res, err, result));
+  })
+
+
   // Update
   app.put('/deals', (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {

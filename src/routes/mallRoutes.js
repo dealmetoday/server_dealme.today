@@ -253,7 +253,7 @@ module.exports = (app, mallsDB, requestDB, authDB) => {
   });
 
   // Read
-  app.get('/stores/check', async  (req, res) => {
+  app.get('/stores/check', async (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE, true)) {
       return;
     }
