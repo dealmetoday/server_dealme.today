@@ -40,6 +40,23 @@ module.exports = {
       claims: Number,
       mall: ID,
       store: ID
+    }),
+
+    Stat: new Schema({
+      _id: ID,
+      activeDeals: [ID],
+      allDeals: [ID],
+      currMonth: Number,
+      currYear: Number,
+      claimsToday: Number,
+      claimsMonth: Number,
+      claimsTotal: Number,
+      viewsToday: Number,
+      viewsMonth: Number,
+      viewsTotal: Number,
+      customersToday: Number,
+      customersMonth: Number,
+      customersTotal: Number
     })
   },
 

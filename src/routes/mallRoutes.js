@@ -9,13 +9,15 @@ let Mall = null;
 let Store = null;
 let Request = null;
 let storeAuth = null;
+let Stat = null;
 
-module.exports = (app, mallsDB, requestDB, authDB) => {
+module.exports = (app, mallsDB, requestDB, authDB, dealsDB) => {
   // Setting constructor
   Mall = mallsDB.Malls;
   Store = mallsDB.Stores;
   Request = requestDB.Requests;
   storeAuth = authDB.StoreAuths;
+  Stat = dealsDB.Stats;
 
   /****************************************************************************/
   // Create
@@ -173,8 +175,33 @@ module.exports = (app, mallsDB, requestDB, authDB) => {
           result = await newObj.save()
 
           if (!Misc.isEmptyObject(result)) {
-            retVal.id = result.id;
-            res.send(retVal);
+            let date = new Date();
+            newObj = new Stat({
+              _id: result._id,
+              // activeDeals: [],
+              // allDeals: [],
+              currMonth: date.getMonth() + 1,
+              currYear: date.getFullYear(),
+              claimsToday: 0,
+              claimsMonth: 0,
+              claimsTotal: 0,
+              viewsToday: 0,
+              viewsMonth: 0,
+              viewsTotal: 0,
+              customersToday: 0,
+              customersMonth: 0,
+              customersTotal: 0
+            })
+
+            result = await newObj.save()
+
+            if (!Misc.isEmptyObject(result)) {
+              retVal.id = result.id;
+              res.send(retVal);
+            } else {
+              console.log("Stat creation failed");
+              res.send(constants.FAILURE);
+            }
           } else {
             console.log("Auth creation failed");
             res.send(constants.FAILURE);

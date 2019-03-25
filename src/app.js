@@ -23,8 +23,9 @@ var databases = mongooseMulti.start(dbConfig.db, schemaFile);
 require('./routes/tagRoutes')(app, databases.tagsDB, databases.requestDB);
 require('./routes/authRoutes')(app, databases.authDB, databases.usersDB, databases.mallsDB);
 require('./routes/userRoutes')(app, databases.usersDB, databases.authDB, databases.dealsDB, databases.requestDB);
-require('./routes/mallRoutes')(app, databases.mallsDB, databases.requestDB, databases.authDB);
+require('./routes/mallRoutes')(app, databases.mallsDB, databases.requestDB, databases.authDB, databases.dealsDB);
 require('./routes/dealRoutes')(app, databases.dealsDB, databases.usersDB);
+require('./routes/statRoutes')(app, databases.dealsDB);
 require('./routes/requestRoutes')(app, databases.requestDB);
 
 // Misc connections
