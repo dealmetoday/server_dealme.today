@@ -249,7 +249,7 @@ module.exports = (app, dealsDB, usersDB) => {
       return;
     }
 
-    const jsonData = JSON.parse(JSON.stringify(req.query));
+    const jsonData = req.body
 
     if (!Misc.validObject(jsonData, ["dealID"])) {
       res.send(constants.ARGS_ERROR);
@@ -299,7 +299,7 @@ module.exports = (app, dealsDB, usersDB) => {
       return;
     }
 
-    const jsonData = JSON.parse(JSON.stringify(req.query));
+    const jsonData = req.body
 
     if (!Misc.validObject(jsonData, ["dealID", "userID"])) {
       res.send(constants.ARGS_ERROR);
