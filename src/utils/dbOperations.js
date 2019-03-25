@@ -227,19 +227,35 @@ let loadStats =  (Stat) => {
     let dayViews =  Math.floor(monthViews / 25);
     let dayCustomers =  Math.floor(monthCustomers / 25);
 
+    let weekClaims = [];
+    let weekViews = [];
+    let weekCustomers = [];
+
+    for (var i = 0; i < 7; i++) {
+      let mod = Math.pow(-1, i)*i;
+
+      let modClaims = dayClaims + mod;
+      let modViews = dayViews + mod;
+      let modCustomers = dayCustomers + mod;
+
+      weekClaims.push(modClaims > 0 ? modClaims : 1);
+      weekViews.push(modViews > 0 ? modViews : 1);
+      weekCustomers.push(modCustomers > 0 ? modCustomers : 1);
+    }
+
     let newStat = new Stat({
       _id: currID,
       activeDeals: activeDeals[currID],
       allDeals: allDeals[currID],
       // currMonth: Number,
       // currYear: Number,
-      claimsToday: dayClaims,
+      claimsWeek: weekClaims,
       claimsMonth: monthClaims,
       claimsTotal: totalClaims,
-      viewsToday: dayViews,
+      viewsWeek: weekViews,
       viewsMonth: monthViews,
       viewsTotal: totalViews,
-      customersToday: dayCustomers,
+      customersWeek: weekCustomers,
       customersMonth: monthCustomers,
       customersTotal: totalCustomers,
     });

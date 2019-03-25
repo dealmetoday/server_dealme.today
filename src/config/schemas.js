@@ -46,13 +46,13 @@ module.exports = {
       allDeals: [ID],
       currMonth: Number,
       currYear: Number,
-      claimsToday: Number,
+      claimsWeek: [Number],
       claimsMonth: Number,
       claimsTotal: Number,
-      viewsToday: Number,
+      viewsWeek: [Number],
       viewsMonth: Number,
       viewsTotal: Number,
-      customersToday: Number,
+      customersWeek: [Number],
       customersMonth: Number,
       customersTotal: Number
     })

@@ -45,7 +45,7 @@ module.exports = (app, dealsDB) => {
         let update = {};
         let date = new Date();
 
-        update.customersToday = jsonData.today;
+        update.customersToday = findRes.customersToday + 1;
         update.customersMonth = date.getMonth() + 1 === findRes.currMonth ? findRes.customersMonth + jsonData.today : jsonData.today
         update.customersTotal = findRes.customersTotal + jsonData.today;
 
