@@ -11,11 +11,11 @@ let Request = null;
 let storeAuth = null;
 let Stat = null;
 
-module.exports = (app, mallsDB, requestDB, authDB, dealsDB) => {
+module.exports = (app, mallsDB, authDB, dealsDB) => {
   // Setting constructor
   Mall = mallsDB.Malls;
   Store = mallsDB.Stores;
-  Request = requestDB.Requests;
+  Request = authDB.Requests;
   storeAuth = authDB.StoreAuths;
   Stat = dealsDB.Stats;
 

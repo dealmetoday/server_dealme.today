@@ -5,13 +5,6 @@ const Schema = mongoose.Schema;
 const ID = Schema.Types.ObjectId;
 
 module.exports = {
-  requestDB: {
-    Request: new Schema({
-      _id: ID,
-      content: Schema.Types.Mixed
-    })
-  },
-
   authDB: {
     UserAuth: new Schema({
       _id: ID,
@@ -23,6 +16,11 @@ module.exports = {
       _id: ID,
       role: String,
       password: String
+    }),
+
+    Request: new Schema({
+      _id: ID,
+      content: Schema.Types.Mixed
     })
   },
 
@@ -81,13 +79,6 @@ module.exports = {
     })
   },
 
-  tagsDB: {
-    Tag: new Schema({
-      _id: ID,
-      key: String
-    })
-  },
-
   usersDB: {
     User: new Schema({
       _id: ID,
@@ -103,6 +94,11 @@ module.exports = {
       tags: [ID],
       favouriteMalls: [ID],
       dealHistory: [ID]
+    }),
+
+    Tag: new Schema({
+      _id: ID,
+      key: String
     })
   }
 }

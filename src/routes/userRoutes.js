@@ -9,12 +9,12 @@ let User = null;
 let Request = null;
 var userAuth = null;
 
-module.exports = (app, usersDB, authDB, dealsDB, requestDB) => {
+module.exports = (app, usersDB, authDB, dealsDB) => {
   // Setting constructors
   User = usersDB.Users;
   Deal = dealsDB.Deals;
   userAuth = authDB.UserAuths;
-  Request = requestDB.Requests;
+  Request = authDB.Requests;
 
   // Create
   app.post('/users/email', async (req, res) => {

@@ -7,10 +7,10 @@ const constants = require('../config/constants');
 let Tag = null;
 let Request = null;
 
-module.exports = (app, tagsDB, requestDB) => {
+module.exports = (app, usersDB, authDB) => {
   // Setting constructor
-  Tag = tagsDB.Tags;
-  Request = requestDB.Requests;
+  Tag = usersDB.Tags;
+  Request = authDB.Requests;
 
   // Create
   app.post('/tags', (req, res) => {
