@@ -6,14 +6,16 @@ const constants = require('../config/constants');
 
 var Deal = null;
 var User = null;
+var Stat = null;
 
 module.exports = (app, dealsDB, usersDB) => {
   // Setting constructor
   Deal = dealsDB.Deals;
   User = usersDB.Users;
+  Stat = dealsDB.Stats;
 
   // Create
-  app.post('/deals', (req, res) => {
+  app.post('/deals', async (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
@@ -43,7 +45,32 @@ module.exports = (app, dealsDB, usersDB) => {
         store: jsonData.store
       });
 
-    newObj.save((err, result) => cb.callback(res, err, result));
+    try {
+      let result = await newObj.save();
+
+      if (!Misc.isEmptyObject(result)) {
+        let update = { $push: { allDeals: newID } };
+        if (jsonData.isActive) {
+          update =
+          {
+            $push:
+            {
+              allDeals: newID,
+              activeDeals: newID
+            }
+          }
+        }
+
+        Stat.findByIdAndUpdate(jsonData.store, update, (err, result) => cb.callback(res, err, result));
+      } else {
+        console.log("Deal creation failed");
+        res.send(constants.FAILURE);
+      }
+    } catch (err) {
+      console.log(err);
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
   });
 
   // Read
@@ -144,6 +171,113 @@ module.exports = (app, dealsDB, usersDB) => {
     Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
   });
 
+  // Disable/Enable deal
+  app.put('/deals/disable', async (req, res) => {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
+      return;
+    }
+
+    const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["storeID", "dealID"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    try {
+      let findRes = await Stat.findById(jsonData.storeID).exec({});
+      let retVal = constants.SUCCESS;
+
+      if (!Misc.isEmptyObject(findRes)) {
+        let active = findRes.activeDeals;
+        let newActive = active.filter(function(value, index, arr) {
+          return value !== jsonData.dealID;
+        });
+
+        let update = { activeDeals: newActive };
+
+        Stat.findByIdAndUpdate(jsonData.storeID, update, (err, result) => cb.putCallback(res, err, result));
+      } else {
+        console.log("Stat doesn't exist - also shouldn't ever be here lol.");
+        retVal.id = result.id;
+        res.send(retVal);
+      }
+    } catch (err) {
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
+  });
+
+  app.put('/deals/enable', async (req, res) => {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
+      return;
+    }
+    const jsonData = req.body;
+
+    if (!Misc.validObject(jsonData, ["storeID", "dealID"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    try {
+      let findRes = await Stat.findById(jsonData.storeID).exec({});
+      let retVal = constants.SUCCESS;
+
+      if (!Misc.isEmptyObject(findRes)) {
+        let update =
+        {
+          $push:
+          {
+            activeDeals: dealID,
+          }
+        }
+
+        Stat.findByIdAndUpdate(jsonData.storeID, update, (err, result) => cb.putCallback(res, err, result));
+      } else {
+        console.log("Stat doesn't exist - also shouldn't ever be here lol.");
+        retVal.id = result.id;
+        res.send(retVal);
+      }
+    } catch (err) {
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
+  });
+
+  app.put('/deals/view', async (req, res) => {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
+      return;
+    }
+
+    const jsonData = JSON.parse(JSON.stringify(req.query));
+
+    if (!Misc.validObject(jsonData, ["dealID"])) {
+      res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    if (!Misc.isValidObjectId(jsonData.dealID)) {
+      res.send(constants.ID_ERROR);
+      return;
+    }
+    console.log('valid IDs');
+
+    try {
+      let findRes = await Deal.findById(jsonData.dealID).exec({});
+
+      if (!Misc.isEmptyObject(findRes)) {
+        let update = { views: findRes.views + 1 };
+        Deal.findByIdAndUpdate(jsonData.dealID, update, (err, result) => cb.putCallback(res, err, result));
+      } else {
+        console.log("Deal doesn't exist - also shouldn't ever be here lol.");
+        res.send(constants.FAILURE);
+      }
+    } catch (err) {
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
+  })
+
   // Increment the number of claims a deal has given a deal and user ID
   app.put('/deals/claim', (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
@@ -157,40 +291,35 @@ module.exports = (app, dealsDB, usersDB) => {
       return;
     }
 
-    let dealID = queryArgs['dealID'].toString();
-    let userID = queryArgs['userID'].toString();
-    console.log(dealID);
-    console.log(userID);
-
-    if (!Misc.isValidObjectId(dealID) || !Misc.isValidObjectId(userID)) {
+    if (!Misc.isValidObjectId(jsonData.dealID) || !Misc.isValidObjectId(jsonData.userID)) {
       res.send(constants.ID_ERROR);
       return;
     }
     console.log('valid IDs');
 
     // Welcome to callback heaven
-    Deal.find({_id: dealID}, (err, result) => {
+    Deal.find({_id: jsonData.dealID}, (err, result) => {
       // Check if deal exists
       if (err || result.length === 0) {
         res.send(constants.NOT_FOUND_ERROR);
       } else {
         // Check if user exists
-        User.find({_id: userID}, (err, result) => {
+        User.find({_id: jsonData.userID}, (err, result) => {
           if (err || result.length === 0) {
             res.send(constants.NOT_FOUND_ERROR);
-          } else if (result[0].dealHistory.indexOf(dealID) !== -1) {
+          } else if (result[0].dealHistory.indexOf(jsonData.dealID) !== -1) {
             // If this user has already claimed the deal, do not claim it again
             res.send(constants.DUPLICATE_ERROR);
           } else {
             console.log(result[0].dealHistory);
-            console.log(result[0].dealHistory.indexOf(dealID));
+            console.log(result[0].dealHistory.indexOf(jsonData.dealID));
             // Add the deal into the user's deal history and increment the deal's number of claims.
-            User.findOneAndUpdate({_id: userID}, {$push: {'dealHistory': dealID}}, (err, result) => {
+            User.findOneAndUpdate({_id: jsonData.userID}, {$push: {'dealHistory': jsonData.dealID}}, (err, result) => {
               if (err || !result) {
                 // Should never get here
                 res.send(constants.ERR);
               } else {
-                Deal.findOneAndUpdate({_id: dealID}, {$inc: {'claims': 1}}, (err, result) => cb.putCallback(res, err, result, null));
+                Deal.findOneAndUpdate({_id: jsonData.dealID}, {$inc: {'claims': 1}}, (err, result) => cb.putCallback(res, err, result, null));
               }
             });
           }

@@ -1,4 +1,5 @@
 const JWT = require('../utils/jwt');
+const mongoose = require('mongoose');
 const Security = require('../utils/security');
 const constants = require('../config/constants');
 const DBOperations = require('../utils/dbOperations');
@@ -40,7 +41,7 @@ module.exports = (app, databases) => {
     }
 
     result[constants.BEARER] = val;
-    res.send(result)
+    res.send(result);
   });
 
   app.get('/test/encrypt', (req, res) => {

@@ -7,24 +7,34 @@ const tagsJSON = require('../data/tags.json')
 const usersJSON = require('../data/users.json')
 const constants = require('../config/constants')
 
+// For views, claims, and customers: value is total, make up today and month
+let storeID = [];
+let allDeals = {};
+let activeDeals = {};
+let allViews = {};
+let allClaims = {};
+let allCustomers = {};
+
 let loadAll = async (databases) => {
   let userAuth = databases.authDB.UserAuths;
   let storeAuth = databases.authDB.StoreAuths;
   let Deal = databases.dealsDB.Deals;
   let Mall = databases.mallsDB.Malls;
   let Store = databases.mallsDB.Stores;
-  let Tag = databases.tagsDB.Tags;
+  let Tag = databases.usersDB.Tags;
   let User = databases.usersDB.Users;
+  let Stat = databases.dealsDB.Stats;
 
   // First delete everything
   await deleteAll(databases);
 
   // Then load it all
   loadAuth(userAuth, storeAuth);
-  loadDeals(Deal);
   loadMalls(Mall, Store);
+  loadDeals(Deal);
   loadTags(Tag);
   loadUsers(User);
+  loadStats(Stat);
 }
 
 let deleteAll = async (databases) => {
@@ -33,8 +43,9 @@ let deleteAll = async (databases) => {
   let Deal = databases.dealsDB.Deals;
   let Mall = databases.mallsDB.Malls;
   let Store = databases.mallsDB.Stores;
-  let Tag = databases.tagsDB.Tags;
+  let Tag = databases.usersDB.Tags;
   let User = databases.usersDB.Users;
+  let Stat = databases.dealsDB.Stats;
 
   await userAuth.deleteMany({}).exec();
   await storeAuth.deleteMany({}).exec();
@@ -43,6 +54,7 @@ let deleteAll = async (databases) => {
   await Store.deleteMany({}).exec();
   await Tag.deleteMany({}).exec();
   await User.deleteMany({}).exec();
+  await Stat.deleteMany({}).exec();
 }
 
 let loadAuth = (userAuth, storeAuth) => {
@@ -78,7 +90,7 @@ let loadAuth = (userAuth, storeAuth) => {
   console.log('Finished populating the Auth database.');
 }
 
-let loadDeals = (Deal) => {
+let loadDeals =  (Deal) => {
   // Get data from tags.json and insert into the database
   for (var index in dealsJSON) {
     var currObj = dealsJSON[index];
@@ -98,12 +110,20 @@ let loadDeals = (Deal) => {
     })
 
     newObj.save();
+
+    allDeals[currObj.store].push(currObj.id);
+    if (currObj.isActive) {
+      activeDeals[currObj.store].push(currObj.id);
+    }
+    allViews[currObj.store] += currObj.views;
+    allClaims[currObj.store] += currObj.claims;
+    allCustomers[currObj.store] += Math.abs(currObj.views - currObj.claims);
   }
 
   console.log('Finished populating the Deals database.');
 }
 
-let loadMalls = (Mall, Store) => {
+let loadMalls =  (Mall, Store) => {
   // Get data from users.json and insert into the database
   for (var index in mallsJSON) {
     var currI = mallsJSON[index];
@@ -122,8 +142,7 @@ let loadMalls = (Mall, Store) => {
     for (var j = 1; j < currI.length; j++) {
       var currStore = currI[j];
 
-      var newStore = new Store(
-        {
+      var newStore = new Store({
           _id: currStore.id,
           mall: currStore.mall,
           location: currStore.location,
@@ -132,9 +151,16 @@ let loadMalls = (Mall, Store) => {
           tags: currStore.tags,
           description: currStore.description,
           parentCompany: currStore.parentCompany
-        });
+      });
 
-        newStore.save();
+      newStore.save();
+
+      storeID.push(currStore.id);
+      allDeals[currStore.id] = [];
+      activeDeals[currStore.id] = [];
+      allViews[currStore.id] = 0;
+      allClaims[currStore.id] = 0;
+      allCustomers[currStore.id] = 0;
     }
 
     newMall.save();
@@ -143,18 +169,19 @@ let loadMalls = (Mall, Store) => {
   console.log('Finished populating the Malls database.');
 }
 
-let loadTags = (Tag) => {
+let loadTags =  (Tag) => {
   // Get data from tags.json and insert into the database
   for (var index in tagsJSON) {
     var currObj = tagsJSON[index];
     var newObj = new Tag({ _id: currObj.id, key: currObj.tag});
+
     newObj.save();
   }
 
   console.log('Finished populating the Tags database.');
 }
 
-let loadUsers = (User) => {
+let loadUsers =  (User) => {
   // Get data from users.json and insert into the database
   for (var index in usersJSON) {
     let token = -1;
@@ -182,6 +209,45 @@ let loadUsers = (User) => {
   }
 
   console.log('Finished populating the User database.');
+}
+
+let loadStats =  (Stat) => {
+  for (var index in storeID) {
+    let currID = storeID[index];
+    let totalClaims = allClaims[currID];
+    let totalViews = allViews[currID];
+    let totalCustomers = allCustomers[currID];
+
+    // Randomlly generate stuff
+    let monthClaims = Math.floor(totalClaims / 2);
+    let monthViews =  Math.floor(totalViews / 2);
+    let monthCustomers =  Math.floor(totalCustomers / 2);
+
+    let dayClaims =  Math.floor(monthClaims / 25);
+    let dayViews =  Math.floor(monthViews / 25);
+    let dayCustomers =  Math.floor(monthCustomers / 25);
+
+    let newStat = new Stat({
+      _id: currID,
+      activeDeals: activeDeals[currID],
+      allDeals: allDeals[currID],
+      // currMonth: Number,
+      // currYear: Number,
+      claimsToday: dayClaims,
+      claimsMonth: monthClaims,
+      claimsTotal: totalClaims,
+      viewsToday: dayViews,
+      viewsMonth: monthViews,
+      viewsTotal: totalViews,
+      customersToday: dayCustomers,
+      customersMonth: monthCustomers,
+      customersTotal: totalCustomers,
+    });
+
+    newStat.save();
+  }
+
+  console.log('Finished populating the Stats database.');
 }
 
 module.exports = {
