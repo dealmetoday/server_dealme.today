@@ -75,7 +75,7 @@ module.exports = (app, dealsDB) => {
 
   // Increment customer for store
   app.put('/stats/customer', async (req, res) => {
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
       return;
     }
 
