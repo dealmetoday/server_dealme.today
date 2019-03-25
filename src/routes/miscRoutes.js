@@ -42,7 +42,6 @@ module.exports = (app, databases) => {
 
     result[constants.BEARER] = val;
     res.send(result);
-    mongoose.disconnect();
   });
 
   app.get('/test/encrypt', (req, res) => {
