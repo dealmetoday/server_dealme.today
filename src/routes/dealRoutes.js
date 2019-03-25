@@ -267,7 +267,22 @@ module.exports = (app, dealsDB, usersDB) => {
 
       if (!Misc.isEmptyObject(findRes)) {
         let update = { views: findRes.views + 1 };
-        Deal.findByIdAndUpdate(jsonData.dealID, update, (err, result) => cb.putCallback(res, err, result));
+        findRes = await Deal.findByIdAndUpdate(jsonData.dealID, update);
+
+        if (!Misc.isEmptyObject(findRes)) {
+          update = {};
+          update["$inc"] =
+          {
+            'viewsWeek.0': 1,
+            viewsMonth: 1,
+            viewsTotal: 1
+          };
+
+          Stat.findByIdAndUpdate(findRes.store, update, (err, result) => cb.putCallback(res, err, result));
+        } else {
+          console.log("Deal doesn't exist - also shouldn't ever be here lol.");
+          res.send(constants.FAILURE);
+        }
       } else {
         console.log("Deal doesn't exist - also shouldn't ever be here lol.");
         res.send(constants.FAILURE);
@@ -279,7 +294,7 @@ module.exports = (app, dealsDB, usersDB) => {
   })
 
   // Increment the number of claims a deal has given a deal and user ID
-  app.put('/deals/claim', (req, res) => {
+  app.put('/deals/claim', async (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_USER)) {
       return;
     }
@@ -298,13 +313,13 @@ module.exports = (app, dealsDB, usersDB) => {
     console.log('valid IDs');
 
     // Welcome to callback heaven
-    Deal.find({_id: jsonData.dealID}, (err, result) => {
+    Deal.find({_id: jsonData.dealID}, async (err, result) => {
       // Check if deal exists
       if (err || result.length === 0) {
         res.send(constants.NOT_FOUND_ERROR);
       } else {
         // Check if user exists
-        User.find({_id: jsonData.userID}, (err, result) => {
+        User.find({_id: jsonData.userID}, async (err, result) => {
           if (err || result.length === 0) {
             res.send(constants.NOT_FOUND_ERROR);
           } else if (result[0].dealHistory.indexOf(jsonData.dealID) !== -1) {
@@ -314,12 +329,32 @@ module.exports = (app, dealsDB, usersDB) => {
             console.log(result[0].dealHistory);
             console.log(result[0].dealHistory.indexOf(jsonData.dealID));
             // Add the deal into the user's deal history and increment the deal's number of claims.
-            User.findOneAndUpdate({_id: jsonData.userID}, {$push: {'dealHistory': jsonData.dealID}}, (err, result) => {
+            User.findOneAndUpdate({_id: jsonData.userID}, {$push: {'dealHistory': jsonData.dealID}}, async (err, result) => {
               if (err || !result) {
                 // Should never get here
                 res.send(constants.ERR);
               } else {
-                Deal.findOneAndUpdate({_id: jsonData.dealID}, {$inc: {'claims': 1}}, (err, result) => cb.putCallback(res, err, result, null));
+                try {
+                  let result = await Deal.findOneAndUpdate({_id: jsonData.dealID}, {$inc: {'claims': 1}});
+
+                  if (!Misc.isEmptyObject(result)) {
+                    let update = {};
+                    update["$inc"] =
+                    {
+                      'claimsWeek.0': 1,
+                      claimsMonth: 1,
+                      claimsTotal: 1
+                    };
+
+                    Stat.findByIdAndUpdate(result.store, update, (err, result) => cb.putCallback(res, err, result));
+                  } else {
+                    console.log("Deal doesn't exist - also shouldn't ever be here lol.");
+                    res.send(constants.FAILURE);
+                  }
+                } catch (e) {
+                  console.log("Caught error");
+                  res.send(constants.FAILURE);
+                }
               }
             });
           }

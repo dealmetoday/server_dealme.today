@@ -212,6 +212,8 @@ let loadUsers =  (User) => {
 }
 
 let loadStats =  (Stat) => {
+  let date = new Date();
+
   for (var index in storeID) {
     let currID = storeID[index];
     let totalClaims = allClaims[currID];
@@ -247,8 +249,9 @@ let loadStats =  (Stat) => {
       _id: currID,
       activeDeals: activeDeals[currID],
       allDeals: allDeals[currID],
-      // currMonth: Number,
-      // currYear: Number,
+      currDay: date.getDay(),
+      currMonth: date.getMonth() + 1,
+      currYear: date.getFullYear(),
       claimsWeek: weekClaims,
       claimsMonth: monthClaims,
       claimsTotal: totalClaims,

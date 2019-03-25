@@ -44,6 +44,7 @@ module.exports = {
       _id: ID,
       activeDeals: [ID],
       allDeals: [ID],
+      currDay: Number,
       currMonth: Number,
       currYear: Number,
       claimsWeek: [Number],

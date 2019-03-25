@@ -137,6 +137,13 @@ let createDate = (UTCSeconds) => {
   return curr;
 }
 
+let shiftArr = (arr, toInsert) => {
+  arr.unshift(toInsert);
+  arr.pop();
+
+  return arr;
+}
+
 let noProperty = (object, property) => {
   return !object.hasOwnProperty(property);
 }
@@ -152,5 +159,6 @@ module.exports = {
   createRequest,
   validEmail,
   validObject,
-  createDate
+  createDate,
+  shiftArr
 }
