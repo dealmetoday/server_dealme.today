@@ -26,7 +26,7 @@ require('./routes/userRoutes')(app, databases.usersDB, databases.authDB, databas
 require('./routes/mallRoutes')(app, databases.mallsDB, databases.authDB, databases.dealsDB);
 require('./routes/dealRoutes')(app, databases.dealsDB, databases.usersDB);
 require('./routes/statRoutes')(app, databases.dealsDB);
-require('./routes/requestRoutes')(app, databases.authDB);
+require('./routes/requestRoutes')(app, databases);
 
 // Misc connections
 require('./routes/keyRoutes')(app);

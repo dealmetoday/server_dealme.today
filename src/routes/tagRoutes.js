@@ -16,18 +16,18 @@ module.exports = (app, usersDB, authDB) => {
   app.post('/tags', (req, res) => {
     const jsonData = req.body;
 
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
-      jsonData.request = "Create Tags";
-
-      let newReq = Misc.createRequest(Request, jsonData);
-      newReq.save((err, result) => cb.reqCallback(res, err, result));
-
-      return;
-    }
-
     // Validate jsonData
     if (!Misc.validObject(jsonData, ["key"])) {
       res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = constants.REQUEST.create;
+
+      let newReq = Misc.createRequest(Request, jsonData, constants.MODEL.tags);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 
@@ -78,19 +78,19 @@ module.exports = (app, usersDB, authDB) => {
 
   // delete
   app.delete('/tags', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
-      jsonData.request = "Delete Tags";
-
-      let newReq = Misc.createRequest(Request, jsonData);
-      newReq.save((err, result) => cb.reqCallback(res, err, result));
-
-      return;
-    }
-
     const jsonData = req.body;
 
     if (!Misc.validObject(jsonData, ["id"])) {
       res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = constants.REQUEST.delete;
+
+      let newReq = Misc.createRequest(Request, jsonData, constants.MODEL.tags);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 

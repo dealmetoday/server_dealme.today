@@ -80,7 +80,7 @@ module.exports = (app, mallsDB, authDB, dealsDB) => {
 
     if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       jsonData.request = "Update Malls";
-      let newReq = Misc.createRequest(Request, jsonData);
+      let newReq = Misc.createRequest(Request, jsonData, constants.MODEL.malls);
       newReq.save((err, result) => cb.reqCallback(res, err, result));
 
       return;
@@ -101,7 +101,7 @@ module.exports = (app, mallsDB, authDB, dealsDB) => {
   app.delete('/malls', (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
       jsonData.request = "Delete Malls";
-      let newReq = Misc.createRequest(Request, jsonData);
+      let newReq = Misc.createRequest(Request, jsonData, constants.MODEL.malls);
       newReq.save((err, result) => cb.reqCallback(res, err, result));
 
       return;
@@ -262,17 +262,17 @@ module.exports = (app, mallsDB, authDB, dealsDB) => {
   app.delete('/stores', (req, res) => {
     const jsonData = req.body;
 
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
-      jsonData.request = "Delete Stores";
-
-      let newReq = Misc.createRequest(Request, jsonData);
-      newReq.save((err, result) => cb.reqCallback(res, err, result));
-
+    if (!Misc.validObject(jsonData, ["id"])) {
+      res.send(constants.ARGS_ERROR);
       return;
     }
 
-    if (!Misc.validObject(jsonData, ["id"])) {
-      res.send(constants.ARGS_ERROR);
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = constants.REQUEST.delete;
+
+      let newReq = Misc.createRequest(Request, jsonData, constants.MODEL.stores);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 

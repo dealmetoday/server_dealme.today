@@ -95,13 +95,14 @@ let storeExists = async (Store, email) => {
   return retVal;
 };
 
-let createRequest = (Request, inputObj) => {
+let createRequest = (Request, inputObj, model) => {
   const newID = mongoose.Types.ObjectId();
 
   let newObj = new Request(
     {
       _id: newID,
-      content: inputObj
+      content: inputObj,
+      model: model,
     });
 
   return newObj;

@@ -44,6 +44,21 @@ module.exports = Object.freeze({
   //   hashLength: 50,
   // },
 
+  // Models for Requests
+  MODEL:
+  {
+    'malls': 'malls',
+    'stores': 'stores',
+    'tags': 'tags',
+    'users': 'users',
+  },
+
+  REQUEST:
+  {
+    'create': 'create',
+    'delete': 'delete',
+  },
+
   // Message constants
   ERR:
   {

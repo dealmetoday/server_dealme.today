@@ -20,7 +20,8 @@ module.exports = {
 
     Request: new Schema({
       _id: ID,
-      content: Schema.Types.Mixed
+      content: Schema.Types.Mixed,
+      model: String,
     })
   },
 

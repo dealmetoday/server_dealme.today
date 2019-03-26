@@ -175,19 +175,19 @@ module.exports = (app, usersDB, authDB, dealsDB) => {
 
   // delete
   app.delete('/users', (req, res) => {
-    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
-      jsonData.request = "Delete Users";
-
-      let newReq = Misc.createRequest(Request, jsonData);
-      newReq.save((err, result) => cb.reqCallback(res, err, result));
-
-      return;
-    }
-
     const jsonData = req.body;
 
     if (!Misc.validObject(jsonData, ["id"])) {
       res.send(constants.ARGS_ERROR);
+      return;
+    }
+
+    if (!JWT.verify(req.get("Bearer"), constants.JWT_DEV)) {
+      jsonData.request = constants.REQUEST.delete;
+
+      let newReq = Misc.createRequest(Request, jsonData, constants.MODEL.users);
+      newReq.save((err, result) => cb.reqCallback(res, err, result));
+
       return;
     }
 
