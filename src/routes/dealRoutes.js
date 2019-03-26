@@ -156,19 +156,39 @@ module.exports = (app, dealsDB, usersDB) => {
   });
 
   // delete
-  app.delete('/deals', (req, res) => {
+  app.delete('/deals', async (req, res) => {
     if (!JWT.verify(req.get("Bearer"), constants.JWT_STORE)) {
       return;
     }
 
     const jsonData = req.body;
+    console.log(jsonData);
 
-    if (!Misc.validObject(jsonData, ["id"])) {
+    if (!Misc.validObject(jsonData, ["dealID", "storeID"])) {
       res.send(constants.ARGS_ERROR);
       return;
     }
 
-    Deal.findByIdAndDelete(jsonData.id, (err, result) => cb.callback(res, err, result));
+    try {
+      let result = await Deal.findByIdAndDelete(jsonData.dealID);
+
+      if (!Misc.isEmptyObject(result)) {
+        let update = {};
+        update['$pull'] =
+        {
+          activeDeals: jsonData.dealID,
+          allDeals: jsonData.dealID,
+        }
+
+        Stat.findByIdAndUpdate(jsonData.storeID, update, (err, result) => cb.callback(res, err, result));
+      } else {
+        console.log("Stat doesn't exist - also shouldn't ever be here lol.");
+        res.send(constants.FAILURE);
+      }
+    } catch (e) {
+      console.log("Caught error");
+      res.send(constants.FAILURE);
+    }
   });
 
   // Disable/Enable deal
@@ -186,7 +206,6 @@ module.exports = (app, dealsDB, usersDB) => {
 
     try {
       let findRes = await Stat.findById(jsonData.storeID).exec({});
-      let retVal = constants.SUCCESS;
 
       if (!Misc.isEmptyObject(findRes)) {
         let active = findRes.activeDeals;
@@ -199,8 +218,7 @@ module.exports = (app, dealsDB, usersDB) => {
         Stat.findByIdAndUpdate(jsonData.storeID, update, (err, result) => cb.putCallback(res, err, result));
       } else {
         console.log("Stat doesn't exist - also shouldn't ever be here lol.");
-        retVal.id = result.id;
-        res.send(retVal);
+        res.send(constants.FAILURE);
       }
     } catch (err) {
       console.log("Caught error");
@@ -221,7 +239,6 @@ module.exports = (app, dealsDB, usersDB) => {
 
     try {
       let findRes = await Stat.findById(jsonData.storeID).exec({});
-      let retVal = constants.SUCCESS;
 
       if (!Misc.isEmptyObject(findRes)) {
         let update =
@@ -235,8 +252,7 @@ module.exports = (app, dealsDB, usersDB) => {
         Stat.findByIdAndUpdate(jsonData.storeID, update, (err, result) => cb.putCallback(res, err, result));
       } else {
         console.log("Stat doesn't exist - also shouldn't ever be here lol.");
-        retVal.id = result.id;
-        res.send(retVal);
+        res.send(constants.FAILURE);
       }
     } catch (err) {
       console.log("Caught error");
