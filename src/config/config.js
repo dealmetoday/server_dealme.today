@@ -1,8 +1,10 @@
 module.exports = {
     'db': {
-      'authDB': 'mongodb+srv://admin:3LFXNKsS1C5zsBQi@nvd-ylu4n.mongodb.net/auth?retryWrites=true',
-      'dealsDB': 'mongodb+srv://admin:3LFXNKsS1C5zsBQi@nvd-ylu4n.mongodb.net/deals?retryWrites=true',
-      'mallsDB': 'mongodb+srv://admin:3LFXNKsS1C5zsBQi@nvd-ylu4n.mongodb.net/malls?retryWrites=true',
-      'usersDB': 'mongodb+srv://admin:3LFXNKsS1C5zsBQi@nvd-ylu4n.mongodb.net/users?retryWrites=true',
+      'authDB': 'Your MongoDB URL (Local or Atlas)',
+      'dealsDB': 'Your MongoDB URL (Local or Atlas)',
+      'mallsDB': 'Your MongoDB URL (Local or Atlas)',
+      'usersDB': 'Your MongoDB URL (Local or Atlas)',
     }
 };
+
+// Your welcome to try our old keys but they have been revoked :)
